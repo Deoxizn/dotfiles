@@ -56,11 +56,6 @@
       "keyColor": "green",
     },
     {
-      "type": "swap",
-      "key": "└ └󰓡 ",
-      "keyColor": "green",
-    },
-    {
       "type": "custom",
       "format": "\u001b[90m└────────────────────────────────────────────────────┘",
     },
@@ -74,18 +69,6 @@
       "key": "\ue900 OS",
       "keyColor": "blue",
       "text": "version=$(omarchy-version); echo \"Omarchy $version\"",
-    },
-    {
-      "type": "command",
-      "key": "│ ├󰘬",
-      "keyColor": "blue",
-      "text": "branch=$(omarchy-version-branch); echo \"$branch\"",
-    },
-    {
-      "type": "command",
-      "key": "│ ├󰔫",
-      "keyColor": "blue",
-      "text": "channel=$(omarchy-version-channel); echo \"$channel\"",
     },
     {
       "type": "kernel",
