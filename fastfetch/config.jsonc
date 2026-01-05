@@ -148,37 +148,37 @@
     {
       "type": "publicip",
       "key": "󰩠Pubic",
-      "keyColor": "magenta",
+      "keyColor": "cyan",
       "format": "{1} - {2}",
     },
     {
       "type": "localip",
       "key": "󰩠Local",
-      "keyColor": "magenta",
+      "keyColor": "cyan",
       "format": "{1} - {3}",
       "showMac": true,
     },
     {
       "type": "dns",
       "key": "└ └󰒍 DNS   ",
-      "keyColor": "magenta",
+      "keyColor": "cyan",
     },
     {
       "type": "wifi",
       "key": "└ └ Wi-Fi ",
-      "keyColor": "magenta",
+      "keyColor": "cyan",
       "format": "{4} - {7} - {13} GHz - {6} - {10}",
     },
     {
       "type": "bluetooth",
       "key": "└ └ BT Dev",
-      "keyColor": "magenta",
+      "keyColor": "cyan",
       "format": "{1} - {4}",
     },
     {
       "type": "bluetoothradio",
       "key": "└ └󰂯 BT Ver",
-      "keyColor": "magenta",
+      "keyColor": "cyan",
       "format": "{5}",
     },
     {
@@ -193,18 +193,18 @@
     {
       "type": "command",
       "key": "󱦟OS Age",
-      "keyColor": "magenta",
+      "keyColor": "yellow",
       "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days",
     },
     {
       "type": "uptime",
       "key": "└ └󱫐 Uptime",
-      "keyColor": "magenta",
+      "keyColor": "yellow",
     },
     {
       "type": "command",
       "key": "└ └ Update",
-      "keyColor": "magenta",
+      "keyColor": "yellow",
       "text": "updated=$(omarchy-version-pkgs); echo \"$updated\"",
     },
     {
