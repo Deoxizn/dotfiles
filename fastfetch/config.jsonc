@@ -103,6 +103,7 @@
       "key": "│ {#37}󰩠 LocalIP {#keys}│",
       "type": "localip",
       "format": "{1} - {3}",
+      "showMac": true,
     },
     {
       "key": "│ {#32}󰒍 DNS     {#keys}│",
