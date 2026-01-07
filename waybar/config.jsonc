@@ -6,13 +6,7 @@
   "margin-top": 1,
   "height": 10,
   "margin-bottom": 2,
-  "modules-left": [
-    "custom/omarchy",
-    "clock",
-    "mpris",
-    "battery",
-    "custom/screenrecording-indicator",
-  ],
+  "modules-left": ["custom/omarchy", "clock", "mpris"],
 
   //"modules-center": ["hyprland/window"],
   "modules-center": [
@@ -24,7 +18,11 @@
   ],
 
   //"modules-right": ["group/group-power"],
-  "modules-right": ["group/group-power"],
+  "modules-right": [
+    "battery",
+    "custom/screenrecording-indicator",
+    "group/group-power",
+  ],
 
   "group/group-power": {
     "orientation": "horizontal",
