@@ -1,16 +1,15 @@
 @import "../omarchy/current/theme/waybar.css";
 
 /* --- Global-Settings ---*/
-
 * {
   font-family: 'JetBrainsMono Nerd Font';
   font-size: 12px;
   font-weight: bold;
   min-height: 0px;
-  }
+}
 
-  /* --- Waybar ---*/
-  window#waybar {
+/* --- Waybar ---*/
+window#waybar {
   background-color: transparent;
   transition-property: background-color;
   transition-duration: .5s;
@@ -18,63 +17,64 @@
 
 window#waybar.empty #window {
   background: transparent;
-  background-color: transparent;
   border: none;
   border-radius: 0;
   color: transparent;
   padding: 0;
   margin: 0;
 }
+
 #waybar.empty .modules-center {
   opacity: 0;
 }
 
 /* --- Custom Modules ---*/
-
 .modules-center {
-    min-width: 880px;
-    margin-left: 300px;
+  min-width: 880px;
+  margin-left: 300px;
 }
 
 /* --- Tooltip ---*/
 tooltip {
-  opacity: 1;
+  padding: 6px;
+  background-color: alpha(@background, 1);
+  border: 1.5px solid alpha(@foreground, 0.8);
+  border-radius: 12px;
+  font-size: 12px;
+}
 
- }
+tooltip label {
+  color: @foreground;
+  font-weight: normal;
+}
 
 /* --- Workspaces --- */
 #workspaces {
-  border-radius: 2px;
+  border-radius: 999px;
   margin: 2px 3px;
 }
 
 #workspaces button {
-  box-shadow: 0 1px 2px rgba(10, 10, 10, 0.8);
-  padding: 0px 2px;
-  margin: 0 3px 0 0;
-  border-radius: 2px;
+  padding: 0px 10px;
+  margin: 0 4px 0 0;
+  border-radius: 999px;
   background-color: alpha(@background, 0.85);
   color: @foreground;
-  opacity: 1;
+  box-shadow: 0 1px 2px rgba(10, 10, 10, 0.8);
 }
 
 #workspaces button.active {
-    background-color: alpha(@foreground, 1);
-    border-radius: 2px;
-    box-shadow: 0 1px 2px rgba(10, 10, 10, 0.8);
-    color: @background;
-    opacity: 1; 
+  background-color: alpha(@foreground, 1);
+  color: @background;
+  border-radius: 999px;
 }
-
 
 #workspaces button:hover {
-    background-color: @foreground;
-    color: @background;
+  background-color: @foreground;
+  color: @background;
 }
 
-
-/* --- General Modules --- */
-
+/* --- General Modules (PILL SHAPE) --- */
 #tray,
 #custom-trayicon,
 #window,
@@ -96,49 +96,15 @@ tooltip {
 #custom-screenrecording-indicator,
 #custom-updatespacman {
   min-width: 18px;
-  margin: 2px 2px 2px 2px;
-  padding: 0px 6px;
-  border-radius: 2px;
+  margin: 2px;
+  padding: 0px 12px;
+  border-radius: 999px;
   box-shadow: 0 1px 2px rgba(10, 10, 10, 0.8);
   background-color: alpha(@background, 0.85);
   color: @foreground;
-  opacity: 1;
 }
 
-#power-profiles-daemon,
-#power-profiles-daemon.performance,
-#power-profiles-daemon.balanced,
-#power-profiles-daemon.power-saver {
-font-size: 15px;
-padding-left: 3px;
-}
-
-#network{
-  padding-left: 3px;
-}
-
-#pulseaudio.input {
-  padding-left: 3px;
-  padding-right: 3px;
-}
-
-#pulseaudio.output {
-  padding-right: 8px;
-}
-
-#memory {
-  padding-right: 3px;
-}
-
-#custom-trayicon {
-  font-size: 15px;
-}
-
-#backlight {
-  font-size: 11px;
-}
-
-/* --- Hover right module  --- */
+/* --- Hover (keep pill) --- */
 #clock:hover,
 #custom-trayicon:hover,
 #cpu:hover,
@@ -155,92 +121,27 @@ padding-left: 3px;
 #custom-weather:hover,
 #custom-update:hover,
 #idle_inhibitor:hover,
-#custom-screenrecording-indicator,
 #custom-updatespacman:hover,
 #network:hover,
 #pulseaudio:hover {
-  border-radius: 2px;
-  opacity: 0.9;
+  border-radius: 999px;
   background-color: @foreground;
   color: @background;
+  opacity: 0.9;
 }
 
-
-/* Specific Module */
-
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    background-color: @transparent;
-}
-
-.hidden {
-  opacity: 0;
-}
-
-tooltip {
- padding: 4px;
- background-color: alpha(@background, 1);
- opacity: 1;
- border: 1.5px solid alpha(@foreground, 0.8);
- border-radius: 4px;
- font-size: 12px;
- 
-}
-tooltip label {
-    color: @foreground;
-    font-weight: normal;
-}
-
-
-/* Specific animation Module */
-
-#mpris {
-  color: @foreground;
-  animation: repeat;
-	animation-name: blink;
-	animation-duration: 3s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-#custom-screenrecording-indicator {
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  color: transparent;
-}
-
-#custom-screenrecording-indicator.active {
-  color: #eb7087;
-  background-color: alpha(@background, 0.85);
-  animation-name: blink-recording;
-  animation-duration: 0.5s;
-}
-
-@keyframes blink-recording {
-    to {
-        color: @background;
-    }
-}
-
-
-
-@keyframes blink {
-    to {
-        color: #4a4a4a;
-    }
-}
-
-@keyframes blink-inhibitor {
-    to {
-        color: @background;
-    }
-}
-
+/* --- Battery states --- */
 #battery.warning {
   color: #c95d0f;
-  background-color: alpha(@background, 0.85);
+}
+
+#battery.critical:not(.charging) {
+  animation: blink2 0.5s steps(12) infinite alternate;
+}
+
+/* --- Animations unchanged --- */
+@keyframes blink {
+  to { color: #4a4a4a; }
 }
 
 @keyframes blink2 {
@@ -248,19 +149,4 @@ tooltip label {
     background-color: alpha(@background, 0.85);
     color: #f53c3c;
   }
-}
-
-#battery.critical:not(.charging) {
-  background-color: alpha(@background, 0.85);
-  color: #e6d8ba;
-  animation-name: blink2;
-  animation-duration: 0.5s;
-  animation-timing-function: steps(12);
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-#custom-voxtype {
-  min-width: 12px;
-  margin: 0 0 0 7.5px;
 }
