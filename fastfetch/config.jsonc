@@ -16,9 +16,8 @@
       "type": "custom",
     },
     {
-      "key": "│ {#32}󰇅 hname   {#keys}│",
-      "type": "title",
-      "format": "{host-name}",
+      "key": "│ {#32}󰇅 mobo    {#keys}│",
+      "type": "host",
     },
     {
       "key": "│ {#33}󰅐 uptime  {#keys}│",
