@@ -146,6 +146,18 @@
     "signal": 7,
     "interval": 21600,
   },
+  "custom/voxtype": {
+    "exec": "omarchy-voxtype-status",
+    "return-type": "json",
+    "format": "{icon}",
+    "format-icons": {
+      "idle": "",
+      "recording": "󰍬",
+      "transcribing": "󰔟",
+    },
+    "tooltip": true,
+    "on-click-right": "omarchy-voxtype-config",
+  },
   "custom/updatespacman": {
     "format": "{}{icon}",
     "return-type": "json",
