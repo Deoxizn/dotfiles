@@ -142,7 +142,7 @@
   },
   "custom/power": {
     "format": "<span color='#FF6347'>󰩈</span>",
-    "on-click": "omarchy-menu -system",
+    "on-click": "omarchy-menu system",
   },
   "clock": {
     "format": "{:%I:%M%p %a %d %b}",
