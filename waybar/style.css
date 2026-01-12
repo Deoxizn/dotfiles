@@ -1,168 +1,205 @@
 @import "../omarchy/current/theme/waybar.css";
 
-/* --- Global-Settings ---*/
+
 * {
-    font-family: "JetBrainsMono Nerd Font";
-    font-size: 12px;
-    font-weight: bold;
-    min-height: 0px;
+  /* background-color: @background; */
+  color: @foreground;
+
+  border: none;
+  border-radius:0 0 8px 8px;
+  font-family: 'CaskaydiaMono Nerd Font Propo';
+  min-height: 0px;
 }
 
-/* --- Waybar ---*/
 window#waybar {
-    background-color: transparent;
-    transition-property: background-color;
-    transition-duration: 0.5s;
+  background-color: transparent;
 }
 
-window#waybar.empty #window {
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    color: transparent;
-    padding: 0;
-    margin: 0;
+#waybar > box {
+  border-radius: 3px;
+  border: 3px solid rgba(255, 255, 255, 0.0);
+  margin: 0px 8px 3px 8px;
+  background-color: @background;
+  box-shadow: 1px 1px 3px 1px #101010;
+  transition-property: background-color;
+  transition-duration: .5s;
 }
 
-#waybar.empty .modules-center {
-    opacity: 0;
+.modules-left {
+  margin-left: 0px;
 }
 
-/* --- Custom Modules ---*/
+.modules-right {
+  margin-right: 0px;
+  font-size: 12px;
+}
+
 .modules-center {
-    min-width: 880px;
-    margin-left: 300px;
+  font-size: 12px;
 }
 
-/* --- Tooltip ---*/
-tooltip {
-    padding: 6px;
-    background-color: alpha(@background, 1);
-    border: 1.5px solid alpha(@foreground, 0.8);
-    border-radius: 12px;
-    font-size: 12px;
-}
-
-tooltip label {
-    color: @foreground;
-    font-weight: normal;
-}
-
-/* --- Workspaces --- */
 #workspaces {
-    border-radius: 999px;
-    margin: 2px 3px;
+  padding: 0;
+  margin: 0;
+  padding-top: 2px;
+
 }
+
 
 #workspaces button {
-    padding: 0px 10px;
-    margin: 0 4px 0 0;
-    border-radius: 999px;
-    background-color: alpha(@background, 0.45);
-    color: @foreground;
-    box-shadow: 0 1px 2px rgba(10, 10, 10, 0.8);
+  all: initial;
+  font-size: 16px;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  opacity: 0.65;
+
 }
 
 #workspaces button.active {
-    background-color: alpha(#e2eeff, 0.65);
     color: @background;
-    border-radius: 999px;
+    opacity: 1.0;
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(180deg, @background 75%, @foreground);
+    font-size: 16px;
+    transition: all 0.15s ease-in-out;
 }
 
-#workspaces button:hover {
-    background-color: #e2eeff;
-    color: @background;
-    opacity: 0.65;
+#workspaces button.empty {
+  opacity: 0.3;
 }
 
-/* --- General Modules (PILL SHAPE) --- */
-#tray,
-#custom-trayicon,
-#window,
+
+#custom-omarchy {
+padding-top: 1px;
+font-size: 14px;
+}
+
 #mpris,
+#tray,
 #cpu,
-#clock,
 #battery,
 #network,
-#memory,
-#backlight,
 #bluetooth,
 #pulseaudio,
-#power-profiles-daemon,
-#custom-weather,
-#custom-update,
-#idle_inhibitor,
 #custom-omarchy,
-#not-power,
-#custom-voxtype,
-#custom-voxtype.recording,
-#custom-voxtype.transcribing,
+#idle_inhibitor,
+#backlight,
+#custom-weather,
+#clock,
+#memory,
+#custom-updatespacman,
 #custom-screenrecording-indicator,
-#custom-updatespacman {
-    min-width: 18px;
-    margin: 2px;
-    padding: 0px 12px;
-    border-radius: 999px;
-    box-shadow: 0 1px 2px rgba(10, 10, 10, 0.8);
-    background-color: alpha(@background, 0.45);
-    color: @foreground;
+#custom-update {
+  min-width: 10px;
+  font-size: 12px;
+  margin: 0 5px 0 5px;
+  padding: 0 1px;
 }
+
+#custom-expand-icon {
+  margin-right: 2px;
+}
+
+
+tooltip {
+  padding: 0.5px;
+}
+
+
+#custom-update {
+ padding-left: 0px;
+ padding-right: 4px;
+}
+
+
+.hidden {
+  opacity: 0;
+}
+
 #custom-voxtype {
-    background-color: alpha(@background, 0.45);
-    min-width: 12px;
-    margin: 0 0 0 2.5px;
+  min-width: 12px;
+  margin: 0 0 0 2.5px;
 }
 
 #custom-voxtype.recording {
-    background-color: alpha(@background, 0.45);
-    color: #a55555;
+  color: #a55555;
 }
 
-/* --- Hover (keep pill) --- */
-#clock:hover,
-#custom-trayicon:hover,
-#cpu:hover,
-#not-power:hover,
-#memory:hover,
-#window:hover,
-#mpris:hover,
-#temperature:hover,
-#battery:hover,
-#power-profiles-daemon:hover,
-#bluetooth:hover,
-#backlight:hover,
-#custom-omarchy:hover,
-#custom-weather:hover,
-#custom-update:hover,
-#idle_inhibitor:hover,
-#custom-updatespacman:hover,
-#network:hover,
-#pulseaudio:hover {
-    border-radius: 999px;
-    background-color: #e2eeff;
-    color: @background;
-    opacity: 0.65;
+#custom-screenrecording-indicator {
+    font-size: 12px;
+    padding: 0px;
+    margin: 2px;
 }
 
-/* --- Battery states --- */
-#battery.warning {
-    color: #c95d0f;
+#custom-screenrecording-indicator {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  color: transparent;
 }
 
-#battery.critical:not(.charging) {
-    animation: blink2 0.5s steps(12) infinite alternate;
+#custom-screenrecording-indicator.active {
+  color: #eb7087;
+  animation-name: blink-recording;
+  animation-duration: 0.5s;
 }
 
-/* --- Animations unchanged --- */
+@keyframes blink-recording {
+    to {
+        color: @background;
+    }
+}
+
+tooltip {
+ padding: 4px;
+ background: @background;
+ border: 1px solid alpha(@foreground, 0.3);
+ border-radius: 8px;
+ box-shadow: 1px 1px 3px 1px #131313;
+ font-size: 12px;
+}
+tooltip label {
+    color: @foreground;
+}
+
+#mpris{
+padding-top: 2px;
+margin-left: 8px;
+  color: alpha(@foreground, 0.95);
+animation: repeat;
+	animation-name: blink;
+	animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
 @keyframes blink {
     to {
         color: #4a4a4a;
     }
 }
 
-@keyframes blink2 {
+@keyframes blink-inhibitor {
     to {
-        background-color: alpha(@background, 0.45);
-        color: #f53c3c;
+        color: @background;
     }
+}
+
+#idle_inhibitor {
+  padding-left: 0px;
+  margin-left: 0px;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  color: @foreground;
+}
+
+#idle_inhibitor.activated {
+  color: #178b76;
+  animation-name: blink-inhibitor;
+  animation-duration: 1s;
 }
