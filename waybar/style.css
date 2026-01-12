@@ -58,20 +58,21 @@ tooltip label {
     padding: 0px 10px;
     margin: 0 4px 0 0;
     border-radius: 999px;
-    background-color: alpha(@background, 0.85);
+    background-color: alpha(@background, 0.45);
     color: @foreground;
     box-shadow: 0 1px 2px rgba(10, 10, 10, 0.8);
 }
 
 #workspaces button.active {
-    background-color: alpha(@foreground, 1);
+    background-color: alpha(#e2eeff, 0.65);
     color: @background;
     border-radius: 999px;
 }
 
 #workspaces button:hover {
-    background-color: @foreground;
+    background-color: #e2eeff;
     color: @background;
+    opacity: 0.65;
 }
 
 /* --- General Modules (PILL SHAPE) --- */
@@ -103,17 +104,17 @@ tooltip label {
     padding: 0px 12px;
     border-radius: 999px;
     box-shadow: 0 1px 2px rgba(10, 10, 10, 0.8);
-    background-color: alpha(@background, 0.85);
+    background-color: alpha(@background, 0.45);
     color: @foreground;
 }
 #custom-voxtype {
-    background-color: alpha(@background, 0.85);
+    background-color: alpha(@background, 0.45);
     min-width: 12px;
     margin: 0 0 0 2.5px;
 }
 
 #custom-voxtype.recording {
-    background-color: alpha(@background, 0.85);
+    background-color: alpha(@background, 0.45);
     color: #a55555;
 }
 
@@ -138,9 +139,9 @@ tooltip label {
 #network:hover,
 #pulseaudio:hover {
     border-radius: 999px;
-    background-color: @foreground;
+    background-color: #e2eeff;
     color: @background;
-    opacity: 0.9;
+    opacity: 0.65;
 }
 
 /* --- Battery states --- */
@@ -161,7 +162,7 @@ tooltip label {
 
 @keyframes blink2 {
     to {
-        background-color: alpha(@background, 0.85);
+        background-color: alpha(@background, 0.45);
         color: #f53c3c;
     }
 }
