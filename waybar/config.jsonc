@@ -133,7 +133,7 @@
     },
   },
   "custom/omarchy": {
-    "format": "󰣇",
+    "format": "<span color='#1793d1'>󰣇</span>",
     "on-click": "omarchy-menu",
     "on-click-right": "xdg-terminal-exec",
     "tooltip-format": "Omarchy Menu\n\nSuper + Alt + Space",
@@ -162,7 +162,7 @@
     "format": "{}{icon}",
     "return-type": "json",
     "format-icons": {
-      "has-updates": " 󰏖 ",
+      "has-updates": "<span color='#eab676'> 󰏖< /span>",
       "updated": "",
     },
     "exec-if": "which waybar-module-pacman-updates",
@@ -194,12 +194,12 @@
   },
   "cpu": {
     "interval": 2,
-    "format": "{usage}% 󰍛",
+    "format": "{usage}% <span color='#f8f8fa'>󰍛</span>",
     "on-click": "omarchy-launch-or-focus-tui btop",
   },
   "memory": {
     "interval": 2,
-    "format": "{percentage}%  ",
+    "format": "{percentage}% <span color='#7bc043'></span> ",
     "on-click": "omarchy-launch-or-focus-tui btop",
   },
   "clock": {
@@ -221,8 +221,8 @@
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
-      "activated": "󰚩",
-      "deactivated": "󱙺",
+      "activated": "<span color='#c0c5ce'>󰚩</span>",
+      "deactivated": "<span color='#f8f8fa'>󱙺</span>",
     },
   },
   "network": {
@@ -257,10 +257,10 @@
     },
   },
   "bluetooth": {
-    "format": "",
-    "format-disabled": "󰂲",
-    "format-off": "󰂲",
-    "format-connected": "",
+    "format": "<span color='#0082FC'></span>",
+    "format-disabled": "<span color='#0082FC'>󰂲</span>",
+    "format-off": "<span color='#0082FC'>󰂲</span>",
+    "format-connected": "<span color='#0082FC'>󰂱</span>",
     "tooltip-format": "Devices connected: {num_connections}",
     "on-click": "omarchy-launch-bluetooth",
   },
@@ -304,9 +304,9 @@
   "pulseaudio#output": {
     "format": "{icon}",
     "tooltip-format": "{icon}  {volume}%",
-    "format-muted": "󰓃 off",
+    "format-muted": "<span color='#76663f'>󰓃 </span>",
     "format-icons": {
-      "default": ["󰓃"],
+      "default": ["<span color='#cab287'>󰓃</span>"],
     },
     "max-volume": 100,
     "scroll-step": 2,
@@ -333,11 +333,11 @@
     "show-passive-items": true,
   },
   "custom/trayicon": {
-    "format": "󰪴",
+    "format": "<span color='#ff1744'>󰪴</span>",
     "tooltip": false,
   },
   "mpris": {
-    "format": "{player_icon} {artist}-{title}",
+    "format": "<span color='#7aff5e'>{player_icon}</span> <span color='#9ff0dc'>{artist}-{title}</span>",
     "format-paused": "<span color='grey'>{status_icon} {title}</span>",
     "max-length": 50,
     "interval": 1,
