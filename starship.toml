@@ -995,7 +995,7 @@ format = '[󰯭 $context $namespace]($style) ' #AppTainer
 
 [time]
 disabled = false
-time_format = "%R" # Hour:Minute Format # %T for seconds
+time_format = "%I:%M%p" # Hour:Minute Format # %T for seconds
 style = "bg:bg_1"
 format = '[[  $time ](fg:fg_1 bg:bg_1)]($style)'
 
