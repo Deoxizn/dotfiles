@@ -30,6 +30,7 @@
     "memory",
     "custom/gpu",
     "cpu",
+    "custom/power",
   ],
   "hyprland/workspaces": {
     "on-click": "activate",
@@ -139,6 +140,16 @@
     "format": "{usage}% 󰍛 ]",
     "on-click": "omarchy-launch-or-focus-tui btop",
   },
+  "custom/power": {
+    "format": "󰩈",
+    "tooltip": false,
+    "menu": "on-click",
+    "menu-file": "~/.config/waybar/power_menu.xml",
+    "menu-actions": {
+        "reboot": "omarchy-cmd-reboot",
+        "shutdown": "omarchy-cmd-shutdown",
+    }
+},
   "clock": {
     "format": "{:%I:%M%p %a %d %b}",
     "format-alt": "{:L%d %B W%V %Y}",
