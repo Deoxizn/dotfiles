@@ -143,11 +143,7 @@
   "custom/power": {
     "format": "<span color='#FF6347'>󰩈</span>",
     "tooltip": false,
-    "menu": "on-click",
-    "menu-file": "~/.config/waybar/power_menu.xml",
-    "menu-actions": {
-      "reboot": "omarchy-cmd-reboot",
-      "shutdown": "omarchy-cmd-shutdown",
+    "on-click": "omarchy-menu -system"
     },
   },
   "clock": {
