@@ -12,15 +12,15 @@
     "clock",
     "custom/voxtype",
     "custom/weather",
-    "custom/update",
-    "custom/screenrecording-indicator",
     "hyprland/workspaces",
     "mpris",
   ],
   "modules-center": ["hyprland/window"],
   "modules-right": [
     "group/tray-expander",
+    "custom/update",
     "custom/updatespacman",
+    "custom/screenrecording-indicator",
     "idle_inhibitor",
     "backlight",
     "battery",
@@ -50,7 +50,7 @@
     },
   },
   "hyprland/window": {
-    "format": "{title} - {class}",
+    "format": "{title} ¦ {class}",
     "max-length": 35,
     "rewrite": {
       " - ": "", // if no window is focused, a single dash is displayed, this removes it
@@ -119,30 +119,31 @@
   },
   "backlight": {
     "device": "intel_backlight",
-    "format": "{icon}",
+    "format": "{icon} ║",
     "tooltip-format": "{percent}%",
     "format-icons": ["🌑", "🌘", "🌗", "🌖", "🌕"],
   },
   "custom/gpu": {
     "exec": "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits",
-    "format": " {}ᶜ <span color='#98FB98'>󰾲</span> |",
+    "format": "{}ᶜ <span color='#98FB98'>󰾲</span>",
     "tooltip-format": "GPU Usage: <span weight='bold'>{}</span>%",
     "tooltip-exec": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits",
     "interval": 1,
   },
   "memory": {
     "interval": 2,
-    "format": "{percentage}% <span color='#228B22'></span> |",
+    "format": "{percentage}% <span color='#228B22'></span>",
     "on-click": "omarchy-launch-or-focus-tui btop",
   },
   "cpu": {
     "interval": 2,
-    "format": "{usage}% <span color='#778899'>󰍛</span> ]",
+    "format": "{usage}% <span color='#778899'>󰍛</span>",
     "on-click": "omarchy-launch-or-focus-tui btop",
   },
   "custom/power": {
     "format": "<span color='#FF6347'>󰩈</span>",
     "on-click": "omarchy-menu system",
+    "tooltip-format": "Omarchy Power Menu",
   },
   "clock": {
     "format": "{:%I:%M%p %a %d %b}",
@@ -170,7 +171,7 @@
   },
   "network": {
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-    "format": "{icon}",
+    "format": "{icon} ",
     "format-wifi": "{icon}",
     "format-ethernet": "󰀂",
     "format-disconnected": "󰤮",
@@ -209,7 +210,7 @@
     "on-click": "omarchy-launch-bluetooth",
   },
   "pulseaudio": {
-    "format": "<span color='#FF7700'>{icon}</span> [",
+    "format": "<span color='#FF7700'>{icon}</span>",
     "on-click": "omarchy-launch-or-focus-tui wiremix",
     "on-click-right": "pamixer -t",
     "tooltip-format": "Playing at {volume}%",
