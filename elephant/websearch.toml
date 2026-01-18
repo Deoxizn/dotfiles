@@ -1,0 +1,4 @@
+[[entries]]
+default = true
+name = "Brave Search"
+url = "https://search.brave.com/search?q=%TERM%"
