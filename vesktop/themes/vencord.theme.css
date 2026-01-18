@@ -1,0 +1,27 @@
+    /**
+    * @name Omarchy
+    * @author @bypass_
+    * @version 0.1.0
+    * @description Match Omarchy system theme.
+    * @source https://github.com/imbypass/base16-Discord
+    **/
+    @import url("https://imbypass.github.io/base16-discord/omarchy-discord.theme.css");
+
+    :root {
+        --color00: #1f1f28;
+        --color01: #1f1f28;
+        --color02: #1f1f28;
+        --color03: #c8c093;
+        --color04: #dcd7ba;
+        --color05: #dcd7ba;
+        --color06: #dcd7ba;
+        --color07: #dcd7ba;
+        --color08: #c34043;
+        --color09: #c0a36e;
+        --color10: #e6c384;
+        --color11: #76946a;
+        --color12: #6a9589;
+        --color13: #7e9cd8;
+        --color14: #957fb8;
+        --color15: #c0a36e;
+    }
