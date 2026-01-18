@@ -1,199 +1,156 @@
 @import "../omarchy/current/theme/waybar.css";
 
+/* --- Global-Settings ---*/
 * {
-    /* background-color: @background; */
-    color: @foreground;
-
-    border: none;
-    border-radius: 0 0 8px 8px;
-    font-family: "CaskaydiaMono Nerd Font Propo";
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 12px;
+    font-weight: bold;
     min-height: 0px;
 }
 
+/* --- Waybar ---*/
 window#waybar {
     background-color: transparent;
-}
-
-#waybar > box {
-    border-radius: 3px;
-    border: 3px solid rgba(255, 255, 255, 0);
-    margin: 0px 8px 3px 8px;
-    background-color: @background;
-    box-shadow: 1px 1px 3px 1px #101010;
     transition-property: background-color;
     transition-duration: 0.5s;
 }
 
-.modules-left {
-    margin-left: 0px;
-}
-
-.modules-right {
-    margin-right: 0px;
-    font-size: 12px;
-}
-
-.modules-center {
-    font-size: 12px;
-}
-
-#workspaces {
+window#waybar.empty #window {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    color: transparent;
     padding: 0;
     margin: 0;
-    padding-top: 2px;
 }
 
-#workspaces button {
-    all: initial;
-    font-size: 16px;
-    min-width: 0;
-    min-height: 0;
-    padding: 0;
-    margin: 0;
-    opacity: 0.65;
-}
-
-#workspaces button.active {
-    color: @background;
-    opacity: 1;
-    padding: 0;
-    margin: 0;
-    background: linear-gradient(180deg, @background 75%, @foreground);
-    font-size: 16px;
-    transition: all 0.15s ease-in-out;
-}
-
-#workspaces button.empty {
-    opacity: 0.3;
-}
-
-#custom-omarchy {
-    padding-top: 1px;
-    font-size: 14px;
-}
-
-#mpris,
-#tray,
-#cpu,
-#custom-gpu,
-#mempory,
-#battery,
-#network,
-#bluetooth,
-#pulseaudio,
-#custom-omarchy,
-#idle_inhibitor,
-#backlight,
-#custom-weather,
-#clock,
-#custom-power,
-#custom-updatespacman,
-#custom-screenrecording-indicator,
-#custom-update {
-    min-width: 10px;
-    font-size: 12px;
-    margin: 0 5px 0 5px;
-    padding: 0 1px;
-}
-
-#custom-expand-icon {
-    margin-right: 2px;
-}
-
-tooltip {
-    padding: 0.5px;
-}
-
-#custom-update {
-    padding-left: 0px;
-    padding-right: 4px;
-}
-
-.hidden {
+#waybar.empty .modules-center {
     opacity: 0;
 }
 
+/* --- Custom Modules ---*/
+.modules-center {
+    min-width: 880px;
+    margin-left: 300px;
+}
+
+/* --- Tooltip ---*/
+tooltip {
+    padding: 6px;
+    background-color: alpha(@background, 1);
+    border: 1.5px solid alpha(@foreground, 0.8);
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+tooltip label {
+    color: @foreground;
+    font-weight: normal;
+}
+
+/* --- Workspaces --- */
+#workspaces {
+    border-radius: 999px;
+    margin: 2px 3px;
+}
+
+#workspaces button {
+    padding: 0px 10px;
+    margin: 0 4px 0 0;
+    border-radius: 999px;
+    background-color: alpha(@background, 0.85);
+    color: @foreground;
+    box-shadow: 0 1px 2px rgba(10, 10, 10, 0.8);
+}
+
+#workspaces button.active {
+    background-color: alpha(@foreground, 1);
+    color: @background;
+    border-radius: 999px;
+}
+
+#workspaces button:hover {
+    background-color: @foreground;
+    color: @background;
+}
+
+/* --- General Modules (PILL SHAPE) --- */
+#tray,
+#tray-expander,
+#window,
+#mpris,
+#cpu,
+#battery,
+#network,
+#memory,
+#backlight,
+#bluetooth,
+#custom-update,
+#custom-gpu,
+#custom-voxtype,
+#custom-voxtype.recording,
+#custom-voxtype.transcribing,
+#custom-screenrecording-indicator,
+#custom-updatespacman,
+#custom-power {
+    min-width: 18px;
+    margin: 2px;
+    padding: 0px 12px;
+    border-radius: 999px;
+    box-shadow: 0 1px 2px rgba(10, 10, 10, 0.8);
+    background-color: alpha(@background, 0.85);
+    color: @foreground;
+}
 #custom-voxtype {
+    background-color: alpha(@background, 0.85);
     min-width: 12px;
     margin: 0 0 0 2.5px;
 }
 
 #custom-voxtype.recording {
+    background-color: alpha(@background, 0.85);
     color: #a55555;
 }
 
-#custom-screenrecording-indicator {
-    font-size: 12px;
-    padding: 0px;
-    margin: 2px;
+/* --- Hover (keep pill) --- */
+#tray-expander:hover,
+#cpu:hover,
+#memory:hover,
+#window:hover,
+#mpris:hover,
+#battery:hover,
+#bluetooth:hover,
+#backlight:hover,
+#custom-update:hover,
+#custom-updatespacman:hover,
+#network:hover,
+#custom-gpu:hover,
+#custom-power:hover {
+    border-radius: 999px;
+    background-color: @foreground;
+    color: @background;
+    opacity: 0.9;
 }
 
-#custom-screenrecording-indicator {
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-    color: transparent;
+/* --- Battery states --- */
+#battery.warning {
+    color: #c95d0f;
 }
 
-#custom-screenrecording-indicator.active {
-    color: #eb7087;
-    animation-name: blink-recording;
-    animation-duration: 0.5s;
+#battery.critical:not(.charging) {
+    animation: blink2 0.5s steps(12) infinite alternate;
 }
 
-@keyframes blink-recording {
-    to {
-        color: @background;
-    }
-}
-
-tooltip {
-    padding: 4px;
-    background: @background;
-    border: 1px solid alpha(@foreground, 0.3);
-    border-radius: 8px;
-    box-shadow: 1px 1px 3px 1px #131313;
-    font-size: 12px;
-}
-tooltip label {
-    color: @foreground;
-}
-
-#mpris {
-    padding-top: 2px;
-    margin-left: 8px;
-    color: alpha(@foreground, 0.95);
-    animation: repeat;
-    animation-name: blink;
-    animation-duration: 3s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
+/* --- Animations unchanged --- */
 @keyframes blink {
     to {
         color: #4a4a4a;
     }
 }
 
-@keyframes blink-inhibitor {
+@keyframes blink2 {
     to {
-        color: @background;
+        background-color: alpha(@background, 0.85);
+        color: #f53c3c;
     }
-}
-
-#idle_inhibitor {
-    padding-left: 0px;
-    margin-left: 0px;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-    color: @foreground;
-}
-
-#idle_inhibitor.activated {
-    color: #178b76;
-    animation-name: blink-inhibitor;
-    animation-duration: 1s;
 }
