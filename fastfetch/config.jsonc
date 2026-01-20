@@ -94,42 +94,42 @@
       "type": "media",
     },
     {
-      "key": "│ {#37}󰩠 PublicIP   {#keys}│",
-      "type": "publicip",
-      "format": "{1} - {2}",
+      "key": "│ {#37}󰩠 PublicIP{#keys}│",
+      "type": "command",
+      "text": "curl -s ifconfig.me",
     },
     {
-      "key": "│ {#37}󰩠 LocalIP {#keys}│",
+      "key": "│ {#32}󰩠 LocalIP {#keys}│",
       "type": "localip",
       "format": "{1} - {3}",
       "showMac": true,
     },
     {
-      "key": "│ {#32}󰒍 DNS     {#keys}│",
+      "key": "│ {#34}󰒍 DNS     {#keys}│",
       "type": "dns",
     },
     {
-      "key": "│ {#34} BT Dev   {#keys}│",
+      "key": "│ {#31} BT Dev   {#keys}│",
       "type": "bluetooth",
       "format": "{1} - {4}",
     },
     {
-      "key": "│ {#34}󰂯 BT Ver  {#keys}│",
+      "key": "│ {#31}󰂯 BT Ver  {#keys}│",
       "type": "bluetoothradio",
       "format": "{5}",
     },
     {
       "type": "command",
-      "key": "│ {#31}󱦟 OS Age  {#keys}│",
+      "key": "│ {#37}󱦟 OS Age  {#keys}│",
       "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days",
     },
     {
       "type": "uptime",
-      "key": "│ {#37}󱫐 Uptime  {#keys}│",
+      "key": "│ {#32}󱫐 Uptime  {#keys}│",
     },
     {
       "type": "command",
-      "key": "│ {#32} Update  {#keys}│",
+      "key": "│ {#34} Update  {#keys}│",
       "text": "updated=$(omarchy-version-pkgs); echo \"$updated\"",
     },
     {
