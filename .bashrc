@@ -9,5 +9,29 @@ source ~/.local/share/omarchy/default/bash/rc
 #
 # Make an alias for invoking commands you use constantly
 # alias p='python'
-
 alias nfs='sudo mount -a'
+alias svr='ssh deoxizn@192.168.8.209'
+alias psync='docker compose run --rm plextraktsync sync'
+
+#Tweaks
+HISTCONTROL=ignoreboth
+shopt -s cdspell
+
+function history_cleanup {
+  local HISTFILE_SRC=~/.bash_history
+  local HISTFILE_DST=/tmp/.$USER.bash_history.clean
+  if [ -f "$HISTFILE_SRC" ]; then
+    cp "$HISTFILE_SRC" "$HISTFILE_SRC.backup"
+    sed -i 's/ *$//' "$HISTFILE_SRC"
+    dedup "$HISTFILE_SRC" | grep -vxFf <(echo "$HISTIGNORE" | sed 's/:/\\|/g; s/*/.\*/g') > "$HISTFILE_DST"
+    mv "$HISTFILE_DST" "$HISTFILE_SRC"
+    chmod go-r "$HISTFILE_SRC"
+  fi
+}
+
+export PATH="$HOME/.local/bin:$PATH"
+
+export CMAKE_BUILD_PARALLEL_LEVEL=$(nproc)
+export CARGO_BUILD_JOBS=$(nproc)
+export GOMAXPROCS=$(nproc)
+export DOTNET_MSBUILD_CLI_OPTIONS="-m:$(nproc)"
