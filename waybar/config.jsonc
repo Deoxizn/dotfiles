@@ -250,7 +250,7 @@
     "on-click": "omarchy-launch-wifi",
   },
   "battery": {
-    // "format": "BAT {icon} 󱈏 {capacity}%",
+    // "format": "BAT {icon} 󱈏{capacity}%",
     "format": "󰁹 {icon} {capacity}%",
 
     "format-discharging": "󰁹 {icon} {capacity}%",
@@ -310,8 +310,6 @@
     "tooltip-format-discharging": "{power:>1.0f}W↓ {time}",
     "tooltip-format-charging": "{power:>1.0f}W↑ {time}",
     "interval": 2,
-    "on-click": "omarchy-menu-tofi profile",
-    "on-click-right": "omarchy-menu-tofi power",
     "states": {
       "warning": 20,
       "critical": 10,
