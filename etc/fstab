@@ -19,12 +19,12 @@ UUID=DB49-73F8          /boot           vfat            rw,relatime,fmask=0022,d
 
 
 #network mounts
-192.168.8.169:/volume1/Applications /mnt/Applications nfs defaults,rw,auto,nofail,soft,intr 0 0
-192.168.8.169:/volume1/AudioBooks /mnt/AudioBooks nfs defaults,rw,auto,nofail,soft,intr 0 0
-192.168.8.169:/volume1/Backups /mnt/Backups nfs defaults,rw,auto,nofail,soft,intr 0 0
-192.168.8.169:/volume1/Books /mnt/Books nfs defaults,rw,auto,nofail,soft,intr 0 0
-192.168.8.169:/volume1/Comics /mnt/Comics nfs defaults,rw,auto,nofail,soft,intr 0 0
-192.168.8.169:/volume1/Downloads /mnt/Downloads nfs defaults,rw,auto,nofail,soft,intr 0 0
-192.168.8.169:/volume1/Music /mnt/Music nfs defaults,rw,auto,nofail,soft,intr 0 0
-192.168.8.169:/volume1/Photos /mnt/Photos nfs defaults,rw,auto,nofail,soft,intr 0 0
-192.168.8.169:/volume1/Video /mnt/Video nfs defaults,rw,auto,nofail,soft,intr 0 0
+192.168.8.169:/volume1/Applications /mnt/Applications nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0
+192.168.8.169:/volume1/AudioBooks /mnt/AudioBooks nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0
+192.168.8.169:/volume1/Backups /mnt/Backups nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0
+192.168.8.169:/volume1/Books /mnt/Books nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0
+192.168.8.169:/volume1/Comics /mnt/Comics nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0
+192.168.8.169:/volume1/Downloads /mnt/Downloads nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0
+192.168.8.169:/volume1/Music /mnt/Music nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0
+192.168.8.169:/volume1/Photos /mnt/Photos nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0
+192.168.8.169:/volume1/Video /mnt/Video nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0

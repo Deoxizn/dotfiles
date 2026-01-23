@@ -31,7 +31,6 @@ window#waybar.empty #window {
 /* --- Custom Modules ---*/
 .modules-center {
     min-width: 880px;
-    margin-left: 300px;
 }
 
 /* --- Tooltip ---*/

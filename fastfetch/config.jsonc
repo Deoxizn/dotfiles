@@ -5,7 +5,7 @@
     "source": "~/.config/fastfetch/htoga2.png",
     "color": { "1": "green" },
     "width": 52,
-    "height": 27,
+    "height": 30,
   },
   "display": {
     "separator": "  ",
