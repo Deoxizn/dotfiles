@@ -20,22 +20,32 @@ alias snprl='sudo snapper list'
 alias snprd='sudo snapper delete'
 alias ff='fastfetch'
 
-#Tweaks
+
+# Settings for history control and spelling correction
 HISTCONTROL=ignoreboth
 shopt -s cdspell
 
+# Function to clean up history: trim trailing spaces, remove duplicates, respect HISTIGNORE
 function history_cleanup {
   local HISTFILE_SRC=~/.bash_history
   local HISTFILE_DST=/tmp/.$USER.bash_history.clean
   if [ -f "$HISTFILE_SRC" ]; then
+    history -a                    # Append current session's history
     cp "$HISTFILE_SRC" "$HISTFILE_SRC.backup"
-    sed -i 's/ *$//' "$HISTFILE_SRC"
-    dedup "$HISTFILE_SRC" | grep -vxFf <(echo "$HISTIGNORE" | sed 's/:/\\|/g; s/*/.\*/g') > "$HISTFILE_DST"
+    sed -i 's/ *$//' "$HISTFILE_SRC"  # Trim trailing whitespace
+    awk '!a[$0]++' "$HISTFILE_SRC" | grep -vxFf <(echo "$HISTIGNORE" | sed 's/:/\\|/g; s/*/.\*/g') > "$HISTFILE_DST"
     mv "$HISTFILE_DST" "$HISTFILE_SRC"
     chmod go-r "$HISTFILE_SRC"
+    history -c                    # Clear in-memory history
+    history -r                    # Reload cleaned history
   fi
 }
 
+# Automatically run cleanup when shell exits
+trap 'history_cleanup' EXIT
+
+
+#cleanup
 cleanorphans() {
     local ORPHANS=$(pacman -Qtdq)
     [ -n "$ORPHANS" ] && sudo pacman - Rns "$ORPHANS" || echo "no orphaned packages."
