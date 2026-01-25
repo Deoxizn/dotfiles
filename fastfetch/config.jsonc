@@ -52,7 +52,7 @@
     {
       "key": "│ {#32} term    {#keys}│",
       "type": "command",
-      "text": "shell_name=$(basename $SHELL); shell_version=$($SHELL --version 2>/dev/null | head -1 | grep -o '[0-9]\\+\\.[0-9]\\+' || echo ''); terminal_info=$(fastfetch -s terminal --format-terminal \"{1} {2}\" 2>/dev/null | head -1); echo \"${terminal_info:-$TERM} | $shell_name${shell_version:+ $shell_version}\"",
+      "text": "shell_name=$(basename $SHELL); shell_version=$($SHELL --version 2>/dev/null | head -1 | grep -o '[0-9]\\+\\.[0-9]\\+\\.[0-9]\\+' | head -1); terminal_info=$(fastfetch -s terminal 2>/dev/null | grep -o '[a-zA-Z]* [0-9][^[:space:]]*' | head -1); echo \"${terminal_info:-$TERM} | $shell_name ${shell_version:+$shell_version}\"",
     },
     {
       "key": "│ {#33}󰍛 cpu     {#keys}│",
@@ -79,12 +79,8 @@
     },
     {
       "key": "│ {#33} memory  {#keys}│",
-      "type": "memory",
-    },
-    {
-      "key": "│ {#34} Snd Dev {#keys}│",
-      "type": "sound",
-      "format": "{2}",
+      "type": "command",
+      "text": "memory_info=$(fastfetch -s memory 2>/dev/null | grep -o '[0-9.]* GiB / [0-9.]* GiB ([0-9%]*)' | head -1); swap_info=$(free -h | grep Swap | awk '{print $2 \"/\" $3 \" (\" $3 \"/\" $2 \")\"}' | sed 's/Gi/GiB/g'); echo \"$memory_info | $swap_info\"",
     },
     {
       "key": "│ {#35}󰥠 Snd App {#keys}│",
