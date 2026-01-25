@@ -18,6 +18,7 @@ alias co='cleanorphans'
 alias clr='clear'
 alias snprl='sudo snapper list'
 alias snprd='sudo snapper delete'
+alias ff='fastfetch'
 
 #Tweaks
 HISTCONTROL=ignoreboth

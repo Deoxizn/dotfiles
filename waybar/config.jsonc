@@ -24,7 +24,6 @@
     "memory",
     "custom/gpu",
     "custom/cputemp",
-    "custom/power",
   ],
 
   "hyprland/workspaces": {
@@ -199,11 +198,6 @@
     "format": "{} 󰾲",
     "return-type": "json",
     "interval": 1,
-  },
-  "custom/power": {
-    "format": "󰩈",
-    "on-click": "omarchy-menu system",
-    "tooltip-format": "Omarchy Power Menu",
   },
   "network": {
     "format": "󰤨 ",

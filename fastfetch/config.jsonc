@@ -12,6 +12,18 @@
   },
   "modules": [
     {
+      "type": "break",
+    },
+    {
+      "type": "break",
+    },
+    {
+      "type": "break",
+    },
+    {
+      "type": "break",
+    },
+    {
       "key": "╭───────────╮",
       "type": "custom",
     },
@@ -20,17 +32,9 @@
       "type": "host",
     },
     {
-      "key": "│ {#33}󰅐 uptime  {#keys}│",
-      "type": "uptime",
-    },
-    {
-      "key": "│ {#34}{icon} distro  {#keys}│",
+      "key": "│ {#33}\ue900  ver    {#keys}│",
       "type": "command",
-      "text": "version=$(omarchy-version); echo \"Omarchy $version\"",
-    },
-    {
-      "key": "│ {#35} kernel  {#keys}│",
-      "type": "kernel",
+      "text": "version=$(omarchy-version); kernel=$(uname -r); echo \"Omarchy $version | $kernel\"",
     },
     {
       "key": "│ {#36}󰇄 desktop {#keys}│",
@@ -47,14 +51,11 @@
     },
     {
       "key": "│ {#32} term    {#keys}│",
-      "type": "terminal",
+      "type": "command",
+      "text": "shell_name=$(basename $SHELL); shell_version=$($SHELL --version 2>/dev/null | head -1 | grep -o '[0-9]\\+\\.[0-9]\\+' || echo ''); terminal_info=$(fastfetch -s terminal --format-terminal \"{1} {2}\" 2>/dev/null | head -1); echo \"${terminal_info:-$TERM} | $shell_name${shell_version:+ $shell_version}\"",
     },
     {
-      "key": "│ {#33} shell   {#keys}│",
-      "type": "shell",
-    },
-    {
-      "key": "│ {#34}󰍛 cpu     {#keys}│",
+      "key": "│ {#33}󰍛 cpu     {#keys}│",
       "type": "cpu",
       "showPeCoreCount": true,
     },
@@ -105,7 +106,7 @@
       "showMac": true,
     },
     {
-      "key": "│ {#34}󰒍 DNS     {#keys}│",
+      "key": "│ {#33}󰒍 DNS     {#keys}│",
       "type": "dns",
     },
     {
@@ -120,16 +121,12 @@
     },
     {
       "type": "command",
-      "key": "│ {#37}󱦟 OS Age  {#keys}│",
-      "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days",
-    },
-    {
-      "type": "uptime",
-      "key": "│ {#32}󱫐 Uptime  {#keys}│",
+      "key": "│ {#34}󱫐 OS Time {#keys}│",
+      "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); uptime_info=$(uptime -p 2>/dev/null | sed 's/up //'); echo \"$days_difference days old | $uptime_info of uptime\"",
     },
     {
       "type": "command",
-      "key": "│ {#34} Update  {#keys}│",
+      "key": "│ {#31} Updated {#keys}│",
       "text": "updated=$(omarchy-version-pkgs); echo \"$updated\"",
     },
     {
