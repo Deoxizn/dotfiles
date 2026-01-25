@@ -5,13 +5,19 @@
 # (don't mess with these directly, just overwrite them here!)
 source ~/.local/share/omarchy/default/bash/rc
 
-# Add your own exports, aliases, and functions here.
-#
-# Make an alias for invoking commands you use constantly
-# alias p='python'
+
+# alias
 alias nfs='sudo mount -a'
 alias svr='ssh deoxizn@192.168.8.209'
 alias psync='docker compose run --rm plextraktsync sync'
+alias omup='omarchy-update'
+alias ga='git add .'
+alias gc='git commit -m'
+alias gp='git push'
+alias co='cleanorphans'
+alias clr='clear'
+alias snprl='sudo snapper list'
+alias snprd='sudo snapper delete'
 
 #Tweaks
 HISTCONTROL=ignoreboth
@@ -29,8 +35,14 @@ function history_cleanup {
   fi
 }
 
-export PATH="$HOME/.local/bin:$PATH"
+cleanorphans() {
+    local ORPHANS=$(pacman -Qtdq)
+    [ -n "$ORPHANS" ] && sudo pacman - Rns "$ORPHANS" || echo "no orphaned packages."
+}
 
+
+#path
+export PATH="$HOME/.local/bin:$PATH"
 export CMAKE_BUILD_PARALLEL_LEVEL=$(nproc)
 export CARGO_BUILD_JOBS=$(nproc)
 export GOMAXPROCS=$(nproc)
