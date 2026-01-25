@@ -2,15 +2,18 @@
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
     "type": "auto",
-    "source": "~/.config/fastfetch/htoga2.png",
+    "source": "~/.config/fastfetch/frieren.png",
     "color": { "1": "green" },
-    "width": 52,
+    "width": 80,
     "height": 30,
   },
   "display": {
     "separator": "  ",
   },
   "modules": [
+    {
+      "type": "break",
+    },
     {
       "type": "break",
     },
@@ -83,12 +86,9 @@
       "text": "memory_info=$(fastfetch -s memory 2>/dev/null | grep -o '[0-9.]* GiB / [0-9.]* GiB ([0-9%]*)' | head -1); swap_info=$(free -h | grep Swap | awk '{print $2 \"/\" $3 \" (\" $3 \"/\" $2 \")\"}' | sed 's/Gi/GiB/g'); echo \"$memory_info | $swap_info\"",
     },
     {
-      "key": "│ {#35}󰥠 Snd App {#keys}│",
-      "type": "player",
-    },
-    {
-      "key": "│ {#31}󰝚 Media   {#keys}│",
-      "type": "media",
+      "key": "│ {#35}󰥠 Plr|Mda {#keys}│",
+      "type": "command",
+      "text": "media_json=$(fastfetch -s media --format json 2>/dev/null); player_name=$(echo \"$media_json\" | jq -r '.[0].result.player.name // \"No player\"' 2>/dev/null); artist=$(echo \"$media_json\" | jq -r '.[0].result.song.artist // empty' 2>/dev/null); name=$(echo \"$media_json\" | jq -r '.[0].result.song.name // empty' 2>/dev/null); if [[ -n \"$artist\" && -n \"$name\" ]]; then song_info=\"$artist - $name\"; else song_info=\"\"; fi; echo \"$player_name${song_info:+ | $song_info}\"",
     },
     {
       "key": "│ {#37}󰩠 PublicIP{#keys}│",
@@ -102,27 +102,18 @@
       "showMac": true,
     },
     {
-      "key": "│ {#33}󰒍 DNS     {#keys}│",
-      "type": "dns",
-    },
-    {
       "key": "│ {#31} BT Dev   {#keys}│",
       "type": "bluetooth",
       "format": "{1} - {4}",
     },
     {
-      "key": "│ {#31}󰂯 BT Ver  {#keys}│",
-      "type": "bluetoothradio",
-      "format": "{5}",
-    },
-    {
       "type": "command",
-      "key": "│ {#34}󱫐 OS Time {#keys}│",
+      "key": "│ {#33}󱫐 OS Time {#keys}│",
       "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); uptime_info=$(uptime -p 2>/dev/null | sed 's/up //'); echo \"$days_difference days old | $uptime_info of uptime\"",
     },
     {
       "type": "command",
-      "key": "│ {#31} Updated {#keys}│",
+      "key": "│ {#34} Updated {#keys}│",
       "text": "updated=$(omarchy-version-pkgs); echo \"$updated\"",
     },
     {
