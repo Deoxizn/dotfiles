@@ -27,6 +27,9 @@
       "type": "break",
     },
     {
+      "type": "break",
+    },
+    {
       "key": "╭───────────╮",
       "type": "custom",
     },
@@ -89,17 +92,6 @@
       "key": "│ {#35}󰥠 Plr|Mda {#keys}│",
       "type": "command",
       "text": "media_json=$(fastfetch -s media --format json 2>/dev/null); player_name=$(echo \"$media_json\" | jq -r '.[0].result.player.name // \"No player\"' 2>/dev/null); artist=$(echo \"$media_json\" | jq -r '.[0].result.song.artist // empty' 2>/dev/null); name=$(echo \"$media_json\" | jq -r '.[0].result.song.name // empty' 2>/dev/null); if [[ -n \"$artist\" && -n \"$name\" ]]; then song_info=\"$artist - $name\"; else song_info=\"\"; fi; echo \"$player_name${song_info:+ | $song_info}\"",
-    },
-    {
-      "key": "│ {#37}󰩠 PublicIP{#keys}│",
-      "type": "command",
-      "text": "curl -s ifconfig.me",
-    },
-    {
-      "key": "│ {#32}󰩠 LocalIP {#keys}│",
-      "type": "localip",
-      "format": "{1} - {3}",
-      "showMac": true,
     },
     {
       "key": "│ {#31} BT Dev   {#keys}│",
