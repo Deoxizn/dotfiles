@@ -189,3 +189,6 @@ function qr --description "Prints QR. E.g. super useful when you need to transfe
 end
 
 alias sharewifi='qr "WIFI:T:WPA;S:aaa;P:bbb;;"'
+
+set sponge_allow_previously_successful false
+set sponge_regex_patterns '^ga$|^gp$|^gc$|^gpl$'

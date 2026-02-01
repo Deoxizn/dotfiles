@@ -58,7 +58,7 @@
     {
       "key": "│ {#32} term    {#keys}│",
       "type": "command",
-      "text": "shell_name=$(basename $SHELL); shell_version=$($SHELL --version 2>/dev/null | head -1 | grep -o '[0-9]\\+\\.[0-9]\\+\\.[0-9]\\+' | head -1); terminal_info=$(fastfetch -s terminal 2>/dev/null | grep -o '[a-zA-Z]* [0-9][^[:space:]]*' | head -1); echo \"${terminal_info:-$TERM} | $shell_name ${shell_version:+$shell_version}\"",
+      "text": "fish_version=$(fish --version 2>/dev/null | grep -o '[0-9]\\+\\.[0-9]\\+\\.[0-9]\\+' | head -1); terminal_info=$(fastfetch -s terminal 2>/dev/null | grep -o '[a-zA-Z]* [0-9][^[:space:]]*' | head -1); echo \"${terminal_info:-$TERM} | fish ${fish_version:+$fish_version}\"",
     },
     {
       "key": "│ {#33}󰍛 cpu     {#keys}│",
