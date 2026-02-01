@@ -23,7 +23,6 @@ alias ga='git add .'
 alias gc='git commit -m'
 alias gp='git push'
 alias gpl='git pull'
-alias co='cleanorphans'
 alias clr='clear'
 alias snprl='sudo snapper list'
 alias snprd='sudo snapper delete'
@@ -31,6 +30,12 @@ alias ff='fastfetch'
 alias c='opencode'
 alias d='docker'
 alias r='rails'
+
+#clean orphans
+function co
+    pacman -Qdtq | sudo pacman -Rns -
+end
+
 
 #key tools
 zoxide init fish | source
