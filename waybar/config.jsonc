@@ -17,6 +17,7 @@
     "custom/updatespacman",
     "custom/update",
     "custom/screenrecording-indicator",
+    "idle_inhibitor",
     "backlight",
     "battery",
     "bluetooth",
@@ -329,7 +330,7 @@
       "transition-duration": 600,
       "children-class": "tray-group-item",
     },
-    "modules": ["custom/expand-icon", "tray", "idle_inhibitor"],
+    "modules": ["custom/expand-icon", "tray"],
   },
   "custom/expand-icon": {
     "format": "󰪴 ",
@@ -337,7 +338,7 @@
   },
   "tray": {
     "icon-size": 12,
-    "spacing": 12,
+    "spacing": 5,
     "show-passive-items": true,
   },
 }
