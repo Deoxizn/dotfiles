@@ -20,7 +20,6 @@ alias svr='ssh deoxizn@192.168.8.209'
 alias psync='docker compose run --rm plextraktsync sync'
 alias omup='omarchy-update'
 alias ga='git add .'
-alias gc='git commit'
 alias gp='git push'
 alias gpl='git pull'
 alias clr='clear'
@@ -30,6 +29,10 @@ alias ff='fastfetch'
 alias c='opencode'
 alias d='docker'
 alias r='rails'
+
+function gc
+    git commit -m $argv
+end
 
 #clean orphans
 function co
