@@ -36,7 +36,12 @@ end
 
 #clean orphans
 function co
-    pacman -Qdtq | sudo pacman -Rns -
+    set orphans (pacman -Qdtq)
+    if test -n "$orphans"
+        echo "$orphans" | sudo pacman -Rns -
+    else
+        echo "No orphans to remove."
+    end
 end
 
 
