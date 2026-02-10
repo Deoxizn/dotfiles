@@ -29,6 +29,7 @@ alias ff='fastfetch'
 alias c='opencode'
 alias d='docker'
 alias r='rails'
+alias sptx='bash (curl -sSL https://spotx-official.github.io/run.sh | psub)'
 
 function gc
     git commit -m $argv

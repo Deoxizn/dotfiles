@@ -1,9 +1,5 @@
 @import "../omarchy/current/theme/waybar.css";
 
-/* Starship ansi16 palette */
-@define-color bright-black #555555;
-@define-color bright-white #ffffff;
-
 /* --- Global-Settings ---*/
 * {
     font-family: "JetBrainsMono Nerd Font";
@@ -34,10 +30,8 @@ window#waybar.empty #window {
 
 /* --- Custom Modules ---*/
 .modules-center {
-    border-radius: 999px;
-    padding: 4px 6px;
-    background-color: alpha(@background, 0.85);
-    box-shadow: 0 1px 2px rgba(10, 10, 10, 0.8);
+    min-width: 880px;
+    margin-left: 300px;
 }
 
 /* --- Tooltip ---*/
@@ -56,32 +50,31 @@ tooltip label {
 
 /* --- Workspaces --- */
 #workspaces {
-    border-radius: 0;
-    margin: 0 3px;
+    border-radius: 999px;
+    margin: 2px 3px;
 }
 
 #workspaces button {
     padding: 0px 10px;
-    margin: 0 2px 0 0;
-    border-radius: 0;
-    background-color: transparent;
+    margin: 0 4px 0 0;
+    border-radius: 999px;
+    background-color: alpha(@background, 0.85);
     color: @foreground;
-    box-shadow: none;
+    box-shadow: 0 1px 2px rgba(10, 10, 10, 0.8);
 }
 
 #workspaces button.active {
-    background-color: alpha(@bright-black, 0.9);
-    color: @bright-white;
+    background-color: alpha(@foreground, 1);
+    color: @background;
     border-radius: 999px;
 }
 
 #workspaces button:hover {
-    background-color: alpha(@bright-black, 0.6);
-    color: @bright-white;
-    border-radius: 999px;
+    background-color: @foreground;
+    color: @background;
 }
 
-/* --- General Modules --- */
+/* --- General Modules (PILL SHAPE) --- */
 #tray,
 #tray-expander,
 #window,
@@ -102,25 +95,25 @@ tooltip label {
 #custom-power,
 #idle_inhibitor {
     min-width: 18px;
-    margin: 0 2px;
+    margin: 2px;
     padding: 0px 12px;
-    border-radius: 0;
-    box-shadow: none;
-    background-color: transparent;
+    border-radius: 999px;
+    box-shadow: 0 1px 2px rgba(10, 10, 10, 0.8);
+    background-color: alpha(@background, 0.85);
     color: @foreground;
 }
 #custom-voxtype {
-    background-color: transparent;
+    background-color: alpha(@background, 0.85);
     min-width: 12px;
-    margin: 0 0 0 0;
+    margin: 0 0 0 2.5px;
 }
 
 #custom-voxtype.recording {
-    background-color: transparent;
+    background-color: alpha(@background, 0.85);
     color: #a55555;
 }
 
-/* --- Hover --- */
+/* --- Hover (keep pill) --- */
 
 #custom-cputemp:hover,
 #memory:hover,
@@ -136,9 +129,9 @@ tooltip label {
 #custom-power:hover,
 #idle_inhibitor:hover {
     border-radius: 999px;
-    background-color: alpha(@bright-black, 0.5);
-    color: @foreground;
-    opacity: 1;
+    background-color: @foreground;
+    color: @background;
+    opacity: 0.9;
 }
 
 /* --- Battery states --- */
