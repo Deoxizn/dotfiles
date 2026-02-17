@@ -1,5 +1,12 @@
+# --- Environment & Cache Setup ---
+# Set the cache to RAM and ensure it exists silently before aliases load
+set -gx XDG_CACHE_HOME /tmp/$USER-cache
+if not test -d "$XDG_CACHE_HOME/fish/generated_completions"
+    command mkdir -p "$XDG_CACHE_HOME/fish/generated_completions"
+end
+
 if status is-interactive
-# Commands to run in interactive sessions can go here
+    # Commands to run in interactive sessions can go here
 end
 
 # File system
@@ -14,7 +21,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-# alias
+# System & Tool Aliases
 alias nfs='sudo mount -a'
 alias svr='ssh deoxizn@192.168.8.209'
 alias psync='docker compose run --rm plextraktsync sync'
@@ -35,7 +42,7 @@ function gc
     git commit -m $argv
 end
 
-#clean orphans
+# Clean orphans
 function co
     set orphans (pacman -Qdtq)
     if test -n "$orphans"
@@ -45,75 +52,42 @@ function co
     end
 end
 
-
-#key tools
+# Init Key Tools
 zoxide init fish | source
 starship init fish | source
 
-#disable greeting
+# General Settings
 set -U fish_greeting
-
-#  * Create missing directories in path when calling `mkdir`
 alias mkdir='mkdir -pv'
-
-#  * `path` command to print full file path
 alias path='readlink -e'
-
-#  * `rmm` command to remove directories, but ask nicely
 alias rmm='rm -rvI'
-
-#  * `cpp` command to copy directories, but ask nicely
 alias cpp='cp -R'
-
-#  * `cp` to ask when overwriting files
 alias cp='cp -i'
-
-#  * `mv` to ask when overwriting files
 alias mv='mv -i'
-
-#  * `add-to-path` Command to add current directory to path
 alias add-to-path='set -U fish_user_paths (pwd) $fish_user_paths'
-
-# Update `PATH` variable
 alias path-update='set -gx PATH (bash -c "source ~/git/stuff/config/path; echo \$PATH")'
 
-#  * Human readable sizes for `df`, `du`, `free` (i.e. Mb, Gb etc)
+# System Monitoring
 alias df='df -h'
 alias du='du -ch'
 alias free='free -m'
-
-#  * `fs` command to show free space on physical drives
 alias fs='df -h -x squashfs -x tmpfs -x devtmpfs'
-
-#  * `disks` command to List disks
-#    - Clearly shows which disks are mounted temporary
-#    - I always run this command before `dd` sd-card, to make 100% sure not to override system partition
 alias disks='lsblk -o HOTPLUG,NAME,SIZE,MODEL,TYPE | awk "NR == 1 || /disk/"'
-
-#  * `partitions` command to list partitions
 alias partitions='lsblk -o HOTPLUG,NAME,LABEL,MOUNTPOINT,SIZE,MODEL,PARTLABEL,TYPE,UUID | grep -v loop | cut -c1-$COLUMNS'
-
-#  * `sizeof` command to show size of file or directory
 alias sizeof="du -hs"
 
-#  * `connect` command Connect to wifi from terminal
+# Networking & Utilities
 alias connect=nmtui
-
-#  * `lockblock` command to prevent screen  locking untill next reboot
 alias lockblock='killall xautolock; xset s off; xset -dpms; echo ok'
-
-#  * `wget` to save file with provided name
 alias wget='wget --content-disposition'
+alias unset='set --erase'
 
-#  * `unset` to unset enviroment variable
-alias unset 'set --erase'
-
-function ll --description "Scroll ll if theres more files that fit on screen"
+function ll --description "Scroll ll if there are more files than fit on screen"
   ls -l $argv --color=always | less -R -X -F
 end
 
 function mkcd --description "Create and cd to directory"
-  mkdir $argv
+  command mkdir -p $argv
   and cd $argv
 end
 
@@ -121,15 +95,13 @@ function amount --description "Mount archive"
   /usr/lib/gvfs/gvfsd-archive file=$argv 2>/dev/null &
   sleep 1
   cd $XDG_RUNTIME_DIR/gvfs
-  cd (ls -p | grep / | tail -1) # cd last created dir
+  cd (ls -p | grep / | tail -1)
 end
 
-function aumount --description "Unmount all mounted archive (and gvfs locations)"
+function aumount --description "Unmount all mounted archives"
   gvfs-mount --unmount $XDG_RUNTIME_DIR/gvfs/*
 end
 
-# Useful for piping, i.e. `cat ~/.ssh/id_rsa.pub | copy` or `uuid | copy`
-# If arguments are given, copies it to clipboard
 function copy --description "Copy pipe or argument"
   if [ "$argv" = "" ]
     xclip -sel clip
@@ -147,7 +119,7 @@ function color --description "Print color"
   echo (set_color (string trim -c '#' "$argv"))"██"
 end
 
-function reset_windows --description  "Reset all windows size and bring it to main monitor. Useful if DE messes up in multiple monitor configuration"
+function reset_windows --description "Reset windows size"
   for f in (wmctrl -l | cut -d' ' -f 1)
     wmctrl -i -r $f -e 0,0,0,800,600
     wmctrl -i -a $f
@@ -159,15 +131,15 @@ function run --description "Make file executable, then run it"
   eval "./$argv"
 end
 
-function launch --description "Launch GUI program - hide output and don't close when terminal closes"
+function launch --description "Launch GUI program"
   eval "$argv >/dev/null 2>&1 &" & disown
 end
 
-function open --description "Open file by default application in new process"
+function open --description "Open file by default application"
   env XDG_CURRENT_DESKTOP=X-Generic xdg-open $argv >/dev/null 2>&1 & disown
 end
 
-function b --description "Exec command in bash. Useful when copy-pasting commands with imcompatible syntax to fish "
+function b --description "Exec command in bash"
   bash -c "$argv"
 end
 
@@ -175,26 +147,22 @@ function m --description "Math using Python"
   python -c "print($argv)"
 end
 
-#  * Show 3 (next and prev) months in `cal`, start week on monday
-#    - Use [nicl](https://github.com/dmi3/nicl) in installed
 if type -q nicl
   alias cal="nicl -w3 -f ~/git/stuff/documents/bank_days.csv"
 else
   alias cal="ncal -bM3"
 end
 
-#  * If [sssh2](https://github.com/dmi3/bin/blob/master/sssh2) installed - use it instead of ssh
 if type -q sssh2
   alias ssh=sssh2
 end
 
-#  * If [plug](https://github.com/dmi3/bin/blob/master/plug) installed - use it for interactive mount/unmount of USB drives
 if type -q plug
   alias unplug='plug -u'
   alias plug='cd (command plug)'
 end
 
-function qr --description "Prints QR. E.g. super useful when you need to transfer private key to the phone without intermediaries `cat ~/.ssh/topsecret.pem | qr`"
+function qr --description "Prints QR"
   if [ "$argv" = "" ]
     qrencode --background=00000000 --foreground=FFFFFF -o - | kitty +kitten icat
   else
