@@ -1,11 +1,12 @@
 function cln --description 'Clear common cache, Chromium data, and old logs'
     echo "Starting cleanup..."
 
-    # 1. Chromium cache (Delete contents only)
-    if test -d ~/.config/chromium/Default/Cache
-        find ~/.config/chromium/Default/Cache -mindepth 1 -delete
-        echo "✓ Chromium cache cleared."
-    end
+# 1. Chromium cache (Safer approach)
+if test -d ~/.config/chromium/Default/Cache
+    # Only delete files, leave the directory structure and hidden system files
+    find ~/.config/chromium/Default/Cache -type f -not -name "index*" -delete
+    echo "✓ Chromium cache cleared safely."
+end
 
     # 2. RAM-based XDG cache (Delete contents only)
     if test -d "$XDG_CACHE_HOME"
