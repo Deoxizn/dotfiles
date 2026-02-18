@@ -1,14 +1,7 @@
-/* Killer Klowns from Outer Space Waybar Theme */
+@import "../omarchy/current/theme/waybar.css";
 
-@define-color background #120515;
-@define-color foreground #e0e0e0;
-@define-color accent #39ff14;
-@define-color accent-light #76ff7a;
-@define-color secondary #1a0a1f;
-@define-color dark #4b0082;
-
-/* Semantic aliases */
-@define-color bright-black #4b0082;
+/* Starship ansi16 palette */
+@define-color bright-black #555555;
 @define-color bright-white #ffffff;
 
 /* --- Global-Settings ---*/
@@ -43,16 +36,15 @@ window#waybar.empty #window {
 .modules-center {
     border-radius: 999px;
     padding: 4px 6px;
-    background-color: alpha(@background, 0.95);
-    box-shadow: 0 2px 4px alpha(@dark, 0.4);
-    border: 1px solid alpha(@accent, 0.3);
+    background-color: alpha(@background, 0.85);
+    box-shadow: 0 1px 2px rgba(10, 10, 10, 0.8);
 }
 
 /* --- Tooltip ---*/
 tooltip {
     padding: 6px;
     background-color: alpha(@background, 1);
-    border: 1.5px solid alpha(@accent, 0.8);
+    border: 1.5px solid alpha(@foreground, 0.8);
     border-radius: 12px;
     font-size: 12px;
 }
@@ -78,14 +70,14 @@ tooltip label {
 }
 
 #workspaces button.active {
-    background-color: @accent;
-    color: @background;
+    background-color: alpha(@bright-black, 0.9);
+    color: @bright-white;
     border-radius: 999px;
 }
 
 #workspaces button:hover {
-    background-color: alpha(@accent, 0.6);
-    color: @background;
+    background-color: alpha(@bright-black, 0.6);
+    color: @bright-white;
     border-radius: 999px;
 }
 
@@ -94,13 +86,21 @@ tooltip label {
 #tray-expander,
 #window,
 #mpris,
+#custom-cputemp,
+#battery,
+#network,
+#memory,
+#backlight,
+#bluetooth,
 #custom-update,
+#custom-gpu,
 #custom-voxtype,
 #custom-voxtype.recording,
 #custom-voxtype.transcribing,
 #custom-screenrecording-indicator,
 #custom-updatespacman,
-#idle_inhibitor, #custom-sysinfo {
+#custom-power,
+#idle_inhibitor {
     min-width: 18px;
     margin: 0 2px;
     padding: 0px 12px;
@@ -117,30 +117,33 @@ tooltip label {
 
 #custom-voxtype.recording {
     background-color: transparent;
-    color: #ff1493;
+    color: #a55555;
 }
 
 /* --- Hover --- */
 
+#custom-cputemp:hover,
+#memory:hover,
 #window:hover,
 #mpris:hover,
-#tray:hover,
+#battery:hover,
+#bluetooth:hover,
+#backlight:hover,
 #custom-update:hover,
 #custom-updatespacman:hover,
-#custom-screenrecording-indicator:hover,
-#custom-expand-icon:hover,
 #network:hover,
+#custom-gpu:hover,
 #custom-power:hover,
-#custom-sysinfo:hover, #idle_inhibitor:hover {
+#idle_inhibitor:hover {
     border-radius: 999px;
-    background-color: alpha(@accent, 0.2);
+    background-color: alpha(@bright-black, 0.5);
     color: @foreground;
     opacity: 1;
 }
 
 /* --- Battery states --- */
 #battery.warning {
-    color: #ffff00;
+    color: #c95d0f;
 }
 
 #battery.critical:not(.charging) {
@@ -157,6 +160,6 @@ tooltip label {
 @keyframes blink2 {
     to {
         background-color: alpha(@background, 0.85);
-        color: #dc143c;
+        color: #f53c3c;
     }
 }
