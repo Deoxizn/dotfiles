@@ -115,8 +115,8 @@
       "title<.*freshrss.*>": "󰑫",
       "title<World Of Warcraft>": "󰺶",
       "title<.*messages.*>": "󰵅",
-      "title<.*music.youtube.*>": "󰻂",
-      "class<.*chrome-music.youtube.*>": "󰻂",
+      "title<.*[Yy]ou[Tt]ube [Mm]usic.*>": "󰻂",
+      "class<.*[Yy]ou[Tt]ube [Mm]usic.*>": "󰻂",
     },
   },
   "custom/update": {

@@ -6,4 +6,4 @@ Name=OpenRGB
 StartupNotify=true
 Terminal=false
 Type=Application
-Exec=/home/devi/openrgb/OpenRGB_1.0rc2_x86_64_0fca93e.AppImage --profile "deoxizn"
+Exec=/home/devi/appimg/openrgb/OpenRGB_1.0rc2_x86_64_0fca93e.AppImage --profile "deoxizn"
