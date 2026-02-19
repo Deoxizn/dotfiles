@@ -159,7 +159,7 @@
   "custom/sysinfo": {
     "exec": "~/.config/waybar/scripts/sysinfo.sh",
     "return-type": "json",
-    "format": "󰌢 Sys Info",
+    "format": "󰌢  Sys",
     "interval": 2,
     "on-click": "omarchy-launch-or-focus-tui btop",
   },

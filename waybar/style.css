@@ -1,15 +1,6 @@
 /* Killer Klowns from Outer Space Waybar Theme */
 
-@define-color background #120515;
-@define-color foreground #e0e0e0;
-@define-color accent #39ff14;
-@define-color accent-light #76ff7a;
-@define-color secondary #1a0a1f;
-@define-color dark #4b0082;
-
-/* Semantic aliases */
-@define-color bright-black #4b0082;
-@define-color bright-white #ffffff;
+@import "../omarchy/current/theme/waybar.css";
 
 /* --- Global-Settings ---*/
 * {
@@ -44,15 +35,15 @@ window#waybar.empty #window {
     border-radius: 999px;
     padding: 4px 6px;
     background-color: alpha(@background, 0.95);
-    box-shadow: 0 2px 4px alpha(@dark, 0.4);
-    border: 1px solid alpha(@accent, 0.3);
+    box-shadow: 0 2px 4px alpha(#000000, 0.4);
+    border: 1px solid alpha(@foreground, 0.3);
 }
 
 /* --- Tooltip ---*/
 tooltip {
     padding: 6px;
     background-color: alpha(@background, 1);
-    border: 1.5px solid alpha(@accent, 0.8);
+    border: 1.5px solid alpha(@foreground, 0.8);
     border-radius: 12px;
     font-size: 12px;
 }
@@ -78,13 +69,13 @@ tooltip label {
 }
 
 #workspaces button.active {
-    background-color: @accent;
+    background-color: @foreground;
     color: @background;
     border-radius: 999px;
 }
 
 #workspaces button:hover {
-    background-color: alpha(@accent, 0.6);
+    background-color: alpha(@foreground, 0.4);
     color: @background;
     border-radius: 999px;
 }
@@ -117,7 +108,7 @@ tooltip label {
 
 #custom-voxtype.recording {
     background-color: transparent;
-    color: #ff1493;
+    color: @foreground;
 }
 
 /* --- Hover --- */
@@ -133,14 +124,14 @@ tooltip label {
 #custom-power:hover,
 #custom-sysinfo:hover, #idle_inhibitor:hover {
     border-radius: 999px;
-    background-color: alpha(@accent, 0.2);
+    background-color: alpha(@foreground, 0.2);
     color: @foreground;
     opacity: 1;
 }
 
 /* --- Battery states --- */
 #battery.warning {
-    color: #ffff00;
+    color: @foreground;
 }
 
 #battery.critical:not(.charging) {
@@ -157,6 +148,6 @@ tooltip label {
 @keyframes blink2 {
     to {
         background-color: alpha(@background, 0.85);
-        color: #dc143c;
+        color: @foreground;
     }
 }
