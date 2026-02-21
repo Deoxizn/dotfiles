@@ -16,7 +16,6 @@
     "custom/update",
     "custom/screenrecording-indicator",
     "tray",
-    "idle_inhibitor",
     "custom/sysinfo",
   ],
 
@@ -127,25 +126,6 @@
     "signal": 7,
     "interval": 21600,
   },
-  "idle_inhibitor": {
-    "format": "{icon}",
-    "format-icons": {
-      "activated": "",
-      "deactivated": "",
-    },
-  },
-  "custom/voxtype": {
-    "exec": "omarchy-voxtype-status",
-    "return-type": "json",
-    "format": "{icon}",
-    "format-icons": {
-      "idle": "",
-      "recording": "󰍬",
-      "transcribing": "󰔟",
-    },
-    "tooltip": true,
-    "on-click-right": "omarchy-voxtype-config",
-  },
   "custom/updatespacman": {
     "format": "{}{icon}",
     "return-type": "json",
@@ -159,7 +139,7 @@
   "custom/sysinfo": {
     "exec": "~/.config/waybar/scripts/sysinfo.sh",
     "return-type": "json",
-    "format": "󰌢  Sys",
+    "format": "󰌢",
     "interval": 2,
     "on-click": "omarchy-launch-or-focus-tui btop",
   },
