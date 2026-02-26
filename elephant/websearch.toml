@@ -1,4 +1,27 @@
+engines_as_actions = true
+
 [[entries]]
-default = true
-name = "Brave Search"
+default = "true"
+name = "Brave"
+prefix = "b"
 url = "https://search.brave.com/search?q=%TERM%"
+
+[[entries]]
+name = "YouTube"
+prefix = "yt"
+url = "https://www.youtube.com/results?search_query=%TERM%"
+
+[[entries]]
+name = "Arch Wiki"
+prefix = "archw"
+url = "https://wiki.archlinux.org/index.php?search=%TERM%"
+
+[[entries]]
+name = "Arch Packages"
+prefix = "ap"
+url = "https://archlinux.org/packages/?q=%TERM%"
+
+[[entries]]
+name = "AUR"
+prefix = "aur"
+url = "https://aur.archlinux.org/packages?O=0&K=%TERM%"
