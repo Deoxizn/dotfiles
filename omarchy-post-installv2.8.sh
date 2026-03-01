@@ -189,7 +189,7 @@ echo
 echo "Copying configuration files to .config..."
 mkdir -p "$HOME/.config"
 
-config_folders=("autostart" "fastfetch" "hypr" "mpv" "waybar" "OpenRGB" "uwsm" "vesktop" "elephant" "fish" "ghostty" "gtk-3.0" "pacman" "uwsm" "fish" )
+config_folders=("autostart" "fastfetch" "hypr" "mpv" "waybar" "OpenRGB" "uwsm" "vesktop" "elephant" "fish" "ghostty" "gtk-3.0" "pacman" "uwsm" "fish" "omarchy")
 config_files=("starship.toml")
 
 for folder in "${config_folders[@]}"; do
