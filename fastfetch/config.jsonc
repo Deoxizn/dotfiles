@@ -4,7 +4,7 @@
     "type": "auto",
     "source": "~/.config/fastfetch/frieren.png",
     "color": { "1": "green" },
-    "width": 80,
+    "width": 70,
     "height": 30,
   },
   "display": {
@@ -67,12 +67,13 @@
     },
     {
       "key": "│ {#35}󰍛 gpu     {#keys}│",
-      "type": "gpu",
-      "detectionMethod": "pci",
+      "type": "command",
+      "text": "gpu_text=$(fastfetch -s gpu 2>/dev/null | grep -oE 'NVIDIA.*|AMD.*|Intel.*' | head -5 | sed 's/ - .*//'); nvidia_driver=\"\"; if command -v nvidia-smi &>/dev/null; then nvidia_driver=$(nvidia-smi --query-gpu=driver_version --format=csv,noheader 2>/dev/null | head -1 | cut -d. -f1); fi; result=\"\"; first=true; while IFS= read -r line; do if [[ -n \"$line\" ]]; then if [[ \"$first\" == true ]]; then first=false; else result=\"${result} | \"; fi; if [[ \"$line\" == NVIDIA* ]]; then if [[ -n \"$nvidia_driver\" ]]; then result=\"${result}${line} (${nvidia_driver})\"; else result=\"${result}${line}\"; fi; else result=\"${result}${line}\"; fi; fi; done <<< \"$gpu_text\"; echo \"$result\"",
     },
     {
       "key": "│ {#31}󱄄 display {#keys}│",
-      "type": "display",
+      "type": "command",
+      "text": "fastfetch -s display 2>/dev/null | grep -oE '\\([^)]+\\).*' | sed 's/^Display //' | sed ':a;N;$!ba;s/\\n/ | /g'",
     },
     {
       "key": "│ {#37}󰉉 disk    {#keys}│",
@@ -91,7 +92,7 @@
     {
       "key": "│ {#35}󰥠 Plr|Mda {#keys}│",
       "type": "command",
-      "text": "media_json=$(fastfetch -s media --format json 2>/dev/null); player_name=$(echo \"$media_json\" | jq -r '.[0].result.player.name // \"No player\"' 2>/dev/null); artist=$(echo \"$media_json\" | jq -r '.[0].result.song.artist // empty' 2>/dev/null); name=$(echo \"$media_json\" | jq -r '.[0].result.song.name // empty' 2>/dev/null); if [[ -n \"$artist\" && -n \"$name\" ]]; then song_info=\"$artist - $name\"; else song_info=\"\"; fi; echo \"$player_name${song_info:+ | $song_info}\"",
+      "text": "media_json=$(fastfetch -s media --format json 2>/dev/null); player_name=\"YouTube Music\"; artist=$(echo \"$media_json\" | jq -r '.[0].result.song.artist // empty' 2>/dev/null); name=$(echo \"$media_json\" | jq -r '.[0].result.song.name // empty' 2>/dev/null); if [[ -n \"$artist\" && -n \"$name\" ]]; then song_info=\"$artist - $name\"; else song_info=\"\"; fi; echo \"$player_name${song_info:+ | $song_info}\"",
     },
     {
       "key": "│ {#31} BT Dev   {#keys}│",

@@ -59,3 +59,6 @@ export CMAKE_BUILD_PARALLEL_LEVEL=$(nproc)
 export CARGO_BUILD_JOBS=$(nproc)
 export GOMAXPROCS=$(nproc)
 export DOTNET_MSBUILD_CLI_OPTIONS="-m:$(nproc)"
+export PATH="$HOME/.local/bin:$PATH"
+eval "$(starship init bash)"
+export PATH="$HOME/.local/bin:$PATH"

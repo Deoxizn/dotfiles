@@ -11,7 +11,8 @@ remove_apps=(
     "xournalpp"
     "alacritty"
     "pinta"
-    "spotify"
+    "aether"
+    "typora"
 )
 
 pacman_apps=(
@@ -103,6 +104,7 @@ desktop_files=(
     "X.desktop"
     "YouTube.desktop"
     "Zoom.desktop"
+    "Typora"
 )
 
 removed_desktop_count=0

@@ -16,6 +16,7 @@
     "custom/update",
     "custom/screenrecording-indicator",
     "tray",
+    "idle_inhibitor",
     "custom/sysinfo",
   ],
 
@@ -157,28 +158,39 @@
     "on-click": "omarchy-voxtype-model",
   },
   "mpris": {
-    "format": "{player_icon}",
-    "format-paused": "<span color='grey'>{status_icon}</span>",
-    "max-length": 50,
-    "interval": 1,
+    "format": "{player_icon} {artist} - {title}",
+    "format-paused": "{status_icon}",
     "player-icons": {
-      "default": "󰽰",
-      "mpv": "󰽰",
+      "default": "󰎈",
+      "spotify": "",
+      "chromium": "",
+      "firefox": "",
+      "brave": "󰖟",
+      "youtube-music": "󰎆",
     },
     "status-icons": {
       "paused": "󰏤",
     },
-    "ignored-players": [],
-  },
+    "max-length": 80,
+    "interval": 1,
+  }, // This brace and comma were missing or misplaced
+
   "custom/screenrecording-indicator": {
     "on-click": "omarchy-cmd-screenrecord",
     "exec": "$OMARCHY_PATH/default/waybar/indicators/screen-recording.sh",
     "signal": 8,
     "return-type": "json",
   },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": "",
+    },
+  },
   "tray": {
     "icon-size": 12,
     "spacing": 5,
     "show-passive-items": true,
   },
-}
+} // Ensure there is only one final closing brace here [cite: 11]
