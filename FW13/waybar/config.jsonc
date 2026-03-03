@@ -17,12 +17,20 @@
     "custom/screenrecording-indicator",
     "tray",
     "idle_inhibitor",
+    "backlight",
     "battery",
     "custom/sysinfo",
   ],
 
   //"modules-right": ["group/group-power"],
   "modules-right": [],
+
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon}",
+    "tooltip-format": "{percent}%",
+    "format-icons": ["🌑", "🌘", "🌗", "🌖", "🌕"],
+  },
 
   "battery": {
     "format": "{capacity}% {icon}",
