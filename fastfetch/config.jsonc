@@ -38,7 +38,7 @@
       "type": "host",
     },
     {
-      "key": "│ {#33}\ue900  ver    {#keys}│",
+      "key": "│ {#33}\ue900 ver     {#keys}│",
       "type": "command",
       "text": "version=$(omarchy-version); kernel=$(uname -r); echo \"Omarchy $version | $kernel\"",
     },
