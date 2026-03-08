@@ -19,11 +19,11 @@ symbols = 1                                                         # providers 
 [providers.actions]
 websearch = [
   { action = "search", default = true, bind = "Return" },
-  { action = "Brave", default = true, bind = "Return" },
-  { action = "YouTube", bind = "ctrl y" },
-  { action = "AUR", bind = "ctrl shift a" },
-  { action = "Arch Packages", bind = "ctrl a" },
-  { action = "Arch Wiki", bind = "ctrl alt a" },
+  { action = "🦁", default = true, bind = "Return" },
+  { action = " YT", bind = "ctrl y" },
+  { action = "󰣇 UR", bind = "ctrl shift a" },
+  { action = "󰣇 Pkgs", bind = "ctrl a" },
+  { action = "󰣇 Wiki", bind = "ctrl alt a" },
 ]
 
 [providers]

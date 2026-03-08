@@ -2,26 +2,26 @@ engines_as_actions = true
 
 [[entries]]
 default = "true"
-name = "Brave"
+name = "🦁"
 prefix = "b"
 url = "https://search.brave.com/search?q=%TERM%"
 
 [[entries]]
-name = "YouTube"
+name = " YT"
 prefix = "yt"
 url = "https://www.youtube.com/results?search_query=%TERM%"
 
 [[entries]]
-name = "Arch Wiki"
+name = "󰣇 Wiki"
 prefix = "archw"
 url = "https://wiki.archlinux.org/index.php?search=%TERM%"
 
 [[entries]]
-name = "Arch Packages"
+name = "󰣇 Pkgs"
 prefix = "ap"
 url = "https://archlinux.org/packages/?q=%TERM%"
 
 [[entries]]
-name = "AUR"
+name = "󰣇 UR"
 prefix = "aur"
 url = "https://aur.archlinux.org/packages?O=0&K=%TERM%"
