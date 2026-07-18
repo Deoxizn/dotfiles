@@ -1,2 +1,0 @@
-[build]
-jobs = 8  # Replace with $(nproc) manually   

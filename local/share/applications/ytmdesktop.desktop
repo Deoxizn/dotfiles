@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=YouTube Music
-Comment=YouTube Music Desktop
-Exec=/home/devi/appimg/YTMDesktop/YouTube-Music-3.11.0.AppImage
-Icon=/home/devi/appimg/YTMDesktop/Youtube_Music_icon.svg.png
-Terminal=false
-Type=Application
-Categories=AudioVideo;Music;Player;
-StartupWMClass=YouTube Music Desktop
