@@ -29,6 +29,8 @@
 -- o.bind("SUPER + PERIOD", nil, { omarchy = "walker -m symbols" })
 
 -- Unbind keys
+hl.unbind("SUPER + SPACE")
+hl.unbind("SUPER + ALT + SPACE")
 hl.unbind("SUPER + W")
 hl.unbind("SUPER + SHIFT + W")
 hl.unbind("SUPER + SHIFT + M")
@@ -45,6 +47,8 @@ hl.unbind("SUPER + CTRL + D")
 hl.unbind("SUPER + ALT + RETURN")
 
 -- Application bindings
+o.bind("SUPER + SPACE", "Apps menu", "omarchy-menu toggle apps")
+o.bind("SUPER + ALT + SPACE", "Omarchy root menu", "omarchy-menu toggle root")
 o.bind("SUPER + RETURN", "Terminal", { omarchy = "terminal" })
 o.bind("SUPER + SHIFT + RETURN", "Browser", { omarchy = "browser" })
 o.bind("SUPER + SHIFT + F", "File manager", { omarchy = "nautilus" })

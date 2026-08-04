@@ -7,7 +7,7 @@
 --   input = {
 --     -- Use multiple keyboard layouts and switch between them with Left Alt + Right Alt.
 --     kb_layout = "us,dk,eu",
---     kb_options = "compose:caps,shift:both_capslock,grp:alts_toggle",
+--     kb_options = "grp:alts_toggle",
 --
 --     -- Use a specific keyboard variant if needed (e.g. intl for international keyboards).
 --     kb_variant = "intl",
@@ -55,3 +55,22 @@
 -- Enable touchpad gestures for moving focus (helpful on scrolling layout).
 -- hl.gesture({ fingers = 3, direction = "left", action = function() hl.dispatch(hl.dsp.focus({ direction = "l" })) end })
 -- hl.gesture({ fingers = 3, direction = "right", action = function() hl.dispatch(hl.dsp.focus({ direction = "r" })) end })
+
+
+-- Keep only your personal input overrides here. Uncommented settings below
+-- replace Omarchy's defaults.
+
+hl.config({
+  input = {
+    -- Keyboard layout and options
+    kb_layout = "us",
+    kb_options = "grp:alts_toggle",
+
+    -- Change speed of keyboard repeat
+    repeat_rate = 40,
+    repeat_delay = 250,
+
+    -- Start with numlock on by default
+    numlock_by_default = true,
+  },
+})
