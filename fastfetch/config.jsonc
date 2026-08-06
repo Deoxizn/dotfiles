@@ -95,7 +95,7 @@
       "text": "media_json=$(fastfetch -s media --format json 2>/dev/null); player_name=$(echo \"$media_json\" | jq -r '.[0].result.player.name // \"No player\"' 2>/dev/null); artist=$(echo \"$media_json\" | jq -r '.[0].result.song.artist // empty' 2>/dev/null); name=$(echo \"$media_json\" | jq -r '.[0].result.song.name // empty' 2>/dev/null); if [[ -n \"$artist\" && -n \"$name\" ]]; then song_info=\"$artist - $name\"; else song_info=\"\"; fi; echo \"$player_name${song_info:+ | $song_info}\"",
     },
     {
-      "key": "│ {#31} BT Dev   {#keys}│",
+      "key": "│ {#31} BT Dev  {#keys}│",
       "type": "bluetooth",
       "format": "{1} - {4}",
     },
