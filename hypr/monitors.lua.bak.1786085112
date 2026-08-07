@@ -8,7 +8,7 @@ hl.env("GDK_SCALE", "1")
 hl.monitor({
   output = "HDMI-A-1",
   mode = "1920x1080@60",
-  position = "0x0",
+  position = "1920x0",
   scale = 1,
   transform = 1
 })
@@ -16,9 +16,6 @@ hl.monitor({
 hl.monitor({
   output = "DP-1",
   mode = "3840x2160@144",
-  position = "1080x0",
-  scale = 1.33,
-  bitdepth = 10,
-  cm = "srgb",
-  supports_hdr = 1
+  position = "auto",
+  scale = 1.33
 })
