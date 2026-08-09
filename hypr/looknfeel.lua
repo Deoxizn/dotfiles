@@ -121,3 +121,6 @@ hl.window_rule({
 
 -- Calculator float
 hl.window_rule({ match = { class = "org.gnome.Calculator" }, float = true })
+
+-- Brave: fully opaque windows (override global transparency)
+hl.window_rule({ match = { class = "brave-origin.*" }, opacity = "1.0 override" })
