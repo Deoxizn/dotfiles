@@ -55,45 +55,7 @@ hl.on("hyprland.start", function()
 end)
 
 -- Terminal float
-hl.window_rule({ match = { class = "kitty" }, float = true, size = { 1600, 600 } })
-
--- Floating windows (Tags)
-hl.window_rule({
-  match = {
-    class = "org.omarchy.bluetui|org.omarchy.impala|org.omarchy.wiremix|org.omarchy.btop|org.omarchy.terminal|org.omarchy.bash|org.gnome.NautilusPreviewer|org.gnome.Evince|com.gabm.satty|Omarchy|About|TUI.float|imv|mpv"
-  },
-  tag = "+floating-window"
-})
-
-hl.window_rule({
-  match = {
-    class = "xdg-desktop-portal-gtk|sublime_text|DesktopEditors|org.gnome.Nautilus",
-    title = "^(Open.*Files?|Open [F|f]older.*|Save.*Files?|Save.*As|Save|All Files|.*wants to [open|save].*|[C|c]hoose.*)"
-  },
-  tag = "+floating-window"
-})
-
--- Apply floating behavior to tagged windows
-hl.window_rule({
-  match = { tag = "floating-window" },
-  float = true,
-  size = { 1000, 720 },
-  center = true
-})
-
--- Calculator float
-hl.window_rule({ match = { class = "org.gnome.Calculator" }, float = true })
--- Cursor theme
-hl.env("XCURSOR_THEME", "Future-dark-cursors")
-hl.env("XCURSOR_SIZE", "24")
-
-hl.on("hyprland.start", function()
-  hl.exec_cmd("gsettings set org.gnome.desktop.interface cursor-theme Future-dark-cursors")
-  hl.exec_cmd("gsettings set org.gnome.desktop.interface cursor-size 24")
-end)
-
--- Terminal float
-hl.window_rule({ match = { class = "kitty" }, float = true, size = { 1600, 600 } })
+hl.window_rule({ match = { class = "kitty" }, float = true, size = { 1725, 625 } })
 
 -- Floating windows (Tags)
 hl.window_rule({
