@@ -69,6 +69,3 @@ o.bind("XF86Launch7", nil, { webapp = "https://learn.omacom.io/2/the-omarchy-man
 
 -- Kill active window
 o.bind("SUPER + Q", "Close window", hl.dsp.window.close())
-
--- Reload wallpaper / hyprpaper
-o.bind("SUPER + ALT + W", "Reload hyprpaper", "pkill -x hyprpaper; uwsm-app -- hyprpaper -c ~/.config/hypr/hyprpaper.conf")
