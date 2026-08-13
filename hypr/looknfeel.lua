@@ -55,8 +55,8 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("gsettings set org.gnome.desktop.interface cursor-size 24")
 end)
 
--- Terminal float
-hl.window_rule({ match = { class = "kitty" }, float = true, size = { 1725, 625 } })
+-- FF/fastfetch terminal float (XF86Tools)
+hl.window_rule({ match = { class = "org.omarchy.ff" }, float = true, size = { 1617, 600 } })
 
 -- Floating windows (Tags)
 hl.window_rule({

@@ -49,7 +49,7 @@ hl.unbind("SUPER + ALT + RETURN")
 -- Application bindings
 o.bind("SUPER + SPACE", "Apps menu", "omarchy-menu toggle apps")
 o.bind("SUPER + ALT + SPACE", "Omarchy root menu", "omarchy-menu toggle root")
-o.bind("SUPER + RETURN", "Terminal", { omarchy = "terminal" })
+o.bind("SUPER + RETURN", "Terminal (split if focused)", "/home/deoxizn/.config/hypr/scripts/terminal-smart.sh")
 o.bind("SUPER + SHIFT + RETURN", "Browser", { omarchy = "browser" })
 o.bind("SUPER + SHIFT + F", "File manager", { omarchy = "nautilus" })
 o.bind("SUPER + ALT + SHIFT + F", "File manager (cwd)", { omarchy = "nautilus-cwd" })
@@ -62,7 +62,7 @@ o.bind("SUPER + ALT + RETURN", "Tmux", { omarchy = "terminal-tmux" })
 o.bind("SUPER + SHIFT + M", "Music", { omarchy = "spotify" })
 
 -- Custom media / F-key bindings
-o.bind("XF86Tools", nil, "kitty fish -c 'ff; exec fish'")
+o.bind("XF86Tools", "Fastfetch", "kitty --app-id=org.omarchy.ff fish -c 'ff; exec fish'")
 o.bind("XF86Launch5", nil, { webapp = "https://gemini.google.com/app" })
 o.bind("XF86Launch6", nil, { webapp = "https://photopea.com" })
 o.bind("XF86Launch7", nil, { webapp = "https://learn.omacom.io/2/the-omarchy-manual" })
