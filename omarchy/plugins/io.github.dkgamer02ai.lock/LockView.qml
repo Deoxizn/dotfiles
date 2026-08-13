@@ -212,7 +212,7 @@ Item {
       // Time
       Text {
         Layout.alignment: Qt.AlignHCenter
-        text: Qt.formatDateTime(clock.date, "h:mm")
+        text: Qt.formatDateTime(clock.date, "h:mm ap")
         color: "#C1C1C1"
         font.family: Style.font.family
         font.pixelSize: 84
