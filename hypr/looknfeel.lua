@@ -38,12 +38,13 @@ hl.config({
 -- })
 
 -- https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/
--- hl.config({
---   scrolling = {
---     -- See only one column per screen instead of two.
---     column_width = 0.97,
---   },
--- })
+hl.config({
+  scrolling = {
+    -- Two columns split the screen exactly (2x 0.5 = 1.0). Below 0.5 the
+    -- layout centers the pair, leaving dead space on both sides.
+    column_width = 0.5,
+  },
+})
 
 -- Cursor theme
 hl.env("XCURSOR_THEME", "Future-dark-cursors")

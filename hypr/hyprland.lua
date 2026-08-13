@@ -47,4 +47,5 @@ hl.window_rule({ match = { class = "org.gnome.Nautilus|nautilus" }, workspace = 
 hl.window_rule({ match = { class = "discord|vesktop" }, workspace = "6" })
 hl.window_rule({ match = { class = "spotify|Spotify" }, workspace = "3" })
 hl.window_rule({ match = { class = "Battle.net|World of Warcraft|steam_app_default" }, workspace = "4" })
+hl.window_rule({ match = { class = "gamescope" }, workspace = "4" })
 hl.window_rule({ match = { class = "com.github.th_ch.youtube_music" }, workspace = "3" })
