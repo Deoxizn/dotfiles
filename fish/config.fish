@@ -65,7 +65,7 @@ alias cpp='cp -R'
 alias cp='cp -i'
 alias mv='mv -i'
 alias add-to-path='set -U fish_user_paths (pwd) $fish_user_paths'
-alias path-update='set -gx PATH (bash -c "source ~/git/stuff/config/path; echo \$PATH")'
+alias path-update='set -gx PATH (bash -c "source ~/Work/stuff/config/path; echo \$PATH")'
 
 # System Monitoring
 alias df='df -h'
@@ -148,7 +148,7 @@ function m --description "Math using Python"
 end
 
 if type -q nicl
-  alias cal="nicl -w3 -f ~/git/stuff/documents/bank_days.csv"
+  alias cal="nicl -w3 -f ~/Work/stuff/documents/bank_days.csv"
 else
   alias cal="ncal -bM3"
 end
