@@ -1,0 +1,401 @@
+{
+  "bar": {
+    "centerAnchor": "hancore.shibumi.center",
+    "id": "hancore.shibumi.bar",
+    "layout": {
+      "left": [
+        {
+          "id": "hancore.shibumi.control-center"
+        },
+        {
+          "id": "hancore.shibumi.workspaces"
+        },
+        {
+          "id": "hancore.shibumi.status"
+        },
+        {
+          "id": "hancore.shibumi.memory"
+        },
+        {
+          "id": "hancore.shibumi.cpu"
+        },
+        {
+          "id": "hancore.shibumi.audio"
+        },
+        {
+          "id": "hancore.shibumi.ai"
+        },
+        {
+          "id": "omarchy.menu"
+        },
+        {
+          "id": "omarchy.workspaces"
+        }
+      ],
+      "center": [
+        {
+          "id": "hancore.shibumi.center"
+        },
+        {
+          "id": "omarchy.indicators"
+        },
+        {
+          "format": "dddd HH:mm",
+          "formatAlt": "d MMMM 'W'ww yyyy",
+          "id": "omarchy.clock",
+          "verticalFormat": "HH\n—\nmm"
+        },
+        {
+          "id": "omarchy.keyboard-layout"
+        },
+        {
+          "id": "omarchy.weather"
+        },
+        {
+          "id": "omarchy.system-update"
+        }
+      ],
+      "right": [
+        {
+          "id": "hancore.shibumi.media"
+        },
+        {
+          "id": "hancore.shibumi.quick-access"
+        },
+        {
+          "id": "hancore.shibumi.network"
+        },
+        {
+          "id": "hancore.shibumi.power-profile"
+        },
+        {
+          "id": "hancore.shibumi.battery"
+        },
+        {
+          "id": "hancore.shibumi.brightness"
+        },
+        {
+          "id": "hancore.shibumi.bluetooth"
+        },
+        {
+          "id": "hancore.shibumi.temperature"
+        },
+        {
+          "id": "hancore.shibumi.gpu"
+        },
+        {
+          "id": "hancore.shibumi.storage"
+        },
+        {
+          "id": "omarchy.tray"
+        },
+        {
+          "id": "omarchy.network"
+        },
+        {
+          "id": "omarchy.audio"
+        },
+        {
+          "id": "omarchy.monitor"
+        },
+        {
+          "id": "omarchy.power"
+        },
+        {
+          "id": "dev.deoxizn.devicebattstats",
+          "shibumiModule": true
+        },
+        {
+          "displayConfig": {
+            "DP-1": {
+              "folder": "/home/deoxizn/Pictures/wallpaper",
+              "mode": "single",
+              "pinned": "/home/deoxizn/Pictures/wallpaper/wallhaven-kx996m.jpg",
+              "recursive": true,
+              "scaling": "fitWidth"
+            },
+            "HDMI-A-1": {
+              "folder": "/home/deoxizn/Pictures/wallpaper",
+              "mode": "single",
+              "pinned": "/home/deoxizn/Pictures/wallpaper/symbols_t.png",
+              "recursive": true,
+              "scaling": "fitHeight"
+            }
+          },
+          "id": "matjam.omawall",
+          "perDisplayConfig": true,
+          "primaryDisplay": "HDMI-A-1",
+          "shibumiModule": true
+        },
+        {
+          "id": "modoterra.omabench",
+          "shibumiModule": true
+        },
+        {
+          "id": "dev.deoxizn.bardisplay",
+          "shibumiModule": true
+        }
+      ]
+    },
+    "monitors": [
+      "DP-1"
+    ],
+    "position": "top",
+    "shibumi": {
+      "version": 1,
+      "identityVersion": 3,
+      "order": {
+        "left": [
+          "G1",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6",
+          "G7",
+          "G:modoterra.omabench",
+          "G:dev.deoxizn.bardisplay"
+        ],
+        "center": [
+          "G8"
+        ],
+        "right": [
+          "G9",
+          "G10",
+          "G11",
+          "G14",
+          "G12",
+          "G13",
+          "G15",
+          "G:dev.deoxizn.devicebattstats",
+          "G:matjam.omawall"
+        ]
+      },
+      "v1SlotRoles": {
+        "left": [
+          "base",
+          "base",
+          "base",
+          "base",
+          "base",
+          "base",
+          "base",
+          "extra",
+          "extra"
+        ],
+        "center": [
+          "base"
+        ],
+        "right": [
+          "base",
+          "base",
+          "base",
+          "base",
+          "base",
+          "base",
+          "base",
+          "extra",
+          "extra"
+        ]
+      },
+      "splits": {
+        "left": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "boundaries": [
+          false,
+          false
+        ],
+        "right": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "v2Layout": {
+        "left": [
+          "G1",
+          "G2",
+          "G3",
+          "",
+          "G5",
+          "G6",
+          "G4",
+          "G7",
+          "",
+          ""
+        ],
+        "center": [
+          "G8"
+        ],
+        "right": [
+          "G9",
+          "G10",
+          "G16",
+          "G14",
+          "G12",
+          "G13",
+          "G11",
+          "G18",
+          "G17",
+          "G15",
+          "",
+          ""
+        ]
+      },
+      "v2Boundaries": [
+        false,
+        false
+      ],
+      "layoutProtection": {
+        "v1": false,
+        "v2": false
+      },
+      "widgets": {
+        "G7": {
+          "enabled": false,
+          "enabledV2": true
+        },
+        "G14": {
+          "enabled": false
+        },
+        "G15": {
+          "enabled": false,
+          "enabledV2": true
+        },
+        "G16": {
+          "source": "cpu",
+          "unit": "metric"
+        },
+        "G10": {
+          "appearance": {
+            "v2": {
+              "compact": false,
+              "displayMode": "full"
+            }
+          },
+          "enabledV2": false,
+          "separator": false
+        },
+        "G11": {
+          "appearance": {
+            "v2": {
+              "compact": false,
+              "displayMode": "full"
+            }
+          }
+        },
+        "G13": {
+          "enabledV2": false
+        },
+        "G17": {
+          "separator": false
+        },
+        "G2": {
+          "separator": false
+        },
+        "G6": {
+          "appearance": {
+            "v2": {
+              "compact": true,
+              "displayMode": "icon"
+            }
+          },
+          "enabledV2": false
+        },
+        "G8": {
+          "omarchy.clock": {
+            "clock12h": true
+          }
+        },
+        "G9": {
+          "appearance": {
+            "v2": {
+              "mediaStyle": "default"
+            }
+          },
+          "separator": false
+        }
+      },
+      "presentation": {
+        "border": true,
+        "v1Border": true,
+        "v2Border": true,
+        "panelBorder": true,
+        "shadow": false,
+        "frost": false,
+        "radius": "large",
+        "accent": "color07",
+        "shellStyle": "notch",
+        "v2ShellStyle": "notch"
+      },
+      "workspace": {
+        "version": 1,
+        "mode": "active",
+        "style": "pacman"
+      },
+      "launcher": {
+        "mode": "text",
+        "text": "arch",
+        "icon": "omarchy"
+      },
+      "plugins": {
+        "favorites": []
+      },
+      "picker": {
+        "style": "hearthstone",
+        "imageStyle": "hearthstone",
+        "mediaStyle": "hearthstone"
+      },
+      "reactor": {
+        "mode": 0
+      }
+    },
+    "style": "shibumi",
+    "transparent": false
+  },
+  "cloneSourceRestores": [
+    "matjam.omawall"
+  ],
+  "disabledPlugins": [
+    "omarchy.lock",
+    "omarchy.background"
+  ],
+  "idle": {
+    "lock": 300,
+    "screensaver": 150
+  },
+  "plugins": [
+    {
+      "id": "hancore.shibumi.state"
+    },
+    {
+      "id": "hancore.shibumi.reactor"
+    },
+    {
+      "id": "hancore.shibumi.telemetry"
+    },
+    {
+      "id": "hancore.shibumi.power-state"
+    },
+    {
+      "id": "hancore.shibumi.update-center"
+    },
+    {
+      "id": "io.github.dkgamer02ai.lock"
+    }
+  ],
+  "version": 1
+}
