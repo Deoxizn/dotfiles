@@ -30,20 +30,6 @@
         },
         {
           "id": "omarchy.workspaces"
-        },
-        {
-          "id": "quickshell.spotify",
-          "deviceName": "Omarchy Spotify",
-          "idleShutdownMinutes": 15,
-          "showMiniPlayer": "On",
-          "shortcutPlayer": "Omarchy default",
-          "showTrackTitle": "On",
-          "showArtistName": "Off",
-          "scrollBarText": "Off",
-          "scrollSpeed": "1",
-          "audioQuality": "320 kbps",
-          "searchHistory": "[]",
-          "sessionState": "{\"tab\":\"detail\",\"searchText\":\"\",\"searchType\":\"track\",\"libraryType\":\"tracks\",\"homeType\":\"recent\",\"libraryFilter\":\"\",\"librarySort\":\"default\",\"playlistFilter\":\"\",\"playlistSort\":\"default\",\"detailFilter\":\"\",\"detailSort\":\"default\",\"homeFilter\":\"\",\"discoverFilter\":\"\",\"queueFilter\":\"\",\"artistSearchText\":\"\",\"scrollPositions\":{\"home:recent\":0,\"search:track\":0,\"discover\":0,\"detail:spotify:playlist:37i9dQZF1EP6YuccBxUcC1\":0,\"detail:spotify:playlist:37i9dQZF1E38BFxxrnRUpK\":0,\"library:tracks\":0},\"detailItem\":{\"kind\":\"context\",\"type\":\"playlist\",\"id\":\"37i9dQZF1E38BFxxrnRUpK\",\"uri\":\"spotify:playlist:37i9dQZF1E38BFxxrnRUpK\",\"name\":\"Daily Mix 4\",\"subtitle\":\"Spotify\",\"description\":\"Lil Peep, Lil Narnia, iamjakehill and more\",\"artists\":[],\"imageUrl\":\"https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/daily/4/ab6761610000e5eb3d9d59e200e82fa53d8781a1/en\",\"total\":50,\"releaseType\":\"\",\"releaseDate\":\"\",\"ownerId\":\"spotify\",\"ownerName\":\"Spotify\",\"collaborative\":false,\"public\":true,\"snapshotId\":\"AAAAAH4+1x/5n86LyisiT4zZqEL41MUi\",\"addedAt\":\"\",\"externalUrl\":\"https://open.spotify.com/playlist/37i9dQZF1E38BFxxrnRUpK\"},\"selectedPlaylistId\":\"\",\"lastRadioPlaylist\":null}"
         }
       ],
       "center": [
@@ -141,6 +127,10 @@
         {
           "id": "dev.deoxizn.bardisplay",
           "shibumiModule": true
+        },
+        {
+          "id": "modoterra.omabench",
+          "shibumiModule": true
         }
       ]
     },
@@ -160,7 +150,8 @@
           "G5",
           "G6",
           "G7",
-          "G:dev.deoxizn.bardisplay"
+          "G:dev.deoxizn.bardisplay",
+          "G:modoterra.omabench"
         ],
         "center": [
           "G8"
@@ -186,6 +177,7 @@
           "base",
           "base",
           "base",
+          "extra",
           "extra"
         ],
         "center": [
@@ -205,6 +197,7 @@
       },
       "splits": {
         "left": [
+          false,
           false,
           false,
           false,
@@ -305,6 +298,9 @@
         "G17": {
           "separator": false
         },
+        "G18": {
+          "enabledV2": false
+        },
         "G2": {
           "separator": false
         },
@@ -329,9 +325,6 @@
             }
           },
           "separator": false
-        },
-        "G18": {
-          "enabledV2": false
         }
       },
       "presentation": {

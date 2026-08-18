@@ -59,8 +59,7 @@ o.bind("SUPER + SHIFT + N", "Editor", { omarchy = "editor" })
 o.bind("SUPER + CTRL + D", "Vesktop", "vesktop")
 o.bind("SUPER + CTRL + M", "Messenger", { webapp = "https://www.messenger.com" })
 o.bind("SUPER + ALT + RETURN", "Tmux", { omarchy = "terminal-tmux" })
-o.bind("SUPER + SHIFT + M", "Omarchy Spotify",
-  "omarchy-shell -q quickshell.spotify.player toggleFullPlayer")
+o.bind("SUPER + SHIFT + M", "Spotify", { omarchy = "spotify" })
 
 -- Custom media / F-key bindings
 o.bind("XF86Tools", "Fastfetch", "kitty --app-id=org.omarchy.ff fish -c 'ff; exec fish'")

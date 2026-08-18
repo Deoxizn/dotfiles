@@ -44,7 +44,7 @@ hl.workspace_rule({ workspace = "10", monitor = "HDMI-A-1", layout = "scrolling"
 -- Launch Apps in Specific Workspaces
 hl.window_rule({ match = { class = "zen|chromium|brave" }, workspace = "1 silent" })
 hl.window_rule({ match = { class = "org.gnome.Nautilus|nautilus" }, workspace = "2" })
-hl.window_rule({ match = { class = "org.quickshell", title = "Omarchy Spotify" }, workspace = "3" })
+hl.window_rule({ match = { class = "spotify|Spotify" }, workspace = "3" })
 hl.window_rule({ match = { class = "Battle.net|World of Warcraft|steam_app_default|Steam|steamwebhelper|lutris|Lutris" }, workspace = "4" })
 hl.window_rule({ match = { class = "gamescope" }, workspace = "4" })
 hl.window_rule({ match = { class = "kitty" }, workspace = "5" })
