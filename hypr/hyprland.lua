@@ -1,3 +1,6 @@
+-- Caelestia: prevent default omarchy autostart (Caelestia handles shell launch)
+package.loaded["default.hypr.autostart"] = function() end
+
 -- Learn how to configure Hyprland: https://wiki.hypr.land/Configuring/Start/
 
 -- Omarchy's bootstrap keeps path setup out of this user config.
@@ -29,13 +32,13 @@ require("default.hypr.toggles")
 -- o.window("qemu", { workspace = "5" })
 
 -- Workspaces per monitor with scrolling layout
-hl.workspace_rule({ workspace = "1", monitor = "DP-1", layout = "scrolling", layout_opts = { direction = "right" } })
+hl.workspace_rule({ workspace = "1", monitor = "DP-1", default = true, layout = "scrolling", layout_opts = { direction = "right" } })
 hl.workspace_rule({ workspace = "2", monitor = "DP-1", layout = "scrolling", layout_opts = { direction = "right" } })
 hl.workspace_rule({ workspace = "3", monitor = "DP-1", layout = "scrolling", layout_opts = { direction = "right" } })
 hl.workspace_rule({ workspace = "4", monitor = "DP-1", layout = "scrolling", layout_opts = { direction = "right" } })
 hl.workspace_rule({ workspace = "5", monitor = "DP-1", layout = "scrolling", layout_opts = { direction = "right" } })
 
-hl.workspace_rule({ workspace = "6", monitor = "HDMI-A-1", layout = "scrolling", layout_opts = { direction = "down" } })
+hl.workspace_rule({ workspace = "6", monitor = "HDMI-A-1", default = true, layout = "scrolling", layout_opts = { direction = "down" } })
 hl.workspace_rule({ workspace = "7", monitor = "HDMI-A-1", layout = "scrolling", layout_opts = { direction = "down" } })
 hl.workspace_rule({ workspace = "8", monitor = "HDMI-A-1", layout = "scrolling", layout_opts = { direction = "down" } })
 hl.workspace_rule({ workspace = "9", monitor = "HDMI-A-1", layout = "scrolling", layout_opts = { direction = "down" } })
@@ -50,3 +53,4 @@ hl.window_rule({ match = { class = "gamescope" }, workspace = "4" })
 hl.window_rule({ match = { class = "kitty" }, workspace = "5" })
 hl.window_rule({ match = { class = "discord|vesktop" }, workspace = "6" })
 hl.window_rule({ match = { class = "Messenger" }, workspace = "7" })
+

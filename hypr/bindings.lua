@@ -49,7 +49,7 @@ hl.unbind("SUPER + ALT + RETURN")
 -- Application bindings
 o.bind("SUPER + SPACE", "Apps menu", "omarchy-menu toggle apps")
 o.bind("SUPER + ALT + SPACE", "Omarchy root menu", "omarchy-menu toggle root")
-o.bind("SUPER + RETURN", "Terminal (split if focused)", "/home/deoxizn/.config/hypr/scripts/terminal-smart.sh")
+o.bind("SUPER + RETURN", "Terminal", "foot")
 o.bind("SUPER + SHIFT + RETURN", "Browser", { omarchy = "browser" })
 o.bind("SUPER + SHIFT + F", "File manager", { omarchy = "nautilus" })
 o.bind("SUPER + ALT + SHIFT + F", "File manager (cwd)", { omarchy = "nautilus-cwd" })
@@ -59,13 +59,26 @@ o.bind("SUPER + SHIFT + N", "Editor", { omarchy = "editor" })
 o.bind("SUPER + CTRL + D", "Vesktop", "vesktop")
 o.bind("SUPER + CTRL + M", "Messenger", { webapp = "https://www.messenger.com" })
 o.bind("SUPER + ALT + RETURN", "Tmux", { omarchy = "terminal-tmux" })
-o.bind("SUPER + SHIFT + M", "Spotify", { omarchy = "spotify" })
+o.bind("SUPER + SHIFT + M", "Music", { omarchy = "spotify" })
 
 -- Custom media / F-key bindings
-o.bind("XF86Tools", "Fastfetch", "kitty --app-id=org.omarchy.ff fish -c 'ff; exec fish'")
+o.bind("XF86Tools", "Fastfetch", "foot --app-id=org.omarchy.ff fish -c 'ff; exec fish'")
 o.bind("XF86Launch5", nil, { webapp = "https://gemini.google.com/app" })
 o.bind("XF86Launch6", nil, { webapp = "https://photopea.com" })
 o.bind("XF86Launch7", nil, { webapp = "https://learn.omacom.io/2/the-omarchy-manual" })
 
 -- Kill active window
 o.bind("SUPER + Q", "Close window", hl.dsp.window.close())
+
+-- Reload wallpaper / hyprpaper
+o.bind("SUPER + ALT + W", "Reload hyprpaper", "pkill -x hyprpaper; uwsm-app -- hyprpaper -c ~/.config/hypr/hyprpaper.conf")
+
+-- omartia-dots-remux: Caelestia bindings (auto-injected)
+hl.unbind("SUPER + SPACE")
+hl.unbind("SUPER + ALT + SPACE")
+o.bind("SUPER + SPACE", "Caelestia launcher", hl.dsp.global("caelestia:launcher"))
+o.bind("SUPER + ALT + SPACE", "Session menu", hl.dsp.global("caelestia:session"))
+o.bind("SUPER + N", "Notifications shade", hl.dsp.global("caelestia:sidebar"))
+o.bind("SUPER + ALT + D", "Dashboard", hl.dsp.global("caelestia:dashboard"))
+hl.unbind("SUPER + CTRL + L")
+o.bind("SUPER + CTRL + L", "Lock system", hl.dsp.global("caelestia:lock"))
