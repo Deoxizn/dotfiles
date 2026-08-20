@@ -1,0 +1,14 @@
+diff --git i/modules/bar/components/workspaces/Workspace.qml w/modules/bar/components/workspaces/Workspace.qml
+index a7d0dada..869269a8 100644
+--- i/modules/bar/components/workspaces/Workspace.qml
++++ w/modules/bar/components/workspaces/Workspace.qml
+@@ -24,6 +24,9 @@ ColumnLayout {
+     readonly property bool isOccupied: occupied[ws] ?? false
+     readonly property bool hasWindows: isOccupied && Config.bar.workspaces.showWindows
+ 
++    // omartia local mod: hide inactive empty workspaces (show only active/occupied dots)
++    visible: root.activeWsId === root.ws || root.isOccupied
++
+     Layout.alignment: Qt.AlignHCenter
+     Layout.preferredHeight: size
+ 

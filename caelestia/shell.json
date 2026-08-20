@@ -80,7 +80,9 @@
             "Zoom",
             "foot",
             "imv",
-            "mpv"
+            "mpv",
+            "xgps",
+            "xgpsspeed"
         ]
     },
     "lock": {
