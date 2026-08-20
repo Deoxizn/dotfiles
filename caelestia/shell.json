@@ -91,7 +91,7 @@
     "lock": {
         "enabled": true
     },
-    "notifications": {
+    "notifs": {
         "defaultExpireTimeout": 5000,
         "expire": true
     },
@@ -119,6 +119,13 @@
         "enabled": true
     },
     "sidebar": {
-        "enabled": true
+        "enabled": true,
+        "showOnHover": true
+    },
+    "utilities": {
+        "toasts": {
+            "kbLayoutChanged": false,
+            "numLockChanged": false
+        }
     }
 }
