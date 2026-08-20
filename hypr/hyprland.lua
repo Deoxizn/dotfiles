@@ -1,10 +1,13 @@
--- Caelestia: prevent default omarchy autostart (Caelestia handles shell launch)
-package.loaded["default.hypr.autostart"] = function() end
-
 -- Learn how to configure Hyprland: https://wiki.hypr.land/Configuring/Start/
 
 -- Omarchy's bootstrap keeps path setup out of this user config.
 dofile((os.getenv("OMARCHY_PATH") or "/usr/share/omarchy") .. "/default/hypr/bootstrap.lua")
+
+-- Caelestia: prevent default omarchy autostart (Caelestia handles shell launch).
+-- Must be set AFTER bootstrap.lua: it clears package.loaded for default.hypr.*
+-- on every load/reload, so a stub placed before it gets wiped. Replacements for
+-- the non-shell parts of the default autostart live in hypr/autostart.lua.
+package.loaded["default.hypr.autostart"] = true
 
 -- Disable all Omarchy default bindings. Add your own in hypr/bindings.lua.
 -- omarchy_default_bindings = false

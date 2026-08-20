@@ -7,9 +7,13 @@ hl.on("hyprland.start", function()
 end)
 
 -- omartia-dots-remux: Caelestia Shell (auto-injected)
--- Replaces omarchy-shell (plugins disabled via shell.json)
--- Commands are chained to ensure env is imported BEFORE the service starts
--- After Caelestia starts, kill the omarchy shell (default autostart launches it)
+-- Replaces omarchy-shell. The default autostart is stubbed out in
+-- hyprland.lua, so the non-shell parts it used to launch are replicated here.
 hl.on("hyprland.start", function()
-  hl.exec_cmd("bash -c 'systemctl --user import-environment $(env | cut -d\"=\" -f 1) && dbus-update-activation-environment --systemd --all && systemctl --user start caelestia-shell.service && sleep 3 && pkill -f \"quickshell -n -p .*/omarchy/shell\" 2>/dev/null'")
+  hl.exec_cmd("bash -c 'systemctl --user import-environment $(env | cut -d\"=\" -f 1) && dbus-update-activation-environment --systemd --all && systemctl --user start caelestia-shell.service'")
+  hl.exec_cmd("omarchy-provision-first-run")
+  hl.exec_cmd("omarchy-powerprofiles-init")
+  hl.exec_cmd(o.launch("omarchy-hyprland-monitor-watch"))
+  hl.exec_cmd(o.launch("udiskie --automount --no-notify --no-tray"))
+  hl.exec_cmd("sleep 2 && omarchy-hook post-boot")
 end)
