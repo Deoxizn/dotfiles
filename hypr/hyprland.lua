@@ -50,7 +50,7 @@ hl.window_rule({ match = { class = "org.gnome.Nautilus|nautilus" }, workspace = 
 hl.window_rule({ match = { class = "spotify|Spotify" }, workspace = "3" })
 hl.window_rule({ match = { class = "Battle.net|World of Warcraft|steam_app_default|Steam|steamwebhelper|lutris|Lutris" }, workspace = "4" })
 hl.window_rule({ match = { class = "gamescope" }, workspace = "4" })
-hl.window_rule({ match = { class = "kitty" }, workspace = "5" })
+hl.window_rule({ match = { class = "foot" }, workspace = "5" })
 hl.window_rule({ match = { class = "discord|vesktop" }, workspace = "6" })
 hl.window_rule({ match = { class = "Messenger" }, workspace = "7" })
 

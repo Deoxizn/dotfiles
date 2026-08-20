@@ -52,11 +52,8 @@
     },
     {
       "key": "│ {#35}󰇄 desktop {#keys}│",
-      "type": "de",
-    },
-    {
-      "key": "│ {#33}󰖲 wm      {#keys}│",
-      "type": "wm",
+      "type": "command",
+      "text": "hyprver=$(hyprctl version | head -1 | grep -oE '[0-9]+\\.[0-9]+\\.[0-9]+' | head -1); if pgrep -f 'qs -c caelestia' >/dev/null 2>&1; then v=$(git -C \"$HOME/.config/quickshell/caelestia\" describe --tags --abbrev=0 2>/dev/null); s=\"Caelestia ${v#v}\"; elif pgrep -f '/usr/share/omarchy/shell' >/dev/null 2>&1; then s=\"Omarchy $(omarchy-version 2>/dev/null)\"; else s='no shell running'; fi; echo \"Hyprland $hyprver | $s\"",
     },
     {
       "key": "│ {#36}󰸌 theme   {#keys}│",

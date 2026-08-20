@@ -26,7 +26,10 @@
         "excludedScreens": [
             "HDMI-A-1"
         ],
-        "persistent": false
+        "persistent": false,
+        "workspaces": {
+            "shown": 10
+        }
     },
     "dashboard": {
         "enabled": true
