@@ -81,7 +81,7 @@ o.bind("SUPER + ALT + SPACE", "Omartia menu", "omartia-menu")
 o.bind("SUPER + N", "Notifications shade", hl.dsp.global("caelestia:sidebar"))
 o.bind("SUPER + ALT + D", "Dashboard", hl.dsp.global("caelestia:dashboard"))
 hl.unbind("SUPER + CTRL + L")
-o.bind("SUPER + CTRL + L", "Lock system", hl.dsp.global("caelestia:lock"))
+o.bind("SUPER + CTRL + L", "Lock system", "caelestia-system-lock")
 
 -- Keybinding list: omarchy-menu-keybindings summons the removed omarchy-shell
 -- for its UI; this fork uses fuzzel instead.
