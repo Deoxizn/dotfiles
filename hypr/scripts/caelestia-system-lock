@@ -31,3 +31,15 @@ pkill -x ttfx 2>/dev/null || true
 # ttfx handles SIGTERM asynchronously, so keep its terminal alive until it exits.
 timeout 1s pidwait -x ttfx 2>/dev/null || true
 pkill -f '[o]rg.omarchy.screensaver' 2>/dev/null || true
+
+# Turn the displays off shortly after locking (omartia remux). Runs for every
+# lock path (menu, keybind, hypridle), gated on still being locked so a quick
+# unlock doesn't kill the screens. hypridle's on-resume wakes them again.
+(
+  sleep 20
+  locked=$(qs -c caelestia ipc call lock isLocked 2>/dev/null)
+  if [[ $locked == *true* ]]; then
+    hyprctl dispatch 'hl.dsp.dpms({ action = "off" })' >/dev/null 2>&1
+    echo "$(date '+%F %T') dpms off after lock" >> "$HOME/.cache/caelestia-screen-off.log"
+  fi
+) >/dev/null 2>&1 &
