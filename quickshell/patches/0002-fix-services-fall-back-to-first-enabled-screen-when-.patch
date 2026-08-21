@@ -1,0 +1,26 @@
+From 547c54dcf32787bb6aea227582c5cd651938278c Mon Sep 17 00:00:00 2001
+From: Devi Garcia <asphyxiated.god@gmail.com>
+Date: Thu, 20 Aug 2026 19:08:14 -0700
+Subject: [PATCH 2/3] fix(services): fall back to first enabled screen when
+ focused monitor has no shell state
+
+---
+ services/ShellState.qml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/services/ShellState.qml b/services/ShellState.qml
+index 84672fea..9fae15c7 100644
+--- a/services/ShellState.qml
++++ b/services/ShellState.qml
+@@ -25,7 +25,7 @@ Singleton {
+         for (const s of states.instances)
+             if (Hypr.monitorFor(s.modelData) === mon)
+                 return s;
+-        return null;
++        return states.instances[0] ?? null;
+     }
+ 
+     function componentsFor(screen: ShellScreen): Components {
+-- 
+2.55.0
+

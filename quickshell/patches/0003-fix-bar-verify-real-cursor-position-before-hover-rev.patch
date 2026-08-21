@@ -1,0 +1,77 @@
+From 6b6468c476e8b6a09d8c4bfd5d8eb37b8d0a9bf3 Mon Sep 17 00:00:00 2001
+From: Devi Garcia <asphyxiated.god@gmail.com>
+Date: Thu, 20 Aug 2026 19:08:14 -0700
+Subject: [PATCH 3/3] fix(bar): verify real cursor position before
+ hover-revealing bar
+
+---
+ modules/drawers/Interactions.qml | 36 ++++++++++++++++++++++++++++++--
+ 1 file changed, 34 insertions(+), 2 deletions(-)
+
+diff --git a/modules/drawers/Interactions.qml b/modules/drawers/Interactions.qml
+index 3d94a528..7ffa1b9a 100644
+--- a/modules/drawers/Interactions.qml
++++ b/modules/drawers/Interactions.qml
+@@ -1,9 +1,11 @@
+ import QtQuick
+ import QtQuick.Controls
+ import Quickshell
++import Quickshell.Io
+ import Caelestia.Config
+ import qs.components
+ import qs.components.controls
++import qs.services
+ import qs.modules.bar as Bar
+ import qs.modules.bar.popouts as BarPopouts
+ 
+@@ -23,6 +25,33 @@ CustomMouseArea {
+     property bool osdShortcutActive
+     property bool utilitiesShortcutActive
+ 
++    Timer {
++        id: barHoverTimer
++
++        interval: 300
++        onTriggered: cursorPosProc.running = true
++    }
++
++    Process {
++        id: cursorPosProc
++
++        command: ["hyprctl", "-j", "cursorpos"]
++        stdout: StdioCollector {
++            onStreamFinished: {
++                try {
++                    const pos = JSON.parse(text);
++                    const m = Hypr.monitorFor(root.screen)?.lastIpcObject;
++                    if (!m)
++                        return;
++                    const localX = pos.x - m.x;
++                    const localY = pos.y - m.y;
++                    if (localX >= 0 && localX < root.bar.clampedWidth && localY >= 0 && localY < root.screen.height)
++                        root.bar.isHovered = true;
++                } catch (e) {}
++            }
++        }
++    }
++
+     function withinPanelHeight(panel: Item, x: real, y: real): bool {
+         const panelY = root.borderThickness + panel.y;
+         return y >= panelY - Config.border.rounding && y <= panelY + panel.height + Config.border.rounding;
+@@ -106,8 +135,11 @@ CustomMouseArea {
+         }
+ 
+         // Show bar in non-exclusive mode on hover
+-        if (!screenState.bar && Config.bar.showOnHover && x < bar.clampedWidth)
+-            bar.isHovered = true;
++        const inBarStrip = containsMouse && !screenState.bar && Config.bar.showOnHover && x < bar.clampedWidth;
++        if (inBarStrip && !barHoverTimer.running)
++            barHoverTimer.start();
++        else if (!inBarStrip && barHoverTimer.running)
++            barHoverTimer.stop();
+ 
+         // Show/hide bar on drag
+         if (pressed && dragStart.x < bar.clampedWidth) {
+-- 
+2.55.0
+

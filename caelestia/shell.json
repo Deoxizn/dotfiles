@@ -23,6 +23,48 @@
         }
     },
     "bar": {
+        "entries": [
+            {
+                "enabled": true,
+                "id": "logo"
+            },
+            {
+                "enabled": true,
+                "id": "workspaces"
+            },
+            {
+                "enabled": true,
+                "id": "spacer"
+            },
+            {
+                "enabled": true,
+                "id": "activeWindow"
+            },
+            {
+                "enabled": true,
+                "id": "spacer"
+            },
+            {
+                "enabled": true,
+                "id": "tray"
+            },
+            {
+                "enabled": true,
+                "id": "updates"
+            },
+            {
+                "enabled": true,
+                "id": "clock"
+            },
+            {
+                "enabled": true,
+                "id": "statusIcons"
+            },
+            {
+                "enabled": true,
+                "id": "power"
+            }
+        ],
         "excludedScreens": [
             "HDMI-A-1"
         ],
@@ -33,6 +75,29 @@
     },
     "dashboard": {
         "enabled": true
+    },
+    "general": {
+        "idle": {
+            "inhibitWhenAudio": false,
+            "timeouts": [
+                {
+                    "idleAction": "lock",
+                    "timeout": 180
+                },
+                {
+                    "idleAction": "dpms off",
+                    "returnAction": "dpms on",
+                    "timeout": 300
+                },
+                {
+                    "idleAction": [
+                        "suspendThenHibernate"
+                    ],
+                    "inhibitWhenAudio": true,
+                    "timeout": 600
+                }
+            ]
+        }
     },
     "launcher": {
         "enabled": true,
