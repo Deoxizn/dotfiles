@@ -77,8 +77,16 @@ o.bind("SUPER + ALT + W", "Reload hyprpaper", "pkill -x hyprpaper; uwsm-app -- h
 hl.unbind("SUPER + SPACE")
 hl.unbind("SUPER + ALT + SPACE")
 o.bind("SUPER + SPACE", "Caelestia launcher", hl.dsp.global("caelestia:launcher"))
-o.bind("SUPER + ALT + SPACE", "Session menu", hl.dsp.global("caelestia:session"))
+o.bind("SUPER + ALT + SPACE", "Omartia menu", "omartia-menu")
 o.bind("SUPER + N", "Notifications shade", hl.dsp.global("caelestia:sidebar"))
 o.bind("SUPER + ALT + D", "Dashboard", hl.dsp.global("caelestia:dashboard"))
 hl.unbind("SUPER + CTRL + L")
 o.bind("SUPER + CTRL + L", "Lock system", hl.dsp.global("caelestia:lock"))
+
+-- Keybinding list: omarchy-menu-keybindings summons the removed omarchy-shell
+-- for its UI; this fork uses fuzzel instead.
+hl.unbind("SUPER + K")
+o.bind("SUPER + K", "Keybindings", "omartia-keybinds")
+
+-- Power menu
+o.bind("SUPER + ESCAPE", "Power menu", "omartia-power")
