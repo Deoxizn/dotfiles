@@ -3,6 +3,9 @@
         "enabled": false
     },
     "enabled": false,
+    "lock": {
+        "enabled": false
+    },
     "osd": {
         "enabled": false
     },
