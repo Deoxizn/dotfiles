@@ -1,0 +1,124 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "type": "sixel",
+    "source": "~/.config/fastfetch/htoga2.png",
+    "color": {
+      "1": "green"
+    },
+    "width": 70,
+    "height": 30
+  },
+  "display": {
+    "separator": "  "
+  },
+  "modules": [
+    {
+      "type": "break"
+    },
+    {
+      "type": "break"
+    },
+    {
+      "type": "break"
+    },
+    {
+      "type": "break"
+    },
+    {
+      "type": "break"
+    },
+    {
+      "type": "break"
+    },
+    {
+      "type": "break"
+    },
+    {
+      "key": "\u256d\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256e",
+      "type": "custom"
+    },
+    {
+      "key": "\u2502 {#31}\udb80\uddc5 mobo    {#keys}\u2502",
+      "type": "host"
+    },
+    {
+      "key": "\u2502 {#32}\udb80\uddc5 agesa   {#keys}\u2502",
+      "type": "command",
+      "text": "bios_ver=$(cat /sys/devices/virtual/dmi/id/bios_version 2>/dev/null); bios_date=$(cat /sys/devices/virtual/dmi/id/bios_date 2>/dev/null); echo \"ComboAM5 $bios_ver | $bios_date\""
+    },
+    {
+      "key": "\u2502 {#34}\ue900 ver     {#keys}\u2502",
+      "type": "command",
+      "text": "version=$(omarchy-version); kernel=$(uname -r); echo \"Omarchy $version | $kernel\""
+    },
+    {
+      "key": "\u2502 {#35}\udb80\uddc4 desktop {#keys}\u2502",
+      "type": "command",
+      "text": "hyprver=$(hyprctl version | head -1 | grep -oE '[0-9]+\\.[0-9]+\\.[0-9]+' | head -1); if pgrep -f 'qs -c caelestia' >/dev/null 2>&1; then v=$(git -C \"$HOME/.config/quickshell/caelestia\" describe --tags --abbrev=0 2>/dev/null); s=\"Caelestia ${v#v}\"; elif pgrep -f '/usr/share/omarchy/shell' >/dev/null 2>&1; then s=\"Omarchy $(omarchy-version 2>/dev/null)\"; else s='no shell running'; fi; echo \"Hyprland $hyprver | $s\""
+    },
+    {
+      "key": "\u2502 {#36}\udb83\ude0c theme   {#keys}\u2502",
+      "type": "command",
+      "text": "theme=$(omarchy-theme-current); echo -e \"$theme \\e[38m\u25cf\\e[37m\u25cf\\e[36m\u25cf\\e[35m\u25cf\\e[34m\u25cf\\e[33m\u25cf\\e[32m\u25cf\\e[31m\u25cf\""
+    },
+    {
+      "key": "\u2502 {#37}\ue795 term    {#keys}\u2502",
+      "type": "command",
+      "text": "fish_version=$(fish --version 2>/dev/null | grep -o '[0-9]\\+\\.[0-9]\\+\\.[0-9]\\+' | head -1); terminal_info=$(fastfetch -s terminal 2>/dev/null | grep -o '[a-zA-Z]* [0-9][^[:space:]]*' | head -1 | sed 's/kitty/foot/g'); echo \"${terminal_info:-$TERM} | fish ${fish_version:+$fish_version}\""
+    },
+    {
+      "key": "\u2502 {#31}\udb80\udf5b cpu     {#keys}\u2502",
+      "type": "cpu",
+      "showPeCoreCount": true
+    },
+    {
+      "key": "\u2502 {#32}\udb80\udf5b gpu     {#keys}\u2502",
+      "type": "command",
+      "text": "gpu_text=$(fastfetch -s gpu 2>/dev/null | grep -oE 'NVIDIA.*|AMD.*|Intel.*' | head -5 | sed 's/ - .*//'); nvidia_driver=\"\"; if command -v nvidia-smi &>/dev/null; then nvidia_driver=$(nvidia-smi --query-gpu=driver_version --format=csv,noheader 2>/dev/null | head -1 | cut -d. -f1); fi; result=\"\"; first=true; while IFS= read -r line; do if [[ -n \"$line\" ]]; then if [[ \"$first\" == true ]]; then first=false; else result=\"${result} | \"; fi; if [[ \"$line\" == NVIDIA* ]]; then if [[ -n \"$nvidia_driver\" ]]; then result=\"${result}${line} (${nvidia_driver})\"; else result=\"${result}${line}\"; fi; else result=\"${result}${line}\"; fi; fi; done <<< \"$gpu_text\"; echo \"$result\""
+    },
+    {
+      "key": "\u2502 {#34}\udb84\udd04 display {#keys}\u2502",
+      "type": "command",
+      "text": "fastfetch -s display 2>/dev/null | grep -oE '\\([^)]+\\).*' | sed 's/^Display //' | sed ':a;N;$!ba;s/\\n/ | /g'"
+    },
+    {
+      "key": "\u2502 {#35}\udb80\ude49 disk    {#keys}\u2502",
+      "type": "disk",
+      "folders": "/"
+    },
+    {
+      "key": "\u2502 {#33}\udb80\udfd6 pkgs    {#keys}\u2502",
+      "type": "packages"
+    },
+    {
+      "key": "\u2502 {#36}\uefc5 memory  {#keys}\u2502",
+      "type": "command",
+      "text": "memory_info=$(fastfetch -s memory 2>/dev/null | grep -o '[0-9.]* GiB / [0-9.]* GiB ([0-9%]*)' | head -1); swap_info=$(free -h | grep Swap | awk '{print $2 \"/\" $3 \" (\" $3 \"/\" $2 \")\"}' | sed 's/Gi/GiB/g'); echo \"$memory_info | $swap_info\""
+    },
+    {
+      "key": "\u2502 {#37}\udb82\udd60 Plr|Mda {#keys}\u2502",
+      "type": "command",
+      "text": "media_json=$(fastfetch -s media --format json 2>/dev/null); player_name=$(echo \"$media_json\" | jq -r '.[0].result.player.name // \"No player\"' 2>/dev/null); artist=$(echo \"$media_json\" | jq -r '.[0].result.song.artist // empty' 2>/dev/null); name=$(echo \"$media_json\" | jq -r '.[0].result.song.name // empty' 2>/dev/null); if [[ -n \"$artist\" && -n \"$name\" ]]; then song_info=\"$artist - $name\"; else song_info=\"\"; fi; echo \"$player_name${song_info:+ | $song_info}\""
+    },
+    {
+      "key": "\u2502 {#31}\udb82\udd94 Devices {#keys}\u2502",
+      "type": "command",
+      "text": "bt=$(fastfetch -s bluetooth --format json 2>/dev/null | jq -r '.[0].result[] | \"\\(.name) \\(.battery)%\"' | paste -sd ' | ' -); razer=$(python3 -c 'import openrazer.client; m=openrazer.client.DeviceManager(); [print(d.name.split(\"(\")[0].strip() + \" \" + str(d.battery_level) + \"%\") for d in m.devices]' 2>/dev/null | paste -sd ' | ' -); echo \"${bt}${bt:+ | }${razer}\""
+    },
+    {
+      "type": "command",
+      "key": "\u2502 {#32}\udb86\uded0 OS Time {#keys}\u2502",
+      "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); uptime_info=$(uptime -p 2>/dev/null | sed 's/up //'); echo \"$days_difference days old | $uptime_info of uptime\""
+    },
+    {
+      "type": "command",
+      "key": "\u2502 {#34}\ueb29 Updated {#keys}\u2502",
+      "text": "updated=$(omarchy-version-pkgs); echo \"$updated\""
+    },
+    {
+      "key": "\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256f",
+      "type": "custom"
+    }
+  ]
+}
