@@ -110,9 +110,10 @@ o.bind("SUPER + ESCAPE", "Power menu", "omartia-power")
 -- ── Sweep: replace Omarchy defaults that call the removed omarchy-shell ──
 -- Stock Omarchy routes these keys into `omarchy-shell`, which this remux
 -- removes — without this block every one of them is a silent no-op.
--- Replaced with playerctl and Caelestia equivalents.
+-- Replaced with omartia-media (universal MPRIS) and Caelestia equivalents.
 
--- Media keys -> playerctl (Spotify first, any other MPRIS player as fallback)
+-- Media keys -> omartia-media: targets whichever MPRIS player is currently
+-- Playing, falls back to the first player. Works with any app.
 hl.unbind("XF86AudioPlay")
 hl.unbind("XF86AudioPause")
 hl.unbind("XF86AudioNext")
