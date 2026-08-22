@@ -23,8 +23,8 @@ alias ....='cd ../../..'
 
 # System & Tool Aliases
 alias nfs='sudo mount -a'
-alias svr='foot ssh deoxizn@192.168.8.209'
-alias kids='foot ssh clug@192.168.8.231'
+alias svr='ssh deoxizn@192.168.8.209'
+alias kids='ssh clug@192.168.8.231'
 alias psync='docker compose run --rm plextraktsync sync'
 alias omup='omarchy-update'
 alias ga='git add .'
