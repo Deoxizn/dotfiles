@@ -23,7 +23,8 @@ alias ....='cd ../../..'
 
 # System & Tool Aliases
 alias nfs='sudo mount -a'
-alias svr='kitty +kitten ssh deoxizn@192.168.8.209'
+alias svr='foot ssh deoxizn@192.168.8.209'
+alias kids='foot ssh clug@192.168.8.231'
 alias psync='docker compose run --rm plextraktsync sync'
 alias omup='omarchy-update'
 alias ga='git add .'
@@ -39,7 +40,7 @@ alias r='rails'
 alias sptx='bash (curl -sSL https://spotx-official.github.io/run.sh | psub)'
 
 function gc
-    git commit -m $argv
+    git commit -m "$argv"
 end
 
 # Clean orphans
@@ -53,11 +54,14 @@ function co
 end
 
 # Init Key Tools
+set -gx STARSHIP_CONFIG $HOME/.config/starship.toml
 zoxide init fish | source
 starship init fish | source
 
 # General Settings
 set -U fish_greeting
+set -gx ZED_ALLOW_ROOT true
+alias zroot='sudo -E zeditor'
 alias mkdir='mkdir -pv'
 alias path='readlink -e'
 alias rmm='rm -rvI'
@@ -91,39 +95,21 @@ function mkcd --description "Create and cd to directory"
   and cd $argv
 end
 
-function amount --description "Mount archive"
-  /usr/lib/gvfs/gvfsd-archive file=$argv 2>/dev/null &
-  sleep 1
-  cd $XDG_RUNTIME_DIR/gvfs
-  cd (ls -p | grep / | tail -1)
-end
-
-function aumount --description "Unmount all mounted archives"
-  gvfs-mount --unmount $XDG_RUNTIME_DIR/gvfs/*
-end
-
-function copy --description "Copy pipe or argument"
+function copy --description "Copy pipe or argument (wl-copy)"
   if [ "$argv" = "" ]
-    xclip -sel clip
+    wl-copy
   else
-    printf "$argv" | xclip -sel clip
+    printf "$argv" | wl-copy
   end
 end
 
 function copypath --description "Copy full file path"
-  readlink -e $argv | xclip -sel clip
+  readlink -e $argv | wl-copy
   echo "copied to clipboard"
 end
 
 function color --description "Print color"
   echo (set_color (string trim -c '#' "$argv"))"██"
-end
-
-function reset_windows --description "Reset windows size"
-  for f in (wmctrl -l | cut -d' ' -f 1)
-    wmctrl -i -r $f -e 0,0,0,800,600
-    wmctrl -i -a $f
-  end
 end
 
 function run --description "Make file executable, then run it"
@@ -162,15 +148,22 @@ if type -q plug
   alias plug='cd (command plug)'
 end
 
-function qr --description "Prints QR"
+function qr --description "Prints QR as unicode blocks (works in foot)"
   if [ "$argv" = "" ]
-    qrencode --background=00000000 --foreground=FFFFFF -o - | kitty +kitten icat
+    qrencode -t ANSIUTF8
   else
-    printf "$argv" | qrencode --background=00000000 --foreground=FFFFFF -o - | kitty +kitten icat
+    printf "%s" "$argv" | qrencode -t ANSIUTF8
   end
 end
 
 alias sharewifi='qr "WIFI:T:WPA;S:aaa;P:bbb;;"'
 
-set sponge_allow_previously_successful false
-set sponge_regex_patterns '^ga$|^gp$|^gc$|^gpl$'
+function lockblock --description "Toggle idle locking (hypridle)"
+  if pgrep -x hypridle >/dev/null
+    pkill -x hypridle
+    echo "idle locking blocked"
+  else
+    setsid hypridle >/dev/null 2>&1 &
+    echo "idle locking active"
+  end
+end
