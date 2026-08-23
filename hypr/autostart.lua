@@ -1,14 +1,14 @@
 -- Extra autostart processes
 hl.on("hyprland.start", function()
   hl.exec_cmd("uwsm-app -- hyprpaper")
-  -- omartia-dots-remux: hypridle drives screensaver + caelestia-system-lock (see hypridle.conf)
+  -- stellarchy-dots-remux: hypridle drives screensaver + caelestia-system-lock (see hypridle.conf)
   hl.exec_cmd("uwsm-app -- hypridle")
   hl.exec_cmd("/home/deoxizn/appimg/openrgb/OpenRGB_1.0rc3_x86_64_6fbcf62.AppImage --profile \"/home/deoxizn/.config/OpenRGB/deoxizn.orp\"")
-  -- omartia-dots-remux: disabled (Caelestia provides bar)
+  -- stellarchy-dots-remux: disabled (Caelestia provides bar)
   -- hl.exec_cmd("quickshell -n -p /home/deoxizn/.config/quickshell/bar")
 end)
 
--- omartia-dots-remux: Caelestia Shell (auto-injected)
+-- stellarchy-dots-remux: Caelestia Shell (auto-injected)
 -- Replaces omarchy-shell. The default autostart is stubbed out in
 -- hyprland.lua, so the non-shell parts it used to launch are replicated here.
 hl.on("hyprland.start", function()

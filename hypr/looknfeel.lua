@@ -10,7 +10,7 @@ hl.config({
 })
 
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#decoration
--- BEGIN omartia-dots-remux managed rounding (auto-synced by upgrade.sh)
+-- BEGIN stellarchy-dots-remux managed rounding (auto-synced by upgrade.sh)
 -- Rounded corners matching Caelestia's panel aesthetic. Hyprland's rounding
 -- is a single global value in physical px, so derive it from the highest
 -- connected monitor scale (~12 logical px) and recompute on hotplug.
@@ -30,7 +30,7 @@ end
 apply_rounding()
 hl.on("monitor.added", apply_rounding)
 hl.on("monitor.removed", apply_rounding)
--- END omartia-dots-remux managed rounding
+-- END stellarchy-dots-remux managed rounding
 
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#animations
 -- hl.config({
