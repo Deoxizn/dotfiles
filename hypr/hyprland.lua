@@ -48,7 +48,7 @@ hl.workspace_rule({ workspace = "9", monitor = "HDMI-A-1", layout = "scrolling",
 hl.workspace_rule({ workspace = "10", monitor = "HDMI-A-1", layout = "scrolling", layout_opts = { direction = "down" } })
 
 -- Launch Apps in Specific Workspaces
-hl.window_rule({ match = { class = "zen|chromium|brave|brave-origin-beta" }, workspace = "1 silent" })
+hl.window_rule({ match = { class = "zen|chromium|brave|brave-origin-beta" }, workspace = "1" })
 hl.window_rule({ match = { class = "org.gnome.Nautilus|nautilus" }, workspace = "2" })
 hl.window_rule({ match = { class = "spotify|Spotify" }, workspace = "3" })
 -- Games & game launchers -> WS 4
