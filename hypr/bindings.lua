@@ -47,7 +47,7 @@ hl.unbind("SUPER + CTRL + D")
 hl.unbind("SUPER + ALT + RETURN")
 
 -- Application bindings
-o.bind("SUPER + RETURN", "Terminal", "foot")
+o.bind("SUPER + RETURN", "Terminal", "~/.config/hypr/scripts/terminal-smart.sh")
 o.bind("SUPER + SHIFT + RETURN", "Browser", { omarchy = "browser" })
 o.bind("SUPER + SHIFT + F", "File manager", { omarchy = "nautilus" })
 o.bind("SUPER + ALT + SHIFT + F", "File manager (cwd)", { omarchy = "nautilus-cwd" })
@@ -60,7 +60,7 @@ o.bind("SUPER + ALT + RETURN", "Tmux", { omarchy = "terminal-tmux" })
 o.bind("SUPER + SHIFT + M", "Music", { omarchy = "spotify" })
 
 -- Custom media / F-key bindings
-o.bind("XF86Tools", "Fastfetch", "foot --app-id=org.omarchy.ff fish -c 'ff; exec fish'")
+o.bind("XF86Tools", "Fastfetch", "kitty --class org.omarchy.ff fish -c 'sleep 0.25; fastfetch; exec fish'")
 o.bind("XF86Launch5", nil, { webapp = "https://gemini.google.com/app" })
 o.bind("XF86Launch6", nil, { webapp = "https://photopea.com" })
 o.bind("XF86Launch7", nil, { webapp = "https://learn.omacom.io/2/the-omarchy-manual" })
@@ -72,12 +72,12 @@ o.bind("SUPER + Q", "Close window", hl.dsp.window.close())
 o.bind("SUPER + ALT + W", "Reload hyprpaper", "pkill -x hyprpaper; uwsm-app -- hyprpaper -c ~/.config/hypr/hyprpaper.conf")
 
 
--- Keybinding list / power menu: see the stellarchy-dots-remux managed block below.
+-- Keybinding list / power menu: see the omartia-dots-remux managed block below.
 
--- BEGIN stellarchy-dots-remux managed keybinds (auto-synced by upgrade.sh — personal edits belong outside this block)
--- stellarchy-dots-remux: Keybindings
+-- BEGIN omartia-dots-remux managed keybinds (auto-synced by upgrade.sh — personal edits belong outside this block)
+-- omartia-dots-remux: Keybindings
 -- Minimal overrides — replaces omarchy-menu with the Caelestia launcher and
--- the omartia fuzzel menu suite. Everything else inherits from omarchy
+-- the stellarchy fuzzel menu suite. Everything else inherits from omarchy
 -- defaults (window mgmt, workspaces, apps).
 -- Add your own personal bindings below.
 
@@ -138,16 +138,15 @@ o.bind("SUPER + CTRL + E", "Emojis", "caelestia emoji")
 hl.unbind("SUPER + comma")
 o.bind("SUPER + comma", "Clear notifications", "qs -c caelestia ipc call notifs clear")
 
--- omarchy control panels -> Caelestia dashboard / session menu.
--- SUPER+CTRL+D display panel intentionally NOT rebound: it commonly hosts an
+-- Omarchy control-panel chords -> unbound. This remux isn't stock Omarchy,
+-- so old muscle memory isn't a contract: the dashboard has one key
+-- (SUPER + ALT + D above) and aliasing every panel chord to it just makes
+-- five keys do the same thing.
+-- SUPER+CTRL+D display chord intentionally left alone: it commonly hosts an
 -- app binding of your own (e.g. Vesktop).
 for _, key in ipairs({ "SUPER + CTRL + A", "SUPER + CTRL + B", "SUPER + CTRL + W", "SUPER + CTRL + ALT + D" }) do
     hl.unbind(key)
 end
-o.bind("SUPER + CTRL + A", "Audio panel", hl.dsp.global("caelestia:dashboard"))
-o.bind("SUPER + CTRL + B", "Bluetooth panel", hl.dsp.global("caelestia:dashboard"))
-o.bind("SUPER + CTRL + W", "Network panel", hl.dsp.global("caelestia:dashboard"))
-o.bind("SUPER + CTRL + ALT + D", "Calendar panel", hl.dsp.global("caelestia:dashboard"))
 hl.unbind("SUPER + CTRL + P")
 o.bind("SUPER + CTRL + P", "Power panel", hl.dsp.global("caelestia:session"))
 
@@ -156,5 +155,5 @@ o.bind("SUPER + CTRL + P", "Power panel", hl.dsp.global("caelestia:session"))
 for panel = 1, 9 do
     hl.unbind("SUPER + CTRL + code:" .. tostring(panel + 9))
 end
--- END stellarchy-dots-remux managed keybinds
+-- END omartia-dots-remux managed keybinds
 

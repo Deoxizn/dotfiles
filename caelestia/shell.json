@@ -113,8 +113,6 @@
             "limine-snapper-restore",
             "user-dirs-update-gtk",
             "uuctl",
-            "foot-server",
-            "footclient",
             "qv4l2",
             "qvidcap",
             "gnome-disk-image-mounter",
@@ -146,7 +144,6 @@
             "X",
             "YouTube",
             "Zoom",
-            "foot",
             "imv",
             "mpv",
             "xgps",
@@ -170,9 +167,7 @@
                 "hibernate"
             ],
             "logout": [
-                "loginctl",
-                "terminate-user",
-                "$USER"
+                "omarchy-system-logout"
             ],
             "reboot": [
                 "reboot"

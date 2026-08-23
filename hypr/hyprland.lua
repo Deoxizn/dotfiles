@@ -66,7 +66,7 @@ hl.window_rule({
 hl.window_rule({ match = { class = "WowUpCf|wowupcf|WowUp|wowup-cf" }, workspace = "4" })
 -- Gamescope sessions
 hl.window_rule({ match = { class = "gamescope" }, workspace = "4" })
-hl.window_rule({ match = { class = "foot" }, workspace = "5" })
+hl.window_rule({ match = { class = "kitty" }, workspace = "5" })
 hl.window_rule({ match = { class = "discord|vesktop" }, workspace = "6" })
 hl.window_rule({ match = { class = "Messenger" }, workspace = "7" })
 
