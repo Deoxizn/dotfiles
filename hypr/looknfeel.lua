@@ -10,7 +10,7 @@ hl.config({
 })
 
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#decoration
--- BEGIN stellarchy-dots-remux managed rounding (auto-synced by upgrade.sh)
+-- BEGIN omartia-dots-remux managed rounding (auto-synced by upgrade.sh)
 -- Rounded corners matching Caelestia's panel aesthetic. Hyprland's rounding
 -- is a single global value in physical px, so derive it from the highest
 -- connected monitor scale (~12 logical px) and recompute on hotplug.
@@ -30,7 +30,7 @@ end
 apply_rounding()
 hl.on("monitor.added", apply_rounding)
 hl.on("monitor.removed", apply_rounding)
--- END stellarchy-dots-remux managed rounding
+-- END omartia-dots-remux managed rounding
 
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#animations
 -- hl.config({
@@ -72,7 +72,7 @@ hl.window_rule({ match = { class = "org.omarchy.ff" }, float = true, size = { 16
 -- Floating windows (Tags)
 hl.window_rule({
   match = {
-    class = "org.omarchy.bluetui|org.omarchy.impala|org.omarchy.wiremix|org.omarchy.btop|org.omarchy.terminal|org.omarchy.bash|org.gnome.NautilusPreviewer|org.gnome.Evince|com.gabm.satty|Omarchy|About|TUI.float|imv|mpv"
+    class = "org.omarchy.bluetui|org.omarchy.impala|org.omarchy.wiremix|org.omarchy.btop|org.omarchy.terminal|org.omarchy.bash|org.gnome.NautilusPreviewer|org.gnome.Evince|com.gabm.satty|Omarchy|About|TUI.float|TUI.snaptui|imv|mpv"
   },
   tag = "+floating-window"
 })
@@ -95,6 +95,11 @@ hl.window_rule({
 
 -- Calculator float
 hl.window_rule({ match = { class = "org.gnome.Calculator" }, float = true })
+
+-- Screensaver (power menu): fullscreen TTE art, same treatment as stock Omarchy
+hl.window_rule({ match = { class = "org.omarchy.screensaver" }, fullscreen = true })
+hl.window_rule({ match = { class = "org.omarchy.screensaver" }, float = true })
+hl.window_rule({ match = { class = "org.omarchy.screensaver" }, animation = "slide" })
 
 -- Brave: fully opaque windows (override global transparency)
 hl.window_rule({ match = { class = "brave-origin.*" }, opacity = "1.0 override" })
