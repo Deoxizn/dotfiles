@@ -77,6 +77,11 @@
         "enabled": true
     },
     "general": {
+        "apps": {
+            "terminal": [
+                "kitty"
+            ]
+        },
         "idle": {
             "inhibitWhenAudio": false,
             "timeouts": [
