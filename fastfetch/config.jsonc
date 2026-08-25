@@ -42,7 +42,7 @@
     {
       "key": "│ {#34}\ue900 ver     {#keys}│",
       "type": "command",
-      "text": "version=$(omarchy-version); kernel=$(uname -r); echo \"Stellarchy (Omarchy $version) | $kernel\"",
+      "text": "rev=$(stellarchy-version 2>/dev/null); ver=$(omarchy-version); kernel=$(uname -r); echo \"Stellarchy${rev:+ $rev} (Omarchy $ver) | $kernel\"",
     },
     {
       "key": "│ {#35}󰇄 desktop {#keys}│",
