@@ -63,7 +63,7 @@ o.bind("SUPER + SHIFT + M", "Music", { omarchy = "spotify" })
 o.bind("XF86Tools", "Fastfetch", "kitty --class org.omarchy.ff fish -c 'sleep 0.25; fastfetch; exec fish'")
 o.bind("XF86Launch5", nil, { webapp = "https://gemini.google.com/app" })
 o.bind("XF86Launch6", nil, { webapp = "https://photopea.com" })
-o.bind("XF86Launch7", nil, { webapp = "https://learn.omacom.io/2/the-omarchy-manual" })
+o.bind("XF86Launch7", nil, { webapp = "https://omarchy.org/manual/" })
 
 -- Kill active window
 o.bind("SUPER + Q", "Close window", hl.dsp.window.close())
@@ -156,4 +156,3 @@ for panel = 1, 9 do
     hl.unbind("SUPER + CTRL + code:" .. tostring(panel + 9))
 end
 -- END omartia-dots-remux managed keybinds
-
