@@ -190,6 +190,7 @@ binds {
     Mod+Space { spawn "noctarchy-fuzzel"; }
     Mod+D { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Mod+Alt+Space { spawn "noctarchy-menu"; }
+    Mod+Alt+W { spawn "noctarchy-wallpaper-reset"; }
     Mod+K { spawn "noctarchy-keybinds"; }
 
     // ── Terminal ──
