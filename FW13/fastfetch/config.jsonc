@@ -50,12 +50,12 @@
     {
       "key": "\u2502 {#34}\ue900 ver     {#keys}\u2502",
       "type": "command",
-      "text": "version=$(omarchy-version); kernel=$(uname -r); echo \"Omarchy $version | $kernel\""
+      "text": "rev=$(noctarchy-version 2>/dev/null); ver=$(omarchy-version); kernel=$(uname -r); echo \"Noctarchy${rev:+ $rev} (Omarchy $ver) | $kernel\""
     },
     {
       "key": "\u2502 {#35}\udb80\uddc4 desktop {#keys}\u2502",
       "type": "command",
-      "text": "hyprver=$(hyprctl version | head -1 | grep -oE '[0-9]+\\.[0-9]+\\.[0-9]+' | head -1); if pgrep -f 'qs -c caelestia' >/dev/null 2>&1; then v=$(git -C \"$HOME/.config/quickshell/caelestia\" describe --tags --abbrev=0 2>/dev/null); s=\"Caelestia ${v#v}\"; elif pgrep -f '/usr/share/omarchy/shell' >/dev/null 2>&1; then s=\"Omarchy $(omarchy-version 2>/dev/null)\"; else s='no shell running'; fi; echo \"Hyprland $hyprver | $s\""
+      "text": "niri_ver=$(niri --version 2>/dev/null | grep -oE '[0-9]+\\.[0-9]+' | head -1); noctalia_ver=$(noctalia --version 2>/dev/null | grep -oE '[0-9]+\\.[0-9]+\\.[0-9]+' | head -1); if pgrep -x noctalia >/dev/null 2>&1; then s=\"Noctalia ${noctalia_ver:-?}\"; elif pgrep -f '/usr/share/omarchy/shell' >/dev/null 2>&1; then s=\"Omarchy $(omarchy-version 2>/dev/null)\"; else s='no shell running'; fi; echo \"Niri ${niri_ver:-?} | $s\""
     },
     {
       "key": "\u2502 {#36}\udb83\ude0c theme   {#keys}\u2502",
