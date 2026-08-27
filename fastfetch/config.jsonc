@@ -2,7 +2,7 @@
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
     "type": "auto",
-    "source": "~/.config/fastfetch/stellarchy.png",
+    "source": "~/.config/fastfetch/noctarchy.png",
     "color": { "1": "green" },
     "width": 70,
     "height": 30,
@@ -42,12 +42,12 @@
     {
       "key": "│ {#34}\ue900 ver     {#keys}│",
       "type": "command",
-      "text": "rev=$(stellarchy-version 2>/dev/null); ver=$(omarchy-version); kernel=$(uname -r); echo \"Stellarchy${rev:+ $rev} (Omarchy $ver) | $kernel\"",
+      "text": "rev=$(noctarchy-version 2>/dev/null); ver=$(omarchy-version); kernel=$(uname -r); echo \"Noctarchy${rev:+ $rev} (Omarchy $ver) | $kernel\"",
     },
     {
       "key": "│ {#35}󰇄 desktop {#keys}│",
       "type": "command",
-      "text": "hyprver=$(hyprctl version | head -1 | grep -oE '[0-9]+\\.[0-9]+\\.[0-9]+' | head -1); if pgrep -f 'qs -c caelestia' >/dev/null 2>&1; then v=$(git -C \"$HOME/.config/quickshell/caelestia\" describe --tags --abbrev=0 2>/dev/null); s=\"Caelestia ${v#v}\"; elif pgrep -f '/usr/share/omarchy/shell' >/dev/null 2>&1; then s=\"Omarchy $(omarchy-version 2>/dev/null)\"; else s='no shell running'; fi; echo \"Hyprland $hyprver | $s\"",
+      "text": "niri_ver=$(niri --version 2>/dev/null | grep -oE '[0-9]+\\.[0-9]+' | head -1); if pgrep -x noctalia >/dev/null 2>&1; then s=\"Noctalia\"; elif pgrep -f '/usr/share/omarchy/shell' >/dev/null 2>&1; then s=\"Omarchy $(omarchy-version 2>/dev/null)\"; else s='no shell running'; fi; echo \"Niri ${niri_ver:-?} | $s\"",
     },
     {
       "key": "│ {#36}󰸌 theme   {#keys}│",
