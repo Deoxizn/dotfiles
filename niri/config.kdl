@@ -303,7 +303,8 @@ binds {
     Mod+Ctrl+V { spawn "noctalia" "msg" "clipboard-toggle"; }
 
     // ── Notifications ──
-    Mod+Comma { spawn "noctalia" "msg" "notification-clear-active"; }
+    Mod+Ctrl+Comma { spawn "noctalia" "msg" "notification-clear-active"; }
+    Mod+Ctrl+Period { spawn "noctalia" "msg" "notification-clear-history"; }
 
     // ── Overview ──
     Mod+O { toggle-overview; }
@@ -509,7 +510,7 @@ window-rule {
 // ──────────────────────────────────────────────
 
 spawn-at-startup "noctalia"
-spawn-at-startup "swayidle" "-w" "timeout" "600" "niri msg action power-off-monitors"
+spawn-at-startup "swayidle" "-w" "timeout" "20" "niri msg action power-off-monitors"
 spawn-sh-at-startup "systemctl --user import-environment $(env | cut -d= -f1) && dbus-update-activation-environment --systemd --all"
 
 // ──────────────────────────────────────────────
