@@ -32,7 +32,7 @@ opacity = 0.95
 exclusive = true
 start  = ["launcher", "wallpaper", "workspaces", "separator", "active-window"]
 center = ["clock"]
-end    = ["notifications", "clipboard", "media", "tray", "network", "bluetooth", "brightness", "battery", "yuuto/arch-updater:widget", "control-center", "session"]
+end    = ["bongocat", "notifications", "clipboard", "media", "tray", "network", "bluetooth", "brightness", "battery", "yuuto/arch-updater:widget", "control-center", "session"]
 
 [bar.default.monitor.HDMI-A-1]
 match = "HDMI-A-1"
@@ -49,6 +49,17 @@ tooltip_format = "{:%A, %B %d, %Y}"
 
 [bar.widgets.workspaces]
 persistent = [1, 2, 3, 4, 5]
+
+[widget.bongocat]
+type = "noctalia/bongocat:cat"
+input_devices = [
+  "/dev/input/by-id/usb-Keychron_Keychron_Q6_Max-event-kbd",
+  "/dev/input/by-id/usb-Keychron_Keychron_Link-if02-event-kbd",
+]
+audio_spectrum = true
+tappy_mode = true
+rave_mode = false
+use_mpris_filter = false
 
 [bar.widgets.battery]
 critical_threshold = 15
