@@ -32,7 +32,7 @@ opacity = 0.95
 exclusive = true
 start  = ["launcher", "wallpaper", "workspaces", "separator", "active-window"]
 center = ["clock"]
-end    = ["bongocat", "notifications", "clipboard", "media", "tray", "network", "bluetooth", "brightness", "battery", "yuuto/arch-updater:widget", "control-center", "session"]
+end    = ["bongocat", "notifications", "clipboard", "media", "tray", "network", "bluetooth", "brightness", "battery", "yuuto/arch-updater:widget", "control-center"]
 
 [bar.default.monitor.HDMI-A-1]
 match = "HDMI-A-1"
