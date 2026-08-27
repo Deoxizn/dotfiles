@@ -1,0 +1,153 @@
+# Noctarchy — Noctalia config
+# https://github.com/deoxizn/noctarchy
+
+# ──────────────────────────────────────────────
+# General
+# ──────────────────────────────────────────────
+
+[general]
+terminal = "kitty"
+launcher = "fuzzel"
+file_manager = "nautilus"
+browser = "brave-origin-beta"
+
+# ──────────────────────────────────────────────
+# Shell
+# ──────────────────────────────────────────────
+
+[shell]
+time_format = "{:%-I:%M %p}"
+
+[shell.animation]
+enabled = false
+
+# ──────────────────────────────────────────────
+# Bar
+# ──────────────────────────────────────────────
+
+[bar.default]
+position = "top"
+height = 40
+opacity = 0.95
+exclusive = true
+start  = ["launcher", "wallpaper", "workspaces", "separator", "active-window"]
+center = ["clock"]
+end    = ["bongocat", "notifications", "clipboard", "media", "tray", "network", "bluetooth", "brightness", "battery", "yuuto/arch-updater:widget", "control-center"]
+
+[bar.widgets]
+enabled = false
+
+[widget.clock]
+format = "{:%-I:%M %p}"
+tooltip_format = "{:%A, %B %d, %Y}"
+
+[bar.widgets.workspaces]
+persistent = [1, 2, 3, 4, 5]
+
+[widget.bongocat]
+type = "noctalia/bongocat:cat"
+input_devices = [
+  "/dev/input/by-id/event-kbd",
+  "/dev/input/by-path/platform-*kbd*",
+]
+audio_spectrum = true
+tappy_mode = true
+rave_mode = false
+use_mpris_filter = false
+
+[bar.widgets.battery]
+critical_threshold = 15
+warning_threshold = 30
+show_percentage = true
+
+[bar.widgets.network]
+show_wifi = true
+show_wired = true
+show_vpn = true
+
+[bar.widgets.media]
+show_album_art = true
+max_title_length = 40
+
+[bar.widgets.volume]
+show_percentage = true
+
+[bar.widgets.brightness]
+show_percentage = true
+
+# ──────────────────────────────────────────────
+# Launcher
+# ──────────────────────────────────────────────
+
+[launcher]
+command = "fuzzel"
+width = 600
+height = 400
+
+# ──────────────────────────────────────────────
+# Notifications
+# ──────────────────────────────────────────────
+
+[notifications]
+enabled = true
+timeout = 5000
+max_visible = 5
+position = "top-right"
+
+# ──────────────────────────────────────────────
+# Lock screen
+# ──────────────────────────────────────────────
+
+[lock]
+command = "swaylock"
+idle_timeout = 300
+before_sleep = true
+
+[lockscreen]
+monitors = ["eDP-1"]
+
+# ──────────────────────────────────────────────
+# Wallpaper
+# ──────────────────────────────────────────────
+
+[wallpaper]
+enabled = true
+directory = "~/Pictures/Wallpapers"
+mode = "fill"
+interval = 300
+transition = "fade"
+
+# ──────────────────────────────────────────────
+# Dock
+# ──────────────────────────────────────────────
+
+[dock]
+enabled = false
+
+# ──────────────────────────────────────────────
+# OSD (volume/brightness overlays)
+# ──────────────────────────────────────────────
+
+[osd]
+enabled = true
+volume = true
+brightness = true
+timeout = 2000
+
+# ──────────────────────────────────────────────
+# Clipboard
+# ──────────────────────────────────────────────
+
+[clipboard]
+enabled = true
+max_entries = 100
+encrypted = true
+
+# ──────────────────────────────────────────────
+# Theming
+# ──────────────────────────────────────────────
+
+[theme]
+source = "custom"
+custom_palette = "omarchy"
+mode = "dark"
