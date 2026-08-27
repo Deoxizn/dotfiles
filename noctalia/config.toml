@@ -98,6 +98,9 @@ command = "swaylock"
 idle_timeout = 300
 before_sleep = true
 
+[lockscreen]
+monitors = ["DP-1"]
+
 # ──────────────────────────────────────────────
 # Wallpaper
 # ──────────────────────────────────────────────
