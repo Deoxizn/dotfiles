@@ -195,6 +195,7 @@ binds {
 
     // ── Terminal ──
     Mod+Return { spawn "bash" "-c" "~/.config/niri/scripts/terminal-smart.sh"; }
+    Mod+grave { spawn "omarchy-agent"; }
 
     // ── Apps (matches Omarchy conventions) ──
     Mod+Shift+B { spawn "xdg-open" "https://"; }
