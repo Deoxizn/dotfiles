@@ -29,7 +29,7 @@ opacity = 0.95
 exclusive = true
 start  = ["launcher", "wallpaper", "workspaces", "separator", "active-window"]
 center = ["clock"]
-end    = ["notifications", "clipboard", "media", "tray", "network", "bluetooth", "volume", "brightness", "battery", "control-center", "session"]
+end    = ["notifications", "clipboard", "media", "tray", "network", "bluetooth", "brightness", "battery", "control-center", "session"]
 
 [bar.default.monitor.HDMI-A-1]
 match = "HDMI-A-1"
