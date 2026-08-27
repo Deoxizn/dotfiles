@@ -6,7 +6,7 @@
 # ──────────────────────────────────────────────
 
 [general]
-terminal = "alacritty"
+terminal = "kitty"
 launcher = "fuzzel"
 file_manager = "nautilus"
 browser = "firefox"
@@ -17,6 +17,9 @@ browser = "firefox"
 
 [shell]
 time_format = "{:%-I:%M %p}"
+
+[shell.animation]
+enabled = false
 
 # ──────────────────────────────────────────────
 # Bar
