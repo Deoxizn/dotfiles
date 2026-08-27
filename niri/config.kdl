@@ -275,8 +275,8 @@ binds {
 
     // ── Screenshots ──
     Mod+Print { spawn-sh "grim -g \"$(slurp)\" - | wl-copy"; }
-    Ctrl+Print { spawn-sh "grim - | wl-copy"; }
-    Alt+Print { spawn-sh "grim -g \"$(slurp)\" ~/Pictures/Screenshots/\"$(date +%Y-%m-%d_%H-%M-%S).png\""; }
+    Ctrl+Print { spawn-sh "grim -g \"$(slurp)\" ~/Pictures/Screenshots/\"$(date +%Y-%m-%d_%H-%M-%S).png\""; }
+    Alt+Print { spawn-sh "grim - | wl-copy"; }
 
     // ── Clipboard (wtype for GUI apps, terminals use Shift+Ctrl+C/V) ──
     Mod+C { spawn-sh "wtype -M ctrl -k c"; }
