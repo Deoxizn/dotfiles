@@ -9,7 +9,7 @@
 terminal = "kitty"
 launcher = "fuzzel"
 file_manager = "nautilus"
-browser = "firefox"
+browser = "brave-origin-beta"
 
 # ──────────────────────────────────────────────
 # Shell
