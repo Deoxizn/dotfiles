@@ -1,0 +1,29 @@
+#!/bin/bash
+# Personal wallpaper reset — restores DP-1/HDMI-A-1 to chosen wallpapers
+# when theming/updates reset them. Bound to Mod+Alt+W in niri.
+set -euo pipefail
+
+WALL_DIR="$HOME/Pictures/Wallpapers"
+
+# Chosen per-monitor wallpapers (edit these to change the reset targets)
+DP1="$WALL_DIR/wallhaven-kx996m.jpg"
+HDMI="$WALL_DIR/symbols_t_black.png"
+
+if [[ ! -d $WALL_DIR ]]; then
+    echo "Wallpaper directory not found: $WALL_DIR"
+    exit 1
+fi
+
+if [[ -f $DP1 ]]; then
+    noctalia msg wallpaper-set DP-1 "$DP1"
+    echo "DP-1 → $DP1"
+else
+    echo "skip DP-1 (missing: $DP1)"
+fi
+
+if [[ -f $HDMI ]]; then
+    noctalia msg wallpaper-set HDMI-A-1 "$HDMI"
+    echo "HDMI-A-1 → $HDMI"
+else
+    echo "skip HDMI-A-1 (missing: $HDMI)"
+fi
