@@ -299,7 +299,7 @@ binds {
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "5%-"; }
 
     // ── Lock ──
-    Mod+Ctrl+L { spawn "noctalia" "msg" "session" "lock"; }
+    Mod+Ctrl+L { spawn "bash" "-c" "~/.config/niri/scripts/lock.sh"; }
 
     // ── Clipboard ──
     Mod+Ctrl+V { spawn "noctalia" "msg" "clipboard-toggle"; }
