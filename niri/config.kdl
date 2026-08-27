@@ -476,6 +476,34 @@ layer-rule {
     }
 }
 
+// Opacity rules — transparency for terminals and apps
+window-rule {
+    match app-id="alacritty"
+    opacity 0.85
+}
+
+window-rule {
+    match app-id="kitty"
+    opacity 0.85
+    draw-border-with-background false
+}
+
+window-rule {
+    match app-id="org.omarchy.ff"
+    opacity 0.85
+    draw-border-with-background false
+}
+
+window-rule {
+    match app-id="foot"
+    opacity 0.85
+}
+
+window-rule {
+    match app-id="org.gnome.Nautilus"
+    opacity 0.90
+}
+
 // ──────────────────────────────────────────────
 // Spawn at startup
 // ──────────────────────────────────────────────
