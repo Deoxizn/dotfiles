@@ -12,24 +12,37 @@ file_manager = "nautilus"
 browser = "firefox"
 
 # ──────────────────────────────────────────────
+# Shell
+# ──────────────────────────────────────────────
+
+[shell]
+time_format = "{:%-I:%M %p}"
+
+# ──────────────────────────────────────────────
 # Bar
 # ──────────────────────────────────────────────
 
-[bar]
+[bar.default]
 position = "top"
 height = 40
 opacity = 0.95
 exclusive = true
+start  = ["launcher", "wallpaper", "workspaces", "separator", "active-window"]
+center = ["clock"]
+end    = ["notifications", "clipboard", "media", "tray", "network", "bluetooth", "volume", "brightness", "battery", "control-center", "session"]
+
+[bar.default.monitor.HDMI-A-1]
+match = "HDMI-A-1"
+start  = ["workspaces"]
+center = []
+end    = []
 
 [bar.widgets]
-left = ["workspaces", "separator", "active-window"]
-center = ["clock"]
-right = ["network", "bluetooth", "battery", "volume", "brightness", "tray", "media"]
+enabled = false
 
-[bar.widgets.clock]
-format = "%H:%M"
-interval = 1
-tooltip_format = "%A, %d %B %Y"
+[widget.clock]
+format = "{:%-I:%M %p}"
+tooltip_format = "{:%A, %B %d, %Y}"
 
 [bar.widgets.workspaces]
 persistent = [1, 2, 3, 4, 5]
