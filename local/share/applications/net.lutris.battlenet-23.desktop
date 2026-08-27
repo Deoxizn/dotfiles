@@ -1,0 +1,8 @@
+
+[Desktop Entry]
+Type=Application
+Name=Battle.net
+Icon=lutris_battlenet
+Exec=env LUTRIS_SKIP_INIT=1 lutris lutris:rungameid/23
+Categories=Game
+TryExec=lutris

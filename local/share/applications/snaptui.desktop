@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=SnaptUI
+Comment=Btrfs snapshot manager TUI
+Exec=omarchy-launch-or-focus-tui --app-id=TUI.snaptui /home/deoxizn/.local/bin/snaptui
+Icon=/home/deoxizn/Work/snaptui/icon.png
+Terminal=false
+Type=Application
+Categories=System;
+Keywords=btrfs;snapshot;snapper;
