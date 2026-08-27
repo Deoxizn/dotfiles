@@ -462,6 +462,12 @@ window-rule {
 // Terminal — opens on current workspace
 // (HDMI-A-1 ws3 doesn't exist yet; rule removed)
 
+// Screensaver — fullscreen on all monitors
+window-rule {
+    match app-id="noctarchy-screensaver"
+    open-fullscreen true
+}
+
 // Layer rules — blur background for bars/overlays
 layer-rule {
     match namespace="fuzzel"
@@ -510,7 +516,7 @@ window-rule {
 // ──────────────────────────────────────────────
 
 spawn-at-startup "noctalia"
-spawn-at-startup "swayidle" "-w" "timeout" "20" "niri msg action power-off-monitors"
+spawn-at-startup "swayidle" "-w" "timeout" "600" "niri msg action power-off-monitors"
 spawn-sh-at-startup "systemctl --user import-environment $(env | cut -d= -f1) && dbus-update-activation-environment --systemd --all"
 
 // ──────────────────────────────────────────────
