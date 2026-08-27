@@ -392,6 +392,12 @@ window-rule {
     open-on-workspace "browser"
 }
 
+window-rule {
+    match app-id="brave-origin-beta"
+    open-on-workspace "browser"
+    open-maximized true
+}
+
 // Code editors — send to code workspace
 window-rule {
     match app-id="code"
