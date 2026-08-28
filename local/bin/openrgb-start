@@ -1,0 +1,8 @@
+#!/bin/bash
+# noctarchy:summary=Launch OpenRGB (extracted AppImage) via XWayland with DISPLAY set.
+# OpenRGB's Qt AppImage bundles only the xcb (X11) platform plugin, so under
+# Niri XWayland it needs DISPLAY=:0 to start. Runs the stable extracted binary
+# (avoids the AppImage's per-run /tmp/.mount_* regeneration that broke
+# autostart).
+
+exec env DISPLAY=:0 /home/deoxizn/appimg/openrgb/OpenRGB-extracted/usr/bin/OpenRGB --profile "deoxizn" "$@"
