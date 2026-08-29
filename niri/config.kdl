@@ -389,6 +389,14 @@ window-rule {
     open-floating true
 }
 
+// Media player — float at 1000x720, centered
+window-rule {
+    match app-id="mpv"                      // Video player
+    open-floating true
+    default-column-width { fixed 1000; }
+    default-window-height { fixed 720; }
+}
+
 // TUI apps — float at 1000x720, centered
 // Used by noctarchy-install, noctarchy-themes, noctarchy-remove, etc.
 window-rule {
