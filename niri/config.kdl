@@ -205,7 +205,7 @@ binds {
     Mod+Shift+M { spawn "spotify"; }
     Mod+Ctrl+D { spawn "vesktop"; }
     Mod+Ctrl+M { spawn "brave-origin-beta" "--app=https://www.messenger.com"; }
-    XF86Tools { spawn "kitty" "--class=org.omarchy.ff" "fish" "-c" "ff; exec fish"; }
+    XF86Tools { spawn "kitty" "--class=app.noctarchy.ff" "fish" "-c" "ff; exec fish"; }
     XF86Launch5 { spawn "brave-origin-beta" "--app=https://gemini.google.com/app"; }
     XF86Launch6 { spawn "brave-origin-beta" "--app=https://photopea.com"; }
 
@@ -359,17 +359,26 @@ window-rule {
     open-floating true
 }
 
+// TUI apps — float at 1000x720, centered
+window-rule {
+    match app-id="TUI\\.float"
+    open-floating true
+    default-column-width { fixed 1000; }
+    default-window-height { fixed 720; }
+}
+
 // Default terminal
 window-rule {
     match app-id="Alacritty"
     default-column-width { proportion 0.5; }
 }
 
-// Fastfetch — full width
+// Fastfetch — floating
 window-rule {
-    match app-id="org.omarchy.ff"
-    default-column-width { proportion 1.0; }
-    open-maximized true
+    match app-id="app.noctarchy.ff"
+    open-floating true
+    default-column-width { fixed 1617; }
+    default-window-height { fixed 600; }
 }
 
 // DP-1: ws1=browser, ws2=files, ws3=spotify, ws4=games
@@ -501,7 +510,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="org.omarchy.ff"
+    match app-id="app.noctarchy.ff"
     opacity 0.85
     draw-border-with-background false
 }
