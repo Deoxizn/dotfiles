@@ -32,7 +32,7 @@ opacity = 0.95
 exclusive = true
 start  = ["launcher", "wallpaper", "workspaces", "separator", "active-window"]
 center = ["clock"]
-end    = ["bongocat", "notifications", "clipboard", "media", "tray", "network", "bluetooth", "brightness", "battery", "yuuto/arch-updater:widget", "control-center"]
+end    = ["bongocat", "notifications", "clipboard", "media", "tray", "network", "bluetooth", "brightness", "battery", "yuuto/arch-updater:widget", "sysmon-cpu", "sysmon-ram", "sysmon-temp", "sysmon-disk", "sysmon-net", "control-center"]
 
 [bar.default.monitor.HDMI-A-1]
 match = "HDMI-A-1"
@@ -80,6 +80,46 @@ show_percentage = true
 
 [bar.widgets.brightness]
 show_percentage = true
+
+[widget.sysmon-cpu]
+type = "sysmon"
+stat = "cpu_usage"
+visualization = "graph"
+show_value = true
+
+[widget.sysmon-ram]
+type = "sysmon"
+stat = "ram_pct"
+show_value = true
+
+[widget.sysmon-temp]
+type = "sysmon"
+stat = "cpu_temp"
+show_value = true
+
+[widget.sysmon-disk]
+type = "sysmon"
+stat = "disk_used_pct"
+path = "/"
+show_value = true
+
+[widget.sysmon-net]
+type = "sysmon"
+stat = "net_rx"
+network_speed_compact = true
+show_value = true
+
+# ──────────────────────────────────────────────
+# System Monitor
+# ──────────────────────────────────────────────
+
+[system.monitor]
+enabled = true
+cpu_poll_seconds = 2.0
+gpu_poll_seconds = 5.0
+memory_poll_seconds = 2.0
+network_poll_seconds = 3.0
+disk_poll_seconds = 10.0
 
 # ──────────────────────────────────────────────
 # Launcher
