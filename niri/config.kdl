@@ -378,7 +378,7 @@ window-rule {
     match app-id="app.noctarchy.ff"
     open-floating true
     default-column-width { fixed 1600; }
-    default-window-height { fixed 800; }
+    default-window-height { fixed 780; }
 }
 
 // DP-1: ws1=browser, ws2=files, ws3=spotify, ws4=games
