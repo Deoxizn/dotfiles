@@ -96,15 +96,15 @@ layout {
 
     focus-ring {
         width 4
-        active-color "#89b4fa"
-        inactive-color "#585b70"
+        active-color "#a881b7"
+        inactive-color "#747c84"
     }
 
     border {
         on
         width 2
-        active-color "#89b4fa"
-        inactive-color "#585b70"
+        active-color "#a881b7"
+        inactive-color "#747c84"
         urgent-color "#f87171"
     }
 
@@ -523,6 +523,7 @@ window-rule {
 spawn-at-startup "noctalia"
 spawn-at-startup "swayidle" "-w" "timeout" "600" "niri msg action power-off-monitors"
 spawn-sh-at-startup "systemctl --user import-environment $(env | cut -d= -f1) && dbus-update-activation-environment --systemd --all"
+spawn-sh-at-startup "sleep 2 && openrgb-start --startminimized"
 
 // ──────────────────────────────────────────────
 // Xwayland
