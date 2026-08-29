@@ -71,6 +71,7 @@ input {
             layout "us"                      // Keyboard layout (us, gb, de, etc.)
             // options "ctrl:nocaps"          // Uncomment to make CapsLock act as Ctrl
         }
+        numlock                              // Enable Num Lock on startup
     }
 
     touchpad {
