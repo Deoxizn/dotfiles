@@ -1,0 +1,116 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "type": "auto",
+    "source": "~/.config/fastfetch/noctarchy.png",
+    "color": { "1": "green" },
+    "width": 70,
+    "height": 30,
+  },
+  "display": {
+    "separator": "  ",
+  },
+  "modules": [
+    {
+      "type": "break",
+    },
+    {
+      "type": "break",
+    },
+    {
+      "type": "break",
+    },
+    {
+      "type": "break",
+    },
+    {
+      "type": "break",
+    },
+    {
+      "key": "╭───────────╮",
+      "type": "custom",
+    },
+    {
+      "key": "│ {#31}󰇅 mobo    {#keys}│",
+      "type": "host",
+    },
+    {
+      "key": "│ {#32}󰇅 agesa   {#keys}│",
+      "type": "command",
+      "text": "bios_ver=$(cat /sys/devices/virtual/dmi/id/bios_version 2>/dev/null); bios_date=$(cat /sys/devices/virtual/dmi/id/bios_date 2>/dev/null); echo \"ComboAM5 $bios_ver | $bios_date\"",
+    },
+    {
+      "key": "│ {#34}\ue900 ver     {#keys}│",
+      "type": "command",
+      "text": "rev=$(noctarchy-version 2>/dev/null); ver=$(omarchy-version); kernel=$(uname -r); echo \"Noctarchy${rev:+ $rev} (Omarchy $ver) | $kernel\"",
+    },
+    {
+      "key": "│ {#35}󰇄 desktop {#keys}│",
+      "type": "command",
+      "text": "niri_ver=$(niri --version 2>/dev/null | grep -oE '[0-9]+\\.[0-9]+' | head -1); noctalia_ver=$(pacman -Q noctalia 2>/dev/null | awk '{print $2}' | sed 's/-[0-9]*$//'); if pgrep -x noctalia >/dev/null 2>&1; then s=\"Noctalia ${noctalia_ver:-?}\"; elif pgrep -f '/usr/share/omarchy/shell' >/dev/null 2>&1; then s=\"Omarchy $(omarchy-version 2>/dev/null)\"; else s='no shell running'; fi; echo \"Niri ${niri_ver:-?} | $s\"",
+    },
+    {
+      "key": "│ {#36}󰸌 theme   {#keys}│",
+      "type": "command",
+      "text": "theme=$(omarchy-theme-current); echo -e \"$theme \\e[38m●\\e[37m●\\e[36m●\\e[35m●\\e[34m●\\e[33m●\\e[32m●\\e[31m●\"",
+    },
+    {
+      "key": "│ {#37} term    {#keys}│",
+      "type": "command",
+      "text": "fish_version=$(fish --version 2>/dev/null | grep -o '[0-9]\\+\\.[0-9]\\+\\.[0-9]\\+' | head -1); terminal_info=$(fastfetch -s terminal 2>/dev/null | grep -o '[a-zA-Z]* [0-9][^[:space:]]*' | head -1); echo \"${terminal_info:-$TERM} | fish ${fish_version:+$fish_version}\"",
+    },
+    {
+      "key": "│ {#31}󰍛 cpu     {#keys}│",
+      "type": "cpu",
+      "showPeCoreCount": true,
+    },
+    {
+      "key": "│ {#32}󰍛 gpu     {#keys}│",
+      "type": "command",
+      "text": "gpu_text=$(fastfetch -s gpu 2>/dev/null | grep -oE 'NVIDIA.*|AMD.*|Intel.*' | head -5 | sed 's/ - .*//'); nvidia_driver=\"\"; if command -v nvidia-smi &>/dev/null; then nvidia_driver=$(nvidia-smi --query-gpu=driver_version --format=csv,noheader 2>/dev/null | head -1 | cut -d. -f1); fi; result=\"\"; first=true; while IFS= read -r line; do if [[ -n \"$line\" ]]; then if [[ \"$first\" == true ]]; then first=false; else result=\"${result} | \"; fi; if [[ \"$line\" == NVIDIA* ]]; then if [[ -n \"$nvidia_driver\" ]]; then result=\"${result}${line} (${nvidia_driver})\"; else result=\"${result}${line}\"; fi; else result=\"${result}${line}\"; fi; fi; done <<< \"$gpu_text\"; echo \"$result\"",
+    },
+    {
+      "key": "│ {#34}󱄄 display {#keys}│",
+      "type": "command",
+      "text": "fastfetch -s display 2>/dev/null | grep -oE '\\([^)]+\\).*' | sed 's/^Display //' | sed ':a;N;$!ba;s/\\n/ | /g'",
+    },
+    {
+      "key": "│ {#35}󰉉 disk    {#keys}│",
+      "type": "disk",
+      "folders": "/",
+    },
+    {
+      "key": "│ {#33}󰏖 pkgs    {#keys}│",
+      "type": "packages",
+    },
+    {
+      "key": "│ {#36} memory  {#keys}│",
+      "type": "command",
+      "text": "memory_info=$(fastfetch -s memory 2>/dev/null | grep -o '[0-9.]* GiB / [0-9.]* GiB ([0-9%]*)' | head -1); swap_info=$(free -h | grep Swap | awk '{print $2 \"/\" $3 \" (\" $3 \"/\" $2 \")\"}' | sed 's/Gi/GiB/g'); echo \"$memory_info | $swap_info\"",
+    },
+    {
+      "key": "│ {#37}󰥠 Plr|Mda {#keys}│",
+      "type": "command",
+      "text": "media_json=$(fastfetch -s media --format json 2>/dev/null); player_name=$(echo \"$media_json\" | jq -r '.[0].result.player.name // \"No player\"' 2>/dev/null); artist=$(echo \"$media_json\" | jq -r '.[0].result.song.artist // empty' 2>/dev/null); name=$(echo \"$media_json\" | jq -r '.[0].result.song.name // empty' 2>/dev/null); if [[ -n \"$artist\" && -n \"$name\" ]]; then song_info=\"$artist - $name\"; else song_info=\"\"; fi; echo \"$player_name${song_info:+ | $song_info}\"",
+    },
+    {
+      "key": "│ {#31}󰦔 Devices {#keys}│",
+      "type": "command",
+      "text": "bt=$(fastfetch -s bluetooth --format json 2>/dev/null | jq -r '.[0].result[] | \"\\(.name) \\(.battery)%\"' | paste -sd ' | ' -); razer=$(python3 -c 'import openrazer.client; m=openrazer.client.DeviceManager(); [print(d.name.split(\"(\")[0].strip() + \" \" + str(d.battery_level) + \"%\") for d in m.devices]' 2>/dev/null | paste -sd ' | ' -); echo \"${bt}${bt:+ | }${razer}\"",
+    },
+    {
+      "type": "command",
+      "key": "│ {#32}󱫐 OS Time {#keys}│",
+      "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); uptime_info=$(uptime -p 2>/dev/null | sed 's/up //'); echo \"$days_difference days old | $uptime_info of uptime\"",
+    },
+    {
+      "type": "command",
+      "key": "│ {#34} Updated {#keys}│",
+      "text": "updated=$(omarchy-version-pkgs); echo \"$updated\"",
+    },
+    {
+      "key": "╰───────────╯",
+      "type": "custom",
+    },
+  ],
+}
