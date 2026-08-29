@@ -5,4 +5,4 @@
 # (avoids the AppImage's per-run /tmp/.mount_* regeneration that broke
 # autostart).
 
-exec env DISPLAY=:0 /home/deoxizn/appimg/openrgb/OpenRGB-extracted/usr/bin/OpenRGB --profile "deoxizn" "$@"
+exec env DISPLAY=:0 /home/deoxizn/appimg/openrgb/OpenRGB-extracted/usr/bin/OpenRGB --profile "/home/deoxizn/.config/OpenRGB/deoxizn.orp" "$@"

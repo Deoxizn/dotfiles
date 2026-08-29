@@ -523,7 +523,7 @@ window-rule {
 spawn-at-startup "noctalia"
 spawn-at-startup "swayidle" "-w" "timeout" "600" "niri msg action power-off-monitors"
 spawn-sh-at-startup "systemctl --user import-environment $(env | cut -d= -f1) && dbus-update-activation-environment --systemd --all"
-spawn-sh-at-startup "sleep 2 && openrgb-start --startminimized"
+spawn-sh-at-startup "sleep 2 && openrgb-start"
 
 // ──────────────────────────────────────────────
 // Xwayland
