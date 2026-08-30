@@ -95,7 +95,7 @@ aur_helper = "yay"
 auto_check_hours = 1
 flatpak_enabled = false
 update_mode = "terminal"
-update_cmd = "noctarchy-update-run"
+update_cmd = "script -qec noctarchy-update-run /dev/null"
 terminal = ""
 
 [plugins]
