@@ -94,6 +94,9 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@DP-1" ]
 aur_helper = "yay"
 auto_check_hours = 1
 flatpak_enabled = false
+update_mode = "terminal"
+update_cmd = "noctarchy-update-run"
+terminal = ""
 
 [plugins]
 enabled = [ "yuuto/arch-updater", "noctalia/bongocat" ]
