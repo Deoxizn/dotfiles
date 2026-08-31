@@ -23,8 +23,9 @@ alias ....='cd ../../..'
 
 # System & Tool Aliases
 alias nfs='sudo mount -a'
-alias svr='ssh deoxizn@192.168.8.209'
-alias kids='ssh clug@192.168.8.231'
+alias svr='env TERM=xterm-256color ssh deoxizn@192.168.8.209'
+alias kids='env TERM=xterm-256color ssh clug@192.168.8.231'
+alias 2pc='env TERM=xterm-256color ssh jackie@192.168.8.118'
 alias psync='docker compose run --rm plextraktsync sync'
 alias omup='omarchy-update'
 alias ga='git add .'
@@ -63,7 +64,11 @@ set -U fish_greeting
 set -gx ZED_ALLOW_ROOT true
 alias zroot='sudo -E zeditor'
 alias mkdir='mkdir -pv'
-alias path='readlink -e'
+# `path` is a fish 4.x builtin (path filter/resolve/etc) used by completions;
+# shadowing it as `readlink -e` breaks `git clone` completion (readlink: invalid option -- 'x').
+# Use `rp`/`abspath` instead.
+alias rp='readlink -e'
+alias abspath='readlink -e'
 alias rmm='rm -rvI'
 alias cpp='cp -R'
 alias cp='cp -i'
