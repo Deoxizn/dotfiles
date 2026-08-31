@@ -1,0 +1,10 @@
+[Unit]
+Description=Patch arch-updater service for Noctarchy hook
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/noctalia-patch-arch-updater
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,9 @@
+[Unit]
+Description=Watch arch-updater service for overwrites
+
+[Path]
+PathChanged=%h/.local/state/noctalia/plugins/materialized/community/arch-updater/service.luau
+Unit=arch-updater-noctarchy-patch.service
+
+[Install]
+WantedBy=default.target

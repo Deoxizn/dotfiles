@@ -1,0 +1,25 @@
+#!/bin/bash
+# Re-apply Noctarchy hook to arch-updater service if overwritten by plugin update
+SERVICE="$HOME/.local/state/noctalia/plugins/materialized/community/arch-updater/service.luau"
+if [[ ! -f "$SERVICE" ]]; then
+  exit 0
+fi
+if grep -q 'noctarchy-update-run' "$SERVICE"; then
+  exit 0
+fi
+# Backup once per day
+cp "$SERVICE" "$SERVICE.bak.$(date +%s)" 2>/dev/null || true
+sed -i '/^local function buildTerminalCommand()/a \    local override = trim(cfg("update_cmd"))\n    if override ~= "" then\n        return override\n    end\n    if noctalia.commandExists("noctarchy-update-run") then\n        return "noctarchy-update-run"\n    end\n' "$SERVICE"
+# Trigger reload if noctalia running
+if pgrep -x noctalia >/dev/null 2>&1; then
+  # Use proper env for Wayland
+  export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+  # Find WAYLAND_DISPLAY from running niri/noctalia
+  for sock in "$XDG_RUNTIME_DIR"/wayland-*; do
+    if [[ -S "$sock" ]]; then
+      export WAYLAND_DISPLAY="$(basename "$sock")"
+      break
+    fi
+  done
+  noctalia msg config-reload >/dev/null 2>&1 || true
+fi
