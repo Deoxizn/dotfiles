@@ -598,7 +598,7 @@ window-rule {
 // ──────────────────────────────────────────────
 
 spawn-at-startup "noctalia"                 // Noctalia shell (bar, notifications, etc.)
-spawn-at-startup "swayidle" "-w" "timeout" "600" "niri msg action power-off-monitors"   // Lock screen after 10 min idle
+spawn-at-startup "swayidle" "-w" "timeout" "600" "niri msg action power-off-monitors" "resume" "niri msg action power-on-monitors"   // DPMS off after 10 min idle, power on on resume/wake
 spawn-sh-at-startup "systemctl --user import-environment $(env | cut -d= -f1) && dbus-update-activation-environment --systemd --all"   // Import env into systemd/dbus
 spawn-sh-at-startup "sleep 2 && openrgb-start"   // Start OpenRGB with 2s delay (for Wayland to be ready)
 

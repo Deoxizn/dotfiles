@@ -1,0 +1,11 @@
+[Unit]
+Description=Fix DPMS wake clicks (power-on + HDMI reconfigure + bar rebind)
+After=suspend.target
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'niri msg action power-on-monitors; niri msg output HDMI-A-1 transform 90 2>/dev/null || true; sleep 1; niri msg action power-on-monitors; pkill -9 noctalia; sleep 1; noctalia >/tmp/noctalia.log 2>&1 & disown'
+
+[Install]
+WantedBy=default.target
