@@ -132,13 +132,16 @@ height = 400
 
 # ──────────────────────────────────────────────
 # Notifications
+# Per https://docs.noctalia.dev/noctalia/services/notifications/
+# monitors = [] clones to all outputs (default). Set to ["DP-1"] to
+# suppress toasts on HDMI-A-1 (portrait). Falls back to all if DP-1 disconnected.
 # ──────────────────────────────────────────────
 
-[notifications]
-enabled = true
-timeout = 5000
+[notification]
+monitors = ["DP-1"]
+position = "top_right"
 max_visible = 5
-position = "top-right"
+enable_daemon = true
 
 # ──────────────────────────────────────────────
 # Lock screen
