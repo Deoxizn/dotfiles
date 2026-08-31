@@ -46,7 +46,7 @@
     },
     {
       "type": "custom",
-      "format": "  {#32}●{#37} Noctarchy - Niri × Noctalia × Omarchy",
+      "format": "   {#32}►{#37} Noctarchy - Niri × Noctalia × Omarchy",
     },
     {
       "type": "break",
@@ -57,7 +57,7 @@
 
     {
       "type": "custom",
-      "format": "{#32}──── \u001b[1;97mVITALS\u001b[0m {#37}{$1}",
+      "format": "{#32}────\u001b[1;97m↳VITALS↰\u001b[0m{#37}{$1}",
     },
     {
       "type": "host",
@@ -110,7 +110,7 @@
 
     {
       "type": "custom",
-      "format": "{#32}──── \u001b[1;97mSYSTEM\u001b[0m {#37}{$1}",
+      "format": "{#32}────\u001b[1;97m↳SYSTEM↰\u001b[0m{#37}{$1}",
     },
     {
       "type": "command",
@@ -163,7 +163,7 @@
 
     {
       "type": "custom",
-      "format": "{#32}──── \u001b[1;97mSESSION\u001b[0m {#37}{$2}",
+      "format": "{#32}────\u001b[1;97m↳SESSION↰\u001b[0m{#37}{$2}",
     },
     {
       "type": "uptime",
