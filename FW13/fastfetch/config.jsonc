@@ -46,7 +46,7 @@
     },
     {
       "type": "custom",
-      "format": "  {#32}●{#37} Noctarchy - Niri × Noctalia × Omarchy",
+      "format": "   {#32}►{#37} Noctarchy - Niri × Noctalia × Omarchy",
     },
     {
       "type": "break",
@@ -54,9 +54,10 @@
     {
       "type": "break",
     },
+
     {
       "type": "custom",
-      "format": "{#32}──── \u001b[1;97mVITALS\u001b[0m {#37}{$1}",
+      "format": "{#32}────\u001b[1;97m↳VITALS↰\u001b[0m{#37}{$1}",
     },
     {
       "type": "host",
@@ -99,15 +100,17 @@
       "keyWidth": 18,
       "text": "fastfetch -s display 2>/dev/null | grep -oE '\\([^)]+\\).*' | sed 's/^Display //' | sed ':a;N;$!ba;s/\\n/ | /g'",
     },
+
     {
       "type": "break",
     },
     {
       "type": "break",
     },
+
     {
       "type": "custom",
-      "format": "{#32}──── \u001b[1;97mSYSTEM\u001b[0m {#37}{$1}",
+      "format": "{#32}────\u001b[1;97m↳SYSTEM↰\u001b[0m{#37}{$1}",
     },
     {
       "type": "command",
@@ -150,15 +153,17 @@
       "key": "PKGS",
       "keyWidth": 18,
     },
+
     {
       "type": "break",
     },
     {
       "type": "break",
     },
+
     {
       "type": "custom",
-      "format": "{#32}──── \u001b[1;97mSESSION\u001b[0m {#37}{$2}",
+      "format": "{#32}────\u001b[1;97m↳SESSION↰\u001b[0m{#37}{$2}",
     },
     {
       "type": "uptime",
@@ -181,7 +186,7 @@
       "type": "command",
       "key": "TERM",
       "keyWidth": 18,
-      "text": "terminal_info=$(fastfetch -s terminal 2>/dev/null | grep -o '[a-zA-Z]* [0-9][^[:space:]]*' | head -1 | sed 's/kitty/foot/g'); echo \"${terminal_info:-$TERM}\"",
+      "text": "terminal_info=$(fastfetch -s terminal 2>/dev/null | grep -o '[a-zA-Z]* [0-9][^[:space:]]*' | head -1); echo \"${terminal_info:-$TERM}\"",
     },
     {
       "type": "shell",
@@ -200,16 +205,19 @@
       "keyWidth": 18,
       "text": "bt=$(fastfetch -s bluetooth --format json 2>/dev/null | jq -r '.[0].result[] | \"\\(.name) \\(.battery)%\"' | paste -sd ' | ' -); razer=$(python3 -c 'import openrazer.client; m=openrazer.client.DeviceManager(); [print(d.name.split(\"(\")[0].strip() + \" \" + str(d.battery_level) + \"%\") for d in m.devices]' 2>/dev/null | paste -sd ' | ' -); echo \"${bt}${bt:+ | }${razer}\"",
     },
+
     {
       "type": "break",
     },
     {
       "type": "break",
     },
+
     {
       "type": "custom",
       "format": "      {#90}\u001b]66;s=2;󰊠\u0007    {#91}\u001b]66;s=2;󰊠\u0007    {#92}\u001b]66;s=2;󰊠\u0007    {#93}\u001b]66;s=2;󰊠\u0007    {#94}\u001b]66;s=2;󰊠\u0007    {#95}\u001b]66;s=2;󰊠\u0007    {#96}\u001b]66;s=2;󰊠\u0007    {#97}\u001b]66;s=2;󰊠\u0007",
     },
+
     {
       "type": "break",
     },
