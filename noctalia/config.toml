@@ -8,7 +8,7 @@
 [general]
 terminal = "kitty"
 launcher = "fuzzel"
-file_manager = "nautilus"
+file_manager = "strata"
 browser = "brave-origin-beta"
 
 # ──────────────────────────────────────────────

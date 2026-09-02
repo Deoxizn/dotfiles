@@ -223,7 +223,8 @@ binds {
     // ── Apps (matches Omarchy conventions) ──
     Mod+Shift+B { spawn "xdg-open" "https://"; }               // Open browser
     Mod+Shift+E { spawn "xdg-terminal-exec" "-e" "nvim"; }     // Open terminal with Neovim
-    Mod+Shift+F { spawn "nautilus" "--new-window"; }            // Open file manager
+    Mod+Shift+F { spawn "strata"; }            // Open file manager (Strata)
+    Mod+Alt+Shift+F { spawn-sh "strata \"$(omarchy-cmd-terminal-cwd)\""; } // Open file manager at terminal cwd (Strata)
     Mod+Shift+M { spawn "spotify"; }                            // Open Spotify
     Mod+Ctrl+D { spawn "vesktop"; }                             // Open Vesktop (Discord)
     Mod+Ctrl+M { spawn "brave-origin-beta" "--app=https://www.messenger.com"; }  // Messenger webapp
@@ -465,9 +466,9 @@ window-rule {
     open-maximized true
 }
 
-// File manager — always opens on workspace 2, maximized
+// File manager — always opens on workspace 2, maximized (Strata)
 window-rule {
-    match app-id="org.gnome.Nautilus"
+    match app-id="io.github.lgse.Strata"
     open-on-workspace "2"
     open-maximized true
 }
@@ -588,7 +589,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="org.gnome.Nautilus"
+    match app-id="io.github.lgse.Strata"
     opacity 0.90                            // 90% opaque (slightly less transparent)
 }
 
