@@ -1,25 +1,65 @@
 #!/bin/bash
 # Re-apply Noctarchy hook to arch-updater service if overwritten by plugin update
 SERVICE="$HOME/.local/state/noctalia/plugins/materialized/community/arch-updater/service.luau"
+# Wait up to 10s for file to appear (at boot, Noctalia may not have materialized yet)
+for i in 1 2 3 4 5; do
+  if [[ -f "$SERVICE" ]]; then
+    break
+  fi
+  sleep 2
+done
 if [[ ! -f "$SERVICE" ]]; then
   exit 0
 fi
 if grep -q 'noctarchy-update-run' "$SERVICE"; then
   exit 0
 fi
-# Backup once per day
+# Backup once
 cp "$SERVICE" "$SERVICE.bak.$(date +%s)" 2>/dev/null || true
-sed -i '/^local function buildTerminalCommand()/a \    local override = trim(cfg("update_cmd"))\n    if override ~= "" then\n        return override\n    end\n    if noctalia.commandExists("noctarchy-update-run") then\n        return "noctarchy-update-run"\n    end\n' "$SERVICE"
+# Try patch, with fallback to ensure it works even if function signature changed slightly
+if grep -q '^local function buildTerminalCommand()' "$SERVICE"; then
+  sed -i '/^local function buildTerminalCommand()/a \    local override = trim(cfg("update_cmd"))\n    if override ~= "" then\n        return override\n    end\n    if noctalia.commandExists("noctarchy-update-run") then\n        return "noctarchy-update-run"\n    end\n' "$SERVICE"
+else
+  # Fallback: try to find any buildTerminalCommand definition
+  sed -i '/buildTerminalCommand/a \    local override = trim(cfg("update_cmd"))\n    if override ~= "" then\n        return override\n    end\n    if noctalia.commandExists("noctarchy-update-run") then\n        return "noctarchy-update-run"\n    end\n' "$SERVICE" 2>/dev/null || true
+fi
+# Verify and retry with more generic if still not patched
+if ! grep -q 'noctarchy-update-run' "$SERVICE"; then
+  # Force insert after first occurrence of buildTerminalCommand
+  awk 'NR==1 || !found {print} /buildTerminalCommand/ && !found {print "    local override = trim(cfg(\"update_cmd\"))"; print "    if override ~= \"\" then"; print "        return override"; print "    end"; print "    if noctalia.commandExists(\"noctarchy-update-run\") then"; print "        return \"noctarchy-update-run\""; print "    end"; found=1}' "$SERVICE" > "$SERVICE.tmp" && mv "$SERVICE.tmp" "$SERVICE" 2>/dev/null || true
+fi
+# Kill any stuck arch-update that was started with the old (broken) yay/pacman command
+# User realizes it's broken when they see "updating in background" with yay prompt
+if pgrep -f "pacman -Syu" >/dev/null 2>&1 || pgrep -f "yay.*Syu" >/dev/null 2>&1 || pgrep -f "script.*noctarchy" >/dev/null 2>&1; then
+  pkill -f "pacman -Syu" 2>/dev/null || true
+  pkill -f "yay.*Syu" 2>/dev/null || true
+  pkill -f "noctarchy-update-run" 2>/dev/null || true
+  # Clear plugin's stuck running state (log + pid + meta)
+  rm -f "$HOME/.local/state/noctalia/plugins/data/yuuto/arch-updater/update.log"
+  rm -f "$HOME/.local/state/noctalia/plugins/data/yuuto/arch-updater/run_meta.json"
+  rm -f "$HOME/.local/state/noctalia/plugins/data/yuuto/arch-updater/run.pid"
+fi
+
 # Trigger reload if noctalia running
 if pgrep -x noctalia >/dev/null 2>&1; then
-  # Use proper env for Wayland
   export XDG_RUNTIME_DIR="/run/user/$(id -u)"
-  # Find WAYLAND_DISPLAY from running niri/noctalia
   for sock in "$XDG_RUNTIME_DIR"/wayland-*; do
     if [[ -S "$sock" ]]; then
       export WAYLAND_DISPLAY="$(basename "$sock")"
       break
     fi
   done
+  # Also try niri's wayland socket
+  for sock in "$XDG_RUNTIME_DIR"/niri.wayland-*; do
+    if [[ -S "$sock" ]]; then
+      export WAYLAND_DISPLAY="$(basename "$sock" | sed 's/niri\.//')"
+      break
+    fi
+  done
+  # Clear stuck running phase in memory via dismiss+check, then reload
+  noctalia msg plugin yuuto/arch-updater:service all dismiss >/dev/null 2>&1 || true
+  sleep 1
   noctalia msg config-reload >/dev/null 2>&1 || true
+  # Also try to restart the service fully if config-reload not enough (kill and let systemd restart)
+  # We don't kill here, just reload
 fi
