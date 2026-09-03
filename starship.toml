@@ -1076,7 +1076,7 @@ format = '[󰯭 $context $namespace]($style) ' #AppTainer
 # ========time/shell/shlvl/jobs/memory_usage==========
 
 [time]
-disabled = false
+disabled = true
 time_format = "%I:%M%p" # Hour:Minute Format # %T for seconds
 style = "bg:bg_1"
 format = '[[  $time ](fg:fg_1 bg:bg_1)]($style)'
