@@ -49,7 +49,7 @@ hl.unbind("SUPER + ALT + RETURN")
 -- Application bindings
 o.bind("SUPER + SPACE", "Apps menu", "omarchy-menu toggle apps")
 o.bind("SUPER + ALT + SPACE", "Omarchy root menu", "omarchy-menu toggle root")
-o.bind("SUPER + RETURN", "Terminal", "foot")
+o.bind("SUPER + RETURN", "Terminal", { omarchy = "terminal" })
 o.bind("SUPER + SHIFT + RETURN", "Browser", { omarchy = "browser" })
 o.bind("SUPER + SHIFT + F", "File manager", { launch = "strata" })
 o.bind("SUPER + ALT + SHIFT + F", "File manager (cwd)", "uwsm-app -- strata \"$(omarchy-cmd-terminal-cwd)\"")
