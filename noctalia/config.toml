@@ -30,7 +30,7 @@ position = "top"
 height = 40
 opacity = 0.95
 exclusive = true
-start  = ["launcher", "wallpaper", "workspaces", "separator", "active-window"]
+start  = ["launcher", "wallpaper", "workspaces", "spacer", "active_window"]
 center = ["clock"]
 end    = ["bongocat", "notifications", "clipboard", "media", "tray", "network", "bluetooth", "brightness", "battery", "yuuto/arch-updater:widget", "sysmon-cpu", "sysmon-ram", "sysmon-temp", "sysmon-disk", "sysmon-net", "control-center"]
 
@@ -108,6 +108,22 @@ type = "sysmon"
 stat = "net_rx"
 network_speed_compact = true
 show_value = true
+
+[widget.spacer]
+type = "spacer"
+length = 8
+
+[widget.active_window]
+show_empty_label = true
+display = "icon_and_text"
+title_scroll = "on_hover"
+max_length = 260
+
+[widget.taskbar]
+show_all_outputs = false
+show_window_title = true
+window_title_max_width = 180
+show_active_indicator = true
 
 # ──────────────────────────────────────────────
 # System Monitor

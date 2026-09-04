@@ -21,15 +21,21 @@ end = [
     "yuuto/arch-updater:widget",
     "control-center"
 ]
-start = [ "launcher", "wallpaper", "workspaces", "separator", "active-window", "media" ]
+start = [ "launcher", "wallpaper", "workspaces", "spacer", "media", "active_window" ]
+
+[calendar]
+enabled = true
+
+    [calendar.account.deoxizn]
+    type = "google"
 
 [location]
 auto_locate = true
 
 [lockscreen_widgets]
-enabled = false
+enabled = true
 schema_version = 2
-widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@DP-1" ]
+widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@DP-1", "lockscreen-widget-0000000000000001" ]
 
     [lockscreen_widgets.grid]
     cell_size = 16
@@ -90,13 +96,24 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@DP-1" ]
         show_unlock_hint = true
         show_weather = true
 
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 1440.0
+    cy = 589.0
+    output = "DP-1"
+    placement_height = 1620.0
+    placement_width = 2880.0
+    rotation = 0.0
+    type = "calendar"
+
 [plugin_settings."yuuto/arch-updater"]
 aur_helper = "yay"
 auto_check_hours = 1
 flatpak_enabled = false
-update_mode = "terminal"
-update_cmd = "script -qec noctarchy-update-run /dev/null"
 terminal = ""
+update_cmd = "script -qec noctarchy-update-run /dev/null"
+update_mode = "terminal"
 
 [plugins]
 enabled = [ "yuuto/arch-updater", "noctalia/bongocat" ]
@@ -104,25 +121,51 @@ enabled = [ "yuuto/arch-updater", "noctalia/bongocat" ]
 [shell]
 panel_anchor_bar = "default"
 
+    [shell.panel]
+    control_center_position = "center"
+
 [system.monitor]
 cpu_poll_seconds = 2.0
+cpu_temp_activity_threshold = 80
+cpu_temp_critical_threshold = 100
+cpu_usage_activity_threshold = 80
+cpu_usage_critical_threshold = 100
 disk_poll_seconds = 10.0
+disk_used_critical_threshold = 100
+disk_used_pct_critical_threshold = 100
 enabled = true
 gpu_poll_seconds = 5.0
+gpu_temp_activity_threshold = 80
+gpu_temp_critical_threshold = 100
+gpu_usage_activity_threshold = 80
+gpu_usage_critical_threshold = 100
+gpu_vram_activity_threshold = 80
+gpu_vram_critical_threshold = 100
 memory_poll_seconds = 2.0
+net_rx_activity_threshold = 50.0
+net_rx_critical_threshold = 100.0
+net_tx_activity_threshold = 50.0
+net_tx_critical_threshold = 100.0
 network_poll_seconds = 3.0
+ram_pct_activity_threshold = 80
+ram_pct_critical_threshold = 100
+swap_pct_activity_threshold = 80
+swap_pct_critical_threshold = 100
 
-[wallpaper.default]
-path = "/home/deoxizn/.local/state/noctalia/wallpaper/wallhaven-0w9274.png"
+[wallpaper]
+directory = "/mnt/Photos/wallpapers"
 
-[wallpaper.last]
-path = "/home/deoxizn/Pictures/Wallpapers/symbols_t_black.png"
+    [wallpaper.default]
+    path = "/home/deoxizn/.local/state/noctalia/wallpaper/3840x2160_aesthetic_various-arch-v2.png"
 
-[wallpaper.monitors.DP-1]
-path = "/home/deoxizn/Pictures/Wallpapers/wallhaven-kx996m.jpg"
+    [wallpaper.last]
+    path = "/mnt/Photos/wallpapers/symbols_t_black.png"
 
-[wallpaper.monitors.HDMI-A-1]
-path = "/home/deoxizn/Pictures/Wallpapers/symbols_t_black.png"
+    [wallpaper.monitors.DP-1]
+    path = "/mnt/Photos/wallpapers/wallhaven-kx996m.jpg"
+
+    [wallpaper.monitors.HDMI-A-1]
+    path = "/mnt/Photos/wallpapers/symbols_t_black.png"
 
 [weather]
 unit = "imperial"
