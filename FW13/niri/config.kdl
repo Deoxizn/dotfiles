@@ -208,18 +208,6 @@ overview {
 }
 
 // ──────────────────────────────────────────────
-// Named workspaces
-// Give workspaces names so you can reference them in rules and keybinds.
-// Useful for always sending certain apps to specific workspaces.
-// ──────────────────────────────────────────────
-
-workspace "browser"
-workspace "code"
-workspace "chat"
-workspace "media"
-workspace "games"
-
-// ──────────────────────────────────────────────
 // Keybindings
 // Niri has NO default binds — you must define ALL of them yourself.
 // "Mod" = Super/Windows key.
@@ -241,8 +229,6 @@ binds {
     Mod+Shift+B { spawn "xdg-open" "https://"; }               // Open browser (default: brave-origin)
     Mod+Shift+E { spawn "zeditor"; }                            // Open editor (zed)
     Mod+Shift+F { spawn "~/.local/bin/strata"; }
-    Mod+Alt+W { spawn "bash" "-c" "~/.config/niri/scripts/noctarchy-wallpaper-reset"; }  // Restore per-monitor wallpapers
-    Mod+Ctrl+T { spawn "bash" "-c" "~/.config/niri/scripts/noctarchy-btop-toggle"; }  // Toggle btop terminal
     Mod+Shift+M { spawn "spotify"; }                             // Open Spotify
     Mod+Ctrl+D { spawn "vesktop"; }                             // Open Vesktop (Discord)
     Mod+Ctrl+M { spawn "brave-origin-beta" "--app=https://www.messenger.com"; }
@@ -278,12 +264,11 @@ binds {
     Mod+2 { focus-workspace 2; }
     Mod+3 { focus-workspace 3; }
     Mod+4 { focus-workspace 4; }
-    Mod+5 { focus-workspace "games"; }
+    Mod+5 { focus-workspace 5; }
     Mod+6 { focus-workspace 6; }
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
-    Mod+0 { focus-workspace "browser"; }                        // Mod+0 → named workspace
 
     // Move current window to workspace 1-9 with Mod+Shift+1-9
     Mod+Shift+1 { move-column-to-workspace 1; }
@@ -295,7 +280,6 @@ binds {
     Mod+Shift+7 { move-column-to-workspace 7; }
     Mod+Shift+8 { move-column-to-workspace 8; }
     Mod+Shift+9 { move-column-to-workspace 9; }
-    Mod+Shift+0 { move-column-to-workspace "browser"; }         // Move to named workspace
 
     // ── Workspace navigation ──
     Mod+U { focus-workspace-down; }                             // Go to workspace below
@@ -470,104 +454,16 @@ window-rule {
 // File manager — Strata tiles with the rest (no float rule)
 
 // Browser — always opens on the "browser" named workspace
-window-rule {
-    match app-id="firefox"
-    open-on-workspace "browser"
-}
-
-window-rule {
-    match app-id="chromium"
-    open-on-workspace "browser"
-}
-
-window-rule {
-    match app-id="brave-browser"
-    open-on-workspace "browser"
-}
-
-window-rule {
-    match app-id="brave-browser-beta"
-    open-on-workspace "browser"
-}
 
 // Code editors — always opens on the "code" named workspace
-window-rule {
-    match app-id="code"                     // VS Code
-    open-on-workspace "code"
-}
-
-window-rule {
-    match app-id="jetbrains-*"             // JetBrains IDEs (IntelliJ, PyCharm, etc.)
-    open-on-workspace "code"
-}
 
 // Media — always opens on the "media" named workspace
-window-rule {
-    match app-id="mpv"                      // Video player
-    open-on-workspace "media"
-}
 
 // Chat apps — always opens on the "chat" named workspace
-window-rule {
-    match app-id="discord|vesktop"
-    open-on-workspace "chat"
-}
 
-
-// ── Personal (FW13 profile) app rules, merged onto hexciri workspaces ──
-// Spotify — media workspace, maximized
-window-rule {
-    match app-id="spotify"
-    open-on-workspace "media"
-    open-maximized true
-}
-
-// Interactive webapps — browser/chat workspaces
-window-rule {
-    match app-id="brave-www.messenger.com__-Default"
-    open-on-workspace "chat"
-    open-maximized true
-}
-
-window-rule {
-    match app-id="Messenger"
-    open-on-workspace "chat"
-    open-maximized true
-}
-
-window-rule {
-    match app-id="brave-gemini.google.com__app-Default"
-    open-on-workspace "browser"
-    open-maximized true
-}
-
-window-rule {
-    match app-id="brave-photopea.com__-Default"
-    open-on-workspace "browser"
-    open-maximized true
-}
-
-// Games — dedicated workspace, maximized; WoW fullscreen
-window-rule {
-    match app-id="steam|steamwebhelper|steam_app"
-    open-on-workspace "games"
-    open-maximized true
-}
-
-window-rule {
-    match app-id="wow.exe"
-    open-on-workspace "games"
-    open-fullscreen true
-}
-
-// Strata file manager — maximized on current workspace
 window-rule {
     match app-id="io.github.lgse.Strata"
     open-maximized true
-}
-window-rule {
-    match app-id="org.telegram.desktop"     // Telegram
-    open-on-workspace "chat"
 }
 
 // ──────────────────────────────────────────────

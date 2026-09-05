@@ -26,7 +26,7 @@ background_opacity = 0.95             # 0.0 = transparent, 1.0 = opaque
 reserve_space = true                  # Reserve screen space (don't overlap windows)
 start = ["launcher", "wallpaper", "workspaces", "separator", "active_window"]
 center = ["clock"]
-end = ["notifications", "clipboard", "media", "tray", "network", "bluetooth", "volume", "brightness", "battery", "yuuto/arch-updater:widget", "sysmon-cpu", "sysmon-ram", "sysmon-temp", "sysmon-disk", "sysmon-net", "control-center"]
+end = ["notifications", "clipboard", "media", "tray", "noctalia/bongocat:cat", "network", "bluetooth", "volume", "brightness", "battery", "yuuto/arch-updater:widget", "sysmon-cpu", "sysmon-ram", "sysmon-temp", "sysmon-disk", "sysmon-net", "control-center"]
 
 [widget.workspaces]
 hide_when_empty = true                 # Only show workspaces that have windows/apps
@@ -149,3 +149,14 @@ gpu_poll_seconds = 5.0
 memory_poll_seconds = 2.0
 network_poll_seconds = 3.0
 disk_poll_seconds = 10.0
+[widget."noctalia/bongocat:cat"]
+input_devices = [
+  "/dev/input/by-id/event-kbd",
+  "/dev/input/by-path/platform-*kbd*",
+  "/dev/input/by-path/platform-i8042-serio-0-event-kbd",
+]
+audio_spectrum = true
+tappy_mode = true
+rave_mode = false
+use_mpris_filter = false
+
