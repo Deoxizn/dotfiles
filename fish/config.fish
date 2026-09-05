@@ -10,11 +10,17 @@ if status is-interactive
 end
 
 # File system
-alias ls='eza -lh --group-directories-first --icons=auto'
-alias lsa='ls -a'
-alias fz="fzf --preview 'bat --style=numbers --color=always {}'"
-alias lt='eza --tree --level=2 --long --icons --git'
-alias lta='lt -a'
+if type -q eza
+    alias ls='eza -lh --group-directories-first --icons=auto'
+    alias lsa='ls -a'
+    alias lt='eza --tree --level=2 --long --icons --git'
+    alias lta='lt -a'
+else
+    alias lsa='ls -a'
+end
+if type -q fzf
+    alias fz="fzf --preview 'bat --style=numbers --color=always {}'"
+end
 
 # Directories
 alias ..='cd ..'
@@ -27,7 +33,7 @@ alias svr='env TERM=xterm-256color ssh deoxizn@192.168.8.209'
 alias kids='env TERM=xterm-256color ssh clug@192.168.8.231'
 alias 2pc='env TERM=xterm-256color ssh jackie@192.168.8.118'
 alias psync='docker compose run --rm plextraktsync sync'
-alias omup='omarchy-update'
+alias omup='hexciri-update-run'
 alias ga='git add .'
 alias gp='git push'
 alias gpl='git pull'
@@ -56,8 +62,10 @@ end
 
 # Init Key Tools
 set -gx STARSHIP_CONFIG $HOME/.config/starship.toml
-zoxide init fish | source
 starship init fish | source
+if type -q zoxide
+    zoxide init fish | source
+end
 
 # General Settings
 set -U fish_greeting
@@ -87,7 +95,6 @@ alias sizeof="du -hs"
 
 # Networking & Utilities
 alias connect=nmtui
-alias lockblock='killall xautolock; xset s off; xset -dpms; echo ok'
 alias wget='wget --content-disposition'
 alias unset='set --erase'
 
@@ -162,13 +169,3 @@ function qr --description "Prints QR as unicode blocks (works in foot)"
 end
 
 alias sharewifi='qr "WIFI:T:WPA;S:aaa;P:bbb;;"'
-
-function lockblock --description "Toggle idle locking (hypridle)"
-  if pgrep -x hypridle >/dev/null
-    pkill -x hypridle
-    echo "idle locking blocked"
-  else
-    setsid hypridle >/dev/null 2>&1 &
-    echo "idle locking active"
-  end
-end
