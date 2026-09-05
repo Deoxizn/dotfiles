@@ -1,111 +1,146 @@
-# Noctarchy — Noctalia config
-# https://github.com/deoxizn/noctarchy
-
-# ──────────────────────────────────────────────
-# General
-# ──────────────────────────────────────────────
-
-[general]
-terminal = "kitty"
-launcher = "fuzzel"
-file_manager = "strata"
-browser = "brave-origin-beta"
-
-# ──────────────────────────────────────────────
-# Shell
-# ──────────────────────────────────────────────
-
-[shell]
-time_format = "{:%-I:%M %p}"
-
-[shell.animation]
-enabled = false
+# Hexciri — Noctalia config (Noctalia v5 schema)
+# https://github.com/deoxizn/hexciri
+#
+# Note: v5 removed several v4 sections ([general] default apps, [launcher]
+# command, [lock], [clipboard]). Default apps live in xdg-settings + state
+# (see hexciri-defaults); the lock screen is internal (see hexciri-lock).
 
 # ──────────────────────────────────────────────
 # Bar
+# Widget IDs are v5 names (spacer, active_window, ...). Per-widget settings
+# live in [widget.<name>] tables below.
+#
+# Composition: mirrors the daily bar (launcher, wallpaper, workspaces,
+# active_window, clock, notifications, clipboard, tray, network, bluetooth,
+# volume, brightness, battery, arch-updater, control-center/settings owl).
+# Deliberately removed: bongo-cat and the sysmon stack (cpu/ram/temp/disk/net)
+# — clutter that duplicates system monitors. Volume stays (everyone needs it),
+# brightness stays (laptops). Edit freely; install.sh never overwrites a file
+# you've modified (repo default lands alongside as <file>.hexciri).
 # ──────────────────────────────────────────────
 
 [bar.default]
 position = "top"
-height = 40
-opacity = 0.95
-exclusive = true
-start  = ["launcher", "wallpaper", "workspaces", "separator", "active-window"]
+thickness = 40                        # Bar height in pixels
+background_opacity = 0.95             # 0.0 = transparent, 1.0 = opaque
+reserve_space = true                  # Reserve screen space (don't overlap windows)
+start = ["launcher", "wallpaper", "workspaces", "separator", "active_window"]
 center = ["clock"]
-end    = ["bongocat", "notifications", "clipboard", "media", "tray", "network", "bluetooth", "brightness", "battery", "yuuto/arch-updater:widget", "sysmon-cpu", "sysmon-ram", "sysmon-temp", "sysmon-disk", "sysmon-net", "control-center"]
+end = ["notifications", "clipboard", "media", "tray", "network", "bluetooth", "volume", "brightness", "battery", "yuuto/arch-updater:widget", "sysmon-cpu", "sysmon-ram", "sysmon-temp", "sysmon-disk", "sysmon-net", "control-center"]
 
-[bar.widgets]
-enabled = false
+[widget.workspaces]
+hide_when_empty = true                 # Only show workspaces that have windows/apps
+                                       # (workspaces are global per-monitor, so this keeps
+                                       # every output's bar tidy)
 
 [widget.clock]
-format = "{:%-I:%M %p}"
-tooltip_format = "{:%A, %B %d, %Y}"
+format = "{:%I:%M %p}"                 # 12-hour time, e.g. 02:30 PM (see date-format-tokens in Noctalia docs)
+tooltip_format = "{:%A, %d %B %Y}"    # Full date on hover
 
-[bar.widgets.workspaces]
-persistent = [1, 2, 3, 4, 5]
+[widget.spacer]
+type = "spacer"
+length = 8                            # Gap in pixels between workspaces and window title
 
-[widget.bongocat]
-type = "noctalia/bongocat:cat"
-input_devices = [
-  "/dev/input/by-id/event-kbd",
-  "/dev/input/by-path/platform-*kbd*",
-]
-audio_spectrum = true
-tappy_mode = true
-rave_mode = false
-use_mpris_filter = false
+[widget.spacer_2]
+type = "spacer"
 
-[bar.widgets.battery]
-critical_threshold = 15
-warning_threshold = 30
-show_percentage = true
+[widget.active_window]
+show_empty_label = true               # Show placeholder when no window is focused
+display = "icon_and_text"             # App icon + title (alternatives: icon, text)
 
-[bar.widgets.network]
-show_wifi = true
-show_wired = true
-show_vpn = true
+# ──────────────────────────────────────────────
+# Shell services (clipboard history lives here in v5)
+# ──────────────────────────────────────────────
 
-[bar.widgets.media]
-show_album_art = true
-max_title_length = 40
+[shell]
+clipboard_enabled = true
+clipboard_history_max_entries = 100
+time_format = "{:%I:%M %p}"           # 12-hour time (Control Center / dashboard headers)
 
-[bar.widgets.volume]
-show_percentage = true
+# ──────────────────────────────────────────────
+# Notifications
+# ──────────────────────────────────────────────
 
-[bar.widgets.brightness]
-show_percentage = true
+[notification]
+position = "top_right"                # Corner for toast popups
+max_visible = 5                       # Max stacked toasts
+enable_daemon = true                  # Run the notification daemon
+
+# ──────────────────────────────────────────────
+# Idle → lock screen after 5 minutes
+# ──────────────────────────────────────────────
+
+[idle.behavior.lock]
+enabled = true
+timeout = 300.0                       # Seconds idle before locking
+
+# ──────────────────────────────────────────────
+# Wallpaper (picker + rotation use the active theme's backgrounds)
+# ──────────────────────────────────────────────
+
+[wallpaper]
+enabled = true
+directory = "~/.local/state/hexciri/current/theme/backgrounds"
+fill_mode = "crop"                    # Fill screen, cropping overflow
+transition = ["fade"]                 # Transition effect between wallpapers
+
+[wallpaper.automation]
+enabled = false                   # Rotation off — wallpaper changes only via the bar picker
+interval_seconds = 3600           # Unused while automation is disabled
+order = "random"
+
+# ──────────────────────────────────────────────
+# Dock (disabled — top bar only)
+# ──────────────────────────────────────────────
+
+[dock]
+enabled = false
+
+# ──────────────────────────────────────────────
+# OSD (volume/brightness overlays; per-kind toggles default on)
+# ──────────────────────────────────────────────
+
+[osd]
+enabled = true
+
+# ──────────────────────────────────────────────
+# Theming (custom palette generated from the hexciri theme on every
+# theme switch by hooks/theme-set.d/noctalia-sync.sh)
+# ──────────────────────────────────────────────
+
+[theme]
+source = "custom"
+custom_palette = "hexciri"
+mode = "dark"
+[plugins]
+enabled = ["yuuto/arch-updater"]
+
+
+# ── bar extras restored from the FW13 profile (port to v5) ──
+[widget.separator]
+type = "separator"
 
 [widget.sysmon-cpu]
 type = "sysmon"
 stat = "cpu_usage"
 visualization = "graph"
-show_value = true
 
 [widget.sysmon-ram]
 type = "sysmon"
 stat = "ram_pct"
-show_value = true
 
 [widget.sysmon-temp]
 type = "sysmon"
 stat = "cpu_temp"
-show_value = true
 
 [widget.sysmon-disk]
 type = "sysmon"
 stat = "disk_used_pct"
-path = "/"
-show_value = true
 
 [widget.sysmon-net]
 type = "sysmon"
 stat = "net_rx"
 network_speed_compact = true
-show_value = true
-
-# ──────────────────────────────────────────────
-# System Monitor
-# ──────────────────────────────────────────────
 
 [system.monitor]
 enabled = true
@@ -114,82 +149,3 @@ gpu_poll_seconds = 5.0
 memory_poll_seconds = 2.0
 network_poll_seconds = 3.0
 disk_poll_seconds = 10.0
-
-# ──────────────────────────────────────────────
-# Launcher
-# ──────────────────────────────────────────────
-
-[launcher]
-command = "fuzzel"
-width = 600
-height = 400
-
-# ──────────────────────────────────────────────
-# Notifications
-# Per https://docs.noctalia.dev/noctalia/services/notifications/
-# monitors = [] clones to all outputs (default). Set to ["DP-1"] to
-# suppress toasts on HDMI-A-1 (portrait). Falls back to all if DP-1 disconnected.
-# ──────────────────────────────────────────────
-
-[notification]
-position = "top_right"
-max_visible = 5
-enable_daemon = true
-
-# ──────────────────────────────────────────────
-# Lock screen
-# ──────────────────────────────────────────────
-
-[lock]
-command = "swaylock"
-idle_timeout = 300
-before_sleep = true
-
-[lockscreen]
-monitors = ["eDP-1"]
-
-# ──────────────────────────────────────────────
-# Wallpaper
-# ──────────────────────────────────────────────
-
-[wallpaper]
-enabled = true
-directory = "~/Pictures/Wallpapers"
-mode = "fill"
-interval = 300
-transition = "fade"
-
-# ──────────────────────────────────────────────
-# Dock
-# ──────────────────────────────────────────────
-
-[dock]
-enabled = false
-
-# ──────────────────────────────────────────────
-# OSD (volume/brightness overlays)
-# ──────────────────────────────────────────────
-
-[osd]
-enabled = true
-volume = true
-brightness = true
-timeout = 2000
-
-# ──────────────────────────────────────────────
-# Clipboard
-# ──────────────────────────────────────────────
-
-[clipboard]
-enabled = true
-max_entries = 100
-encrypted = true
-
-# ──────────────────────────────────────────────
-# Theming
-# ──────────────────────────────────────────────
-
-[theme]
-source = "custom"
-custom_palette = "omarchy"
-mode = "dark"

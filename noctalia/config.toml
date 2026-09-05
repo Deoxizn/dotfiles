@@ -1,15 +1,8 @@
 # Noctarchy — Noctalia config
 # https://github.com/deoxizn/noctarchy
-
-# ──────────────────────────────────────────────
-# General
-# ──────────────────────────────────────────────
-
-[general]
-terminal = "kitty"
-launcher = "fuzzel"
-file_manager = "strata"
-browser = "brave-origin-beta"
+#
+# NOTE (v5): [general] default-apps and [launcher] command were removed upstream.
+# Defaults live in omarchy/xdg-settings (noctarchy-defaults); fuzzel runs from its keybind.
 
 # ──────────────────────────────────────────────
 # Shell
@@ -17,6 +10,8 @@ browser = "brave-origin-beta"
 
 [shell]
 time_format = "{:%-I:%M %p}"
+clipboard_enabled = true
+clipboard_history_max_entries = 100
 
 [shell.animation]
 enabled = false
@@ -27,9 +22,9 @@ enabled = false
 
 [bar.default]
 position = "top"
-height = 40
-opacity = 0.95
-exclusive = true
+thickness = 40
+background_opacity = 0.95
+reserve_space = true
 start  = ["launcher", "wallpaper", "workspaces", "spacer", "active_window"]
 center = ["clock"]
 end    = ["bongocat", "notifications", "clipboard", "media", "tray", "network", "bluetooth", "brightness", "battery", "yuuto/arch-updater:widget", "sysmon-cpu", "sysmon-ram", "sysmon-temp", "sysmon-disk", "sysmon-net", "control-center"]
@@ -47,9 +42,6 @@ enabled = false
 format = "{:%-I:%M %p}"
 tooltip_format = "{:%A, %B %d, %Y}"
 
-[bar.widgets.workspaces]
-persistent = [1, 2, 3, 4, 5]
-
 [widget.bongocat]
 type = "noctalia/bongocat:cat"
 input_devices = [
@@ -60,26 +52,6 @@ audio_spectrum = true
 tappy_mode = true
 rave_mode = false
 use_mpris_filter = false
-
-[bar.widgets.battery]
-critical_threshold = 15
-warning_threshold = 30
-show_percentage = true
-
-[bar.widgets.network]
-show_wifi = true
-show_wired = true
-show_vpn = true
-
-[bar.widgets.media]
-show_album_art = true
-max_title_length = 40
-
-[bar.widgets.volume]
-show_percentage = true
-
-[bar.widgets.brightness]
-show_percentage = true
 
 [widget.sysmon-cpu]
 type = "sysmon"
@@ -138,15 +110,6 @@ network_poll_seconds = 3.0
 disk_poll_seconds = 10.0
 
 # ──────────────────────────────────────────────
-# Launcher
-# ──────────────────────────────────────────────
-
-[launcher]
-command = "fuzzel"
-width = 600
-height = 400
-
-# ──────────────────────────────────────────────
 # Notifications
 # Per https://docs.noctalia.dev/noctalia/services/notifications/
 # monitors = [] clones to all outputs (default). Set to ["DP-1"] to
@@ -160,13 +123,13 @@ max_visible = 5
 enable_daemon = true
 
 # ──────────────────────────────────────────────
-# Lock screen
+# Lock screen (v5: idle auto-lock lives under [idle.behavior.lock];
+# before_sleep is lockscreen.lock_before_suspend, default true)
 # ──────────────────────────────────────────────
 
-[lock]
-command = "swaylock"
-idle_timeout = 300
-before_sleep = true
+[idle.behavior.lock]
+enabled = true
+timeout = 300.0
 
 [lockscreen]
 monitors = ["DP-1"]
@@ -178,9 +141,12 @@ monitors = ["DP-1"]
 [wallpaper]
 enabled = true
 directory = "~/Pictures/Wallpapers"
-mode = "fill"
-interval = 300
+fill_mode = "crop"
 transition = "fade"
+
+[wallpaper.automation]
+enabled = true
+interval_seconds = 300
 
 # ──────────────────────────────────────────────
 # Dock
@@ -195,18 +161,6 @@ enabled = false
 
 [osd]
 enabled = true
-volume = true
-brightness = true
-timeout = 2000
-
-# ──────────────────────────────────────────────
-# Clipboard
-# ──────────────────────────────────────────────
-
-[clipboard]
-enabled = true
-max_entries = 100
-encrypted = true
 
 # ──────────────────────────────────────────────
 # Theming

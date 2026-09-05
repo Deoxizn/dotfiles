@@ -1,13 +1,42 @@
-// Noctarchy — Niri config
-// https://github.com/deoxizn/noctarchy
+// Hexciri — Niri config
+// https://github.com/deoxizn/hexciri
 //
-// Based on Omarchy keybind conventions adapted for Niri's scrollable tiling.
-// This file is managed by noctarchy — personal edits go in a separate include
-// or above the managed sections.
+// Keybinds follow familiar conventions, adapted for Niri's scrollable tiling.
+// This file ships as the hexciri default — personalize freely.
 //
 // Niri uses KDL format. Each section controls a different part of the desktop.
 // Comments start with // — uncomment a line to enable it, add // to disable it.
 // After editing, run: niri msg action load-config-file  (or reload from Noctalia)
+
+// ──────────────────────────────────────────────
+// Output / Monitor config
+// The active block below is the default for this machine's laptop panel
+// (eDP-1, 2880x1920@120, 2x HiDPI — the same default omarchy ships). On a
+// desktop, or if your panel has a different name, run:  niri msg outputs
+// then rename the output line and set your values. Commented alternatives
+// show the options; uncomment the lines you want.
+// Per-output settings you can set:
+//   mode "2880x1920@120"        // WIDTHxHEIGHT@REFRESH — resolution + refresh rate
+//   scale 2                     // UI scaling: 1.0 native, 1.25/1.5/2 for sharper/fractional
+//   variable-refresh-rate       // VRR: match refresh to content (reduces tearing)
+//   position x=0 y=0            // Arrange multi-monitor layout
+//   transform "90"              // Rotation: "90"/"180"/"270" (e.g. portrait second screen)
+// ──────────────────────────────────────────────
+output "eDP-1" {
+    scale 1.5
+       mode "2880x1920@120"
+       variable-refresh-rate
+       position x=0 y=0
+}
+// Desktop / second monitor example (commented — enable by editing):
+// output "DP-1" {
+//     scale 1
+//     // mode "2560x1440@144"
+//     // variable-refresh-rate
+// }
+// Save → niri live-reloads (or: niri msg action load-config-file). Scale is
+// fractional; VRR only kicks in if the panel + cable support it.
+// ──────────────────────────────────────────────
 
 // ──────────────────────────────────────────────
 // Environment variables
@@ -18,14 +47,17 @@
 environment {
     QT_QPA_PLATFORM "wayland;xcb"               // Qt apps: prefer Wayland, fall back to X11
     QT_WAYLAND_DISABLE_WINDOWDECORATION "1"     // Qt apps: disable client-side decorations
-    DISPLAY null                                // Disable X11 DISPLAY (pure Wayland)
+    // NOTE: do NOT set DISPLAY null here — it unsets DISPLAY for every Niri
+    // spawn, breaking X11-only codepaths (Steam updater, Proton, xdotool...).
+    // xwayland-satellite already provides :0; Wayland-native apps still prefer
+    // Wayland via the *_WAYLAND_*/GDK/MOZ hints below. X11 is fallback, not default.
     ELECTRON_OZONE_PLATFORM_HINT "auto"         // Electron apps (VS Code, Discord): auto-detect Wayland
     _JAVA_AWT_WM_NONREPARENTING "1"            // Java AWT apps: work correctly on Wayland
     XDG_CURRENT_DESKTOP "niri"                  // Tells apps which desktop environment is running
     XDG_SESSION_TYPE "wayland"                  // Tells apps this is a Wayland session
     MOZ_ENABLE_WAYLAND "1"                      // Firefox: use native Wayland
     CLUTTER_BACKEND "wayland"                   // Clutter apps: use Wayland backend
-    SDL_VIDEODRIVER "wayland"                   // SDL apps (games): use Wayland backend
+    SDL_VIDEODRIVER "wayland,x11"               // SDL apps (games): prefer Wayland, fall back to X11
     GDK_BACKEND "wayland,x11"                   // GTK apps: prefer Wayland, fall back to X11
 }
 
@@ -34,21 +66,11 @@ environment {
 // ──────────────────────────────────────────────
 
 cursor {
-    xcursor-theme "Future-dark-cursors"    // Cursor theme name (change to match your installed theme)
-    xcursor-size 24                        // Cursor size in pixels
-    hide-when-typing                       // Hide cursor while typing
-    hide-after-inactive-ms 1000            // Hide cursor after 1 second of inactivity
+    xcursor-theme "breeze_cursors"    // Cursor theme name (change to match your installed theme)
+    xcursor-size 24                   // Cursor size in pixels
+    hide-when-typing                  // Hide cursor while typing
+    hide-after-inactive-ms 1000       // Hide cursor after 1 second of inactivity
 }
-
-// ──────────────────────────────────────────────
-// Output / Monitor config
-// Define your monitors and their layout. Use "niri msg outputs" to see detected outputs.
-// Format: output "NAME" { mode "WIDTHxHEIGHT@REFRESH"; position x=X y=Y; }
-// "scale" = UI scaling (1.0 = native, 1.33 = 150% scaling on 4K, etc.)
-// "transform" = rotation ("90" = 90° clockwise, "180" = upside down)
-// ──────────────────────────────────────────────
-
-
 
 // ──────────────────────────────────────────────
 // Input device settings
@@ -60,13 +82,15 @@ input {
             layout "us"                      // Keyboard layout (us, gb, de, etc.)
             // options "ctrl:nocaps"          // Uncomment to make CapsLock act as Ctrl
         }
-        numlock                              // Enable Num Lock on startup
+        // numlock                           // Uncomment to enable Num Lock on startup (since Niri 25.05)
     }
 
     touchpad {
-        tap                                 // Enable tap-to-click
-        natural-scroll                      // Scroll direction matches content movement
-        // disabled-while-typing is on by default
+        tap
+        natural-scroll
+        scroll-factor 0.4
+        tap-button-map "left-right-middle"
+        click-method "button-areas"
     }
 
     mouse {
@@ -98,18 +122,17 @@ layout {
 
     // Focus ring — thin highlight around the active window
     focus-ring {
-        width 2
-        active-color "#b59790"              // Color of the focused window's ring
-        inactive-color "#584e51"            // Color of unfocused windows' ring
+        off                                 // No focus ring: it renders as a solid rectangle behind
+                                            // the window and shows through semitransparent terminals
+                                            // (hiding blur + covering them in a flat color)
     }
 
-    // Border — thicker outline around all windows
+    // Border — off. niri draws border & focus ring as a solid rectangle behind
+    // the window (niri FAQ), so any niri-drawn border covers semitransparent
+    // windows and hides the blur behind them. To keep terminals see-through,
+    // both border and focus-ring must stay off.
     border {
-        on                                  // Enable borders (set to "off" to disable)
-        width 1
-        active-color "#b59790"              // Focused window border color
-        inactive-color "#584e51"            // Unfocused window border color
-        urgent-color "#f87171"              // Urgent window border color (e.g. notification)
+        off
     }
 
     // Drop shadow behind windows
@@ -185,41 +208,44 @@ overview {
 }
 
 // ──────────────────────────────────────────────
-// Workspaces — per-monitor (Hyprland-style)
-// Mod+1-9 stays on current monitor
+// Named workspaces
+// Give workspaces names so you can reference them in rules and keybinds.
+// Useful for always sending certain apps to specific workspaces.
 // ──────────────────────────────────────────────
+
+workspace "browser"
+workspace "code"
+workspace "chat"
+workspace "media"
+workspace "games"
 
 // ──────────────────────────────────────────────
 // Keybindings
 // Niri has NO default binds — you must define ALL of them yourself.
-// "Mod" = Super/Windows key. Mirrors Omarchy conventions where possible.
+// "Mod" = Super/Windows key.
 // Format: Mod+Key { action; }
 // ──────────────────────────────────────────────
 
 binds {
     // ── Launcher & menus ──
-    Mod+Space { spawn "noctarchy-fuzzel"; }                     // App launcher (fuzzel)
+    Mod+Space { spawn "hexciri-fuzzel"; }                     // App launcher (fuzzel)
     Mod+D { spawn "noctalia" "msg" "panel-toggle" "launcher"; } // Noctalia launcher panel
-    Mod+Alt+Space { spawn "noctarchy-menu"; }                    // Noctarchy root menu
-    Mod+Alt+W { spawn "bash" "-c" "~/.config/niri/scripts/noctarchy-wallpaper-reset"; }  // Reset wallpaper
-    Mod+K { spawn "noctarchy-keybinds"; }                        // Show keybinding reference
+    Mod+Alt+Space { spawn "hexciri-menu"; }                    // Hexciri root menu
+    Mod+K { spawn "hexciri-keybinds"; }                        // Show keybinding reference
 
     // ── Terminal ──
-    Mod+Return { spawn "bash" "-c" "~/.config/niri/scripts/terminal-smart.sh"; }  // Open terminal (smart: splits kitty if one is open)
-    Mod+Ctrl+T { spawn "bash" "-c" "~/.config/niri/scripts/noctarchy-btop-toggle"; }  // Toggle btop (focus if open, else spawn)
-    Mod+grave { spawn "omarchy-agent"; }                         // Open coding agent (Super+`)
+    Mod+Return { spawn "bash" "-c" "~/.config/niri/scripts/terminal-smart.sh"; }  // Open terminal (smart: tab into running kitty)
+    Mod+grave { spawn "hexciri-agent"; }                         // Open coding agent (opencode)
 
-    // ── Apps (matches Omarchy conventions) ──
-    Mod+Shift+B { spawn "xdg-open" "https://"; }               // Open browser
-    Mod+Shift+E { spawn "xdg-terminal-exec" "-e" "nvim"; }     // Open terminal with Neovim
-    Mod+Shift+F { spawn "strata"; }            // Open file manager (Strata)
-    Mod+Alt+Shift+F { spawn-sh "strata \"$(omarchy-cmd-terminal-cwd)\""; } // Open file manager at terminal cwd (Strata)
-    Mod+Shift+M { spawn "spotify"; }                            // Open Spotify
+    // ── Apps ──
+    Mod+Shift+B { spawn "xdg-open" "https://"; }               // Open browser (default: brave-origin)
+    Mod+Shift+E { spawn "zeditor"; }                            // Open editor (zed)
+    Mod+Shift+F { spawn "~/.local/bin/strata"; }
+    Mod+Alt+W { spawn "bash" "-c" "~/.config/niri/scripts/noctarchy-wallpaper-reset"; }  // Restore per-monitor wallpapers
+    Mod+Ctrl+T { spawn "bash" "-c" "~/.config/niri/scripts/noctarchy-btop-toggle"; }  // Toggle btop terminal
+    Mod+Shift+M { spawn "spotify"; }                             // Open Spotify
     Mod+Ctrl+D { spawn "vesktop"; }                             // Open Vesktop (Discord)
-    Mod+Ctrl+M { spawn "brave-origin-beta" "--app=https://www.messenger.com"; }  // Messenger webapp
-    XF86Tools { spawn "kitty" "--class=app.noctarchy.ff" "fish" "-c" "ff; exec fish"; }  // Fastfetch in floating window (XF86Tools key)
-    XF86Launch5 { spawn "brave-origin-beta" "--app=https://gemini.google.com/app"; }  // Gemini webapp
-    XF86Launch6 { spawn "brave-origin-beta" "--app=https://photopea.com"; }           // Photopea webapp
+    Mod+Ctrl+M { spawn "brave-origin-beta" "--app=https://www.messenger.com"; }
 
     // ── Close & quit ──
     Mod+Q { close-window; }                                     // Close focused window
@@ -252,11 +278,12 @@ binds {
     Mod+2 { focus-workspace 2; }
     Mod+3 { focus-workspace 3; }
     Mod+4 { focus-workspace 4; }
-    Mod+5 { focus-workspace 5; }
+    Mod+5 { focus-workspace "games"; }
     Mod+6 { focus-workspace 6; }
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
+    Mod+0 { focus-workspace "browser"; }                        // Mod+0 → named workspace
 
     // Move current window to workspace 1-9 with Mod+Shift+1-9
     Mod+Shift+1 { move-column-to-workspace 1; }
@@ -268,14 +295,13 @@ binds {
     Mod+Shift+7 { move-column-to-workspace 7; }
     Mod+Shift+8 { move-column-to-workspace 8; }
     Mod+Shift+9 { move-column-to-workspace 9; }
+    Mod+Shift+0 { move-column-to-workspace "browser"; }         // Move to named workspace
 
     // ── Workspace navigation ──
     Mod+U { focus-workspace-down; }                             // Go to workspace below
     Mod+I { focus-workspace-up; }                               // Go to workspace above
     Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }  // Scroll to workspace below
     Mod+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }      // Scroll to workspace above
-    Mod+Shift+Down { move-column-to-workspace-down; }          // Move window to workspace below
-    Mod+Shift+Up { move-column-to-workspace-up; }              // Move window to workspace above
 
     // ── Column management ──
     Mod+BracketLeft { consume-window-into-column; }             // Pull window into adjacent column
@@ -290,10 +316,10 @@ binds {
     Mod+P { focus-floating; }                                   // Jump focus to floating window
     Mod+Shift+P { focus-tiling; }                               // Jump focus back to tiled window
 
-    // ── Screenshots ──
-    Mod+Print { spawn-sh "grim -g \"$(slurp)\" - | wl-copy"; }          // Screenshot region → clipboard
-    Ctrl+Print { spawn-sh "grim -g \"$(slurp)\" ~/Pictures/Screenshots/\"$(date +%Y-%m-%d_%H-%M-%S).png\""; }  // Screenshot region → save file
-    Alt+Print { spawn-sh "grim - | wl-copy"; }                         // Screenshot full screen → clipboard
+    // ── Screenshots & recording ──
+    Mod+Print { screenshot; }                                           // Interactive select: drag region or click window (file + clipboard)
+    Ctrl+Print { spawn-sh "grim - | wl-copy"; }                         // Screenshot full screen → clipboard
+    Alt+Print { spawn "hexciri-screenrecord"; }                       // Toggle screen recording
 
     // ── Clipboard (wtype for GUI apps, terminals use Shift+Ctrl+C/V) ──
     Mod+C { spawn-sh "wtype -M ctrl -k c"; }                    // Copy (works in GUI apps)
@@ -314,20 +340,19 @@ binds {
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "5%-"; }   // Brightness down
 
     // ── Lock ──
-    Mod+Ctrl+L { spawn "bash" "-c" "~/.config/niri/scripts/lock.sh"; }   // Lock screen
+    Mod+Ctrl+L { spawn "hexciri-lock"; }                     // Lock screen + monitors off after 20s
 
     // ── Clipboard history ──
-    Mod+Ctrl+V { spawn "noctalia" "msg" "clipboard-toggle"; }   // Toggle clipboard history
+    Mod+Ctrl+V { spawn "hexciri-clipboard"; }                     // Clipboard history picker
 
     // ── Notifications ──
-    Mod+Ctrl+Comma { spawn "noctalia" "msg" "notification-clear-active"; }   // Clear active notifications
-    Mod+Ctrl+Period { spawn "noctalia" "msg" "notification-clear-history"; }  // Clear notification history
+    Mod+Comma { spawn "noctalia" "msg" "notification-clear-active"; }   // Clear active notifications
 
     // ── Overview ──
     Mod+O { toggle-overview; }                                  // Toggle workspace overview
 
     // ── Power menu ──
-    Mod+Escape { spawn "noctarchy-power"; }                     // Open power menu
+    Mod+Escape { spawn "hexciri-power"; }                     // Open power menu
 
     // ── Noctalia-specific ──
     Mod+N { spawn "noctalia" "msg" "panel-toggle" "notifications"; }   // Toggle notification panel
@@ -340,7 +365,6 @@ binds {
 // "open-floating true" = window opens as a floating popup (not tiled)
 // "open-maximized true" = window opens filling its column
 // "open-on-workspace" = send window to a specific workspace on open
-// "open-fullscreen true" = window opens in fullscreen
 // ──────────────────────────────────────────────
 
 // Floating dialogs — these apps always open as floating popups
@@ -379,7 +403,7 @@ window-rule {
     open-floating true
 }
 
-// LocalSend — floating at 1100x700 (matching Hyprland localsend.lua)
+// LocalSend — floating at 1100x700 (floating share dialog)
 window-rule {
     match app-id="localsend"
     match title="Share"
@@ -402,8 +426,40 @@ window-rule {
     open-floating true
 }
 
+// Webcam overlay — floating (hexciri-screenrecord --with-webcam)
+window-rule {
+    match app-id="WebcamOverlay"
+    open-floating true
+}
+
+// Default terminal — opens at half screen width (whichever picker default is active)
+// background-effect blurs the wallpaper behind the terminal so its reduced
+// background_opacity reads as soft translucency instead of a flat color.
+window-rule {
+    match app-id="kitty"
+    default-column-width { proportion 0.5; }
+    background-effect {
+        blur true
+    }
+}
+
+window-rule {
+    match app-id="Alacritty"
+    default-column-width { proportion 0.5; }
+}
+
+window-rule {
+    match app-id="foot"
+    default-column-width { proportion 0.5; }
+}
+
+window-rule {
+    match app-id="com.mitchellh.ghostty"
+    default-column-width { proportion 0.5; }
+}
+
 // TUI apps — float at 1000x720, centered
-// Used by noctarchy-install, noctarchy-themes, noctarchy-remove, etc.
+// Used by hexciri-agent, hexciri-kernel, hexciri-defaults, etc.
 window-rule {
     match app-id="TUI\\.float"             // Matches apps launched with --app-id=TUI.float
     open-floating true
@@ -411,121 +467,107 @@ window-rule {
     default-window-height { fixed 720; }    // Fixed height in pixels
 }
 
-// Default terminal — opens at half screen width
-window-rule {
-    match app-id="Alacritty"
-    default-column-width { proportion 0.5; }
-}
+// File manager — Strata tiles with the rest (no float rule)
 
-// Fastfetch — personal floating window
-// Launched via XF86Tools key. Adjust width/height below to fit your screen.
+// Browser — always opens on the "browser" named workspace
 window-rule {
-    match app-id="app.noctarchy.ff"
-    open-floating true
-    default-column-width { fixed 1600; }    // ← adjust width here
-    default-window-height { fixed 780; }    // ← adjust height here
-}
-
-// Workspace assignments
-// DP-1: ws1=browser, ws2=files, ws3=spotify, ws4=games
-// HDMI-A-1: ws1=vesktop, ws2=messenger, ws3=terminal
-
-// Browser — always opens on workspace 1
-window-rule {
-    match app-id="zen|zen-alpha|zen-beta"
-    open-on-workspace "1"
-    open-maximized true
+    match app-id="firefox"
+    open-on-workspace "browser"
 }
 
 window-rule {
     match app-id="chromium"
-    open-on-workspace "1"
-    open-maximized true
+    open-on-workspace "browser"
 }
 
 window-rule {
     match app-id="brave-browser"
-    open-on-workspace "1"
-    open-maximized true
+    open-on-workspace "browser"
 }
 
 window-rule {
-    match app-id="firefox"
-    open-on-workspace "1"
-    open-maximized true
+    match app-id="brave-browser-beta"
+    open-on-workspace "browser"
 }
 
-// File manager — always opens on workspace 2, maximized (Strata)
+// Code editors — always opens on the "code" named workspace
 window-rule {
-    match app-id="io.github.lgse.Strata"
-    open-on-workspace "2"
-    open-maximized true
+    match app-id="code"                     // VS Code
+    open-on-workspace "code"
 }
 
-// Spotify — always opens on workspace 3, maximized
 window-rule {
-    match app-id="spotify"
-    open-on-workspace "3"
-    open-maximized true
+    match app-id="jetbrains-*"             // JetBrains IDEs (IntelliJ, PyCharm, etc.)
+    open-on-workspace "code"
 }
 
-// Messenger webapp — full width
+// Media — always opens on the "media" named workspace
 window-rule {
-    match app-id="brave-www.messenger.com__-Default"
-    default-column-width { proportion 1.0; }
-    open-maximized true
+    match app-id="mpv"                      // Video player
+    open-on-workspace "media"
 }
 
-// Gemini webapp — full width
-window-rule {
-    match app-id="brave-gemini.google.com__app-Default"
-    default-column-width { proportion 1.0; }
-    open-maximized true
-}
-
-// Photopea webapp — full width
-window-rule {
-    match app-id="brave-photopea.com__-Default"
-    default-column-width { proportion 1.0; }
-    open-maximized true
-}
-
-// Games — always opens on workspace 4, maximized
-window-rule {
-    match app-id="steam|steamwebhelper|steam_app"
-    open-on-workspace "4"
-    open-maximized true
-}
-
-// World of Warcraft — fullscreen on the gaming monitor (DP-1)
-window-rule {
-    match app-id="wow.exe"
-    open-on-output "DP-1"                   // Open on specific monitor
-    open-on-workspace "4"
-    open-fullscreen true
-}
-
-// Vesktop/Discord — always opens on workspace 1, maximized
+// Chat apps — always opens on the "chat" named workspace
 window-rule {
     match app-id="discord|vesktop"
-    open-on-workspace "1"
+    open-on-workspace "chat"
+}
+
+
+// ── Personal (FW13 profile) app rules, merged onto hexciri workspaces ──
+// Spotify — media workspace, maximized
+window-rule {
+    match app-id="spotify"
+    open-on-workspace "media"
     open-maximized true
 }
 
-// Messenger (native app) — always opens on workspace 2, maximized
+// Interactive webapps — browser/chat workspaces
+window-rule {
+    match app-id="brave-www.messenger.com__-Default"
+    open-on-workspace "chat"
+    open-maximized true
+}
+
 window-rule {
     match app-id="Messenger"
-    open-on-workspace "2"
+    open-on-workspace "chat"
     open-maximized true
 }
 
-// Terminal — opens on current workspace
-// (HDMI-A-1 ws3 doesn't exist yet; rule removed)
-
-// Screensaver — fullscreen on all monitors
 window-rule {
-    match app-id="noctarchy-screensaver"
+    match app-id="brave-gemini.google.com__app-Default"
+    open-on-workspace "browser"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="brave-photopea.com__-Default"
+    open-on-workspace "browser"
+    open-maximized true
+}
+
+// Games — dedicated workspace, maximized; WoW fullscreen
+window-rule {
+    match app-id="steam|steamwebhelper|steam_app"
+    open-on-workspace "games"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="wow.exe"
+    open-on-workspace "games"
     open-fullscreen true
+}
+
+// Strata file manager — maximized on current workspace
+window-rule {
+    match app-id="io.github.lgse.Strata"
+    open-maximized true
+}
+window-rule {
+    match app-id="org.telegram.desktop"     // Telegram
+    open-on-workspace "chat"
 }
 
 // ──────────────────────────────────────────────
@@ -549,48 +591,17 @@ layer-rule {
 }
 
 // ──────────────────────────────────────────────
-// Opacity rules
-// Make terminal and app windows slightly transparent.
-// Opacity: 0.0 = fully transparent, 1.0 = fully opaque.
-// "draw-border-with-background false" = border doesn't obscure the wallpaper.
-// ──────────────────────────────────────────────
-
-window-rule {
-    match app-id="alacritty"
-    opacity 0.85                            // 85% opaque
-}
-
-window-rule {
-    match app-id="kitty"
-    opacity 0.85
-    draw-border-with-background false       // Border is see-through
-}
-
-window-rule {
-    match app-id="app.noctarchy.ff"         // Fastfetch window
-    opacity 0.85
-    draw-border-with-background false
-}
-
-window-rule {
-    match app-id="foot"
-    opacity 0.85
-}
-
-window-rule {
-    match app-id="io.github.lgse.Strata"
-    opacity 0.90                            // 90% opaque (slightly less transparent)
-}
-
-// ──────────────────────────────────────────────
 // Spawn at startup
 // Programs that start automatically when you log in.
 // ──────────────────────────────────────────────
 
-spawn-at-startup "noctalia"                 // Noctalia shell (bar, notifications, etc.)
-spawn-at-startup "swayidle" "-w" "timeout" "600" "niri msg action power-off-monitors" "resume" "niri msg action power-on-monitors"   // DPMS off after 10 min idle, power on on resume/wake
+spawn-at-startup "hexciri-theme-ensure"    // First login: re-apply the active theme if the chroot seed left it dormant
+spawn-sh-at-startup "hexciri-strata-install --check >/dev/null 2>&1"   // Keep per-user Strata current with upstream's near-daily releases (in-app Updates does the rest)
+spawn-at-startup "noctalia"                 // Noctalia shell (bar, notifications, idle/lock, etc.)
+spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"   // Polkit auth dialogs (vanilla GNOME agent)
+spawn-sh-at-startup "wl-paste --type text --watch cliphist store"   // Feed text copies into clipboard history
+spawn-sh-at-startup "wl-paste --type image --watch cliphist store"  // Feed image copies into clipboard history
 spawn-sh-at-startup "systemctl --user import-environment $(env | cut -d= -f1) && dbus-update-activation-environment --systemd --all"   // Import env into systemd/dbus
-spawn-sh-at-startup "sleep 2 && openrgb-start"   // Start OpenRGB with 2s delay (for Wayland to be ready)
 
 // ──────────────────────────────────────────────
 // Xwayland
@@ -627,7 +638,6 @@ blur {
 // ──────────────────────────────────────────────
 
 hotkey-overlay {
-    skip-at-startup                         // Don't show the overlay when Niri starts
     hide-not-bound                          // Hide keybinds that aren't bound to any key
 }
 

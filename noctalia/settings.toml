@@ -107,14 +107,6 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@DP-1", "
     rotation = 0.0
     type = "calendar"
 
-[plugin_settings."yuuto/arch-updater"]
-aur_helper = "yay"
-auto_check_hours = 1
-flatpak_enabled = false
-terminal = ""
-update_cmd = "script -qec noctarchy-update-run /dev/null"
-update_mode = "terminal"
-
 [plugins]
 enabled = [ "yuuto/arch-updater", "noctalia/bongocat" ]
 
