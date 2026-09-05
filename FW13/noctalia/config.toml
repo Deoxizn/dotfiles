@@ -151,7 +151,6 @@ network_poll_seconds = 3.0
 disk_poll_seconds = 10.0
 [widget."noctalia/bongocat:cat"]
 input_devices = [
-  "/dev/input/by-id/event-kbd",
   "/dev/input/by-path/platform-*kbd*",
   "/dev/input/by-path/platform-i8042-serio-0-event-kbd",
 ]

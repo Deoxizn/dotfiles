@@ -1,0 +1,101 @@
+config_version = 14
+
+[bar.default]
+center = [ "media", "spacer_2", "clock", "spacer_2", "weather" ]
+end = [
+    "cat",
+    "volume",
+    "brightness",
+    "battery",
+    "notifications",
+    "clipboard",
+    "tray",
+    "network",
+    "bluetooth",
+    "yuuto/arch-updater:widget",
+    "control-center"
+]
+
+[location]
+auto_locate = true
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "lockscreen-login-box@eDP-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 1037.3333740234375
+    output = "eDP-1"
+    placement_height = 1280.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+[plugin_settings."yuuto/arch-updater"]
+aur_helper = "auto"
+auto_check_hours = 1
+flatpak_enabled = false
+terminal = "kitty"
+update_cmd = "hexciri-update-run"
+update_mode = "terminal"
+
+[plugins]
+enabled = [ "yuuto/arch-updater", "noctalia/bongocat" ]
+
+[wallpaper.default]
+path = "/home/devi/.local/state/noctalia/wallpaper/3840x2160_aesthetic_various-arch-v2.png"
+
+[wallpaper.last]
+path = "/home/devi/.local/state/noctalia/wallpaper/3840x2160_aesthetic_various-arch-v2.png"
+
+[wallpaper.monitors.eDP-1]
+path = "/home/devi/.local/state/noctalia/wallpaper/3840x2160_aesthetic_various-arch-v2.png"
+
+[weather]
+unit = "imperial"
+
+[widget.cat]
+type = "noctalia/bongocat:cat"
+input_devices = [
+  "/dev/input/by-path/platform-*kbd*",
+  "/dev/input/by-path/platform-i8042-serio-0-event-kbd",
+]
+audio_spectrum = true
+tappy_mode = true
+rave_mode = false
+use_mpris_filter = false
+
+[plugin_settings."noctalia/bongocat:cat"]
+input_devices = [
+  "/dev/input/by-path/platform-*kbd*",
+  "/dev/input/by-path/platform-i8042-serio-0-event-kbd",
+]
+audio_spectrum = true
+tappy_mode = true
+rave_mode = false
+use_mpris_filter = false
