@@ -228,10 +228,10 @@ binds {
     Mod+Shift+F { spawn "~/.local/bin/strata"; }
     Mod+Shift+M { spawn "spotify"; }                            // Open Spotify
     Mod+Ctrl+D { spawn "vesktop"; }                             // Open Vesktop (Discord)
-    Mod+Ctrl+M { spawn "brave-origin-beta" "--app=https://www.messenger.com"; }  // Messenger webapp
+    Mod+Ctrl+M { spawn "hexciri-launch-or-focus-webapp" "messenger" "https://www.messenger.com"; }  // Messenger webapp
     XF86Tools { spawn "kitty" "--class=app.hexciri.ff" "fish" "-c" "ff; exec fish"; }  // Fastfetch in floating window (XF86Tools key)
-    XF86Launch5 { spawn "brave-origin-beta" "--app=https://gemini.google.com/app"; }  // Gemini webapp
-    XF86Launch6 { spawn "brave-origin-beta" "--app=https://photopea.com"; }           // Photopea webapp
+    XF86Launch5 { spawn "hexciri-launch-or-focus-webapp" "gemini" "https://gemini.google.com/app"; }  // Gemini webapp
+    XF86Launch6 { spawn "hexciri-launch-or-focus-webapp" "photopea" "https://photopea.com"; }           // Photopea webapp
 
     // ── Close & quit ──
     Mod+Q { close-window; }                                     // Close focused window
@@ -422,12 +422,17 @@ window-rule {
 }
 
 // TUI apps — float at 1000x720, centered
-// Used by hexciri-install, hexciri-themes, hexciri-remove, etc.
+// Used by hexciri-agent (opencode), hexciri-install, hexciri-themes, hexciri-remove, etc.
+// background-effect blurs the wallpaper behind the host terminal so its reduced
+// background_opacity reads as soft translucency — same as the kitty rule.
 window-rule {
     match app-id="TUI\\.float"             // Matches apps launched with --app-id=TUI.float
     open-floating true
     default-column-width { fixed 1000; }    // Fixed width in pixels
     default-window-height { fixed 720; }    // Fixed height in pixels
+    background-effect {
+        blur true
+    }
 }
 
 // Default terminal — opens at half screen width
@@ -441,8 +446,8 @@ window-rule {
 window-rule {
     match app-id="app.hexciri.ff"
     open-floating true
-    default-column-width { fixed 1600; }    // ← adjust width here
-    default-window-height { fixed 780; }    // ← adjust height here
+    default-column-width { fixed 1550; }    // ← adjust width here
+    default-window-height { fixed 720; }    // ← adjust height here
 }
 
 // Workspace assignments
