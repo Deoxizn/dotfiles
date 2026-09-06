@@ -168,5 +168,5 @@ enabled = true
 
 [theme]
 source = "custom"
-custom_palette = "omarchy"
+custom_palette = "hexciri"
 mode = "dark"

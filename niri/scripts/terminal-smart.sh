@@ -5,10 +5,8 @@
 # terminal only when no live kitty instance is found.
 #
 # Kitty exposes one remote-control socket per instance (listen_on in
-# kitty.conf -> $XDG_RUNTIME_DIR/hexciri-kitty-<pid>; legacy hexciri-flavour
-# installs used hexciri-kitty, older omarchy installs omarchy-kitty).
-# Instances started before that option existed never create a socket -
-# restart them once.
+# kitty.conf -> $XDG_RUNTIME_DIR/hexciri-kitty-<pid>). Instances started
+# before that option existed never create a socket - restart them once.
 #
 # A socket alone is not enough: closed windows can leave a windowless kitty
 # process behind whose socket still answers. So liveness is decided by Niri
@@ -26,27 +24,14 @@ niri_window_pids() {
 # 0 = kitty pid owns a live window. On Niri this is ground truth from the
 # compositor; without Niri it falls back to "socket answers".
 pid_is_live() { # $1 = kitty pid, $2 = pid list from niri_window_pids
-	local pid="$1" list="$2" s base
+	local pid="$1" list="$2" s
 	[[ "$pid" =~ ^[0-9]+$ ]] || return 1
 	if [[ -n "${NIRI_SOCKET:-}" ]] && command -v niri >/dev/null 2>&1; then
 		grep -qx "$pid" <<<"$list"
 		return $?
 	fi
-	for base in hexciri omarchy; do
-		s="$XDG_RUNTIME_DIR/$base-kitty-$pid"
-		[[ -S "$s" ]] && kitten @ --to "unix:$s" ls >/dev/null 2>&1 && return 0
-	done
-	return 1
-}
-
-# Prints any live kitty socket for an already-known-live pid.
-pid_socket() { # $1 = kitty pid, $2 = pid list from niri_window_pids
-	local pid="$1" s base
-	for base in hexciri omarchy; do
-		s="$XDG_RUNTIME_DIR/$base-kitty-$pid"
-		[[ -S "$s" ]] && pid_is_live "$pid" "$2" && printf '%s' "$s" && return 0
-	done
-	return 1
+	s="$XDG_RUNTIME_DIR/hexciri-kitty-$pid"
+	[[ -S "$s" ]] && kitten @ --to "unix:$s" ls >/dev/null 2>&1
 }
 
 # Prints "<app-id> <pid>" of the focused window. Niri first, Hyprland fallback.
@@ -70,19 +55,22 @@ pick_socket() {
 	win_pids=$(niri_window_pids)
 
 	# Prefer the focused window when it is a kitty we can talk to.
-	if [[ -n "$pid" && "$app" == "kitty" ]] && s=$(pid_socket "$pid" "$win_pids"); then
-		printf '%s' "$s"
-		return 0
+	if [[ -n "$pid" && "$app" == "kitty" ]]; then
+		s="$XDG_RUNTIME_DIR/hexciri-kitty-$pid"
+		if [[ -S "$s" ]] && pid_is_live "$pid" "$win_pids"; then
+			printf '%s' "$s"
+			return 0
+		fi
 	fi
 
 	# Otherwise the newest instance owning a live window wins. Pids
 	# without a Niri window (stale sockets, windowless processes left
 	# behind by closed windows) are skipped.
 	newest=""
-	for s in "$XDG_RUNTIME_DIR"/{hexciri,omarchy}-kitty-*; do
+	for s in "$XDG_RUNTIME_DIR"/hexciri-kitty-*; do
 		[[ -S "$s" ]] || continue
-		[[ "$s" =~ (hexciri|omarchy)-kitty-([0-9]+)$ ]] || continue
-		spid="${BASH_REMATCH[2]}"
+		[[ "$s" =~ hexciri-kitty-([0-9]+)$ ]] || continue
+		spid="${BASH_REMATCH[1]}"
 		pid_is_live "$spid" "$win_pids" || continue
 		[[ -z "$newest" || "$s" -nt "$newest" ]] && newest="$s"
 	done
@@ -97,7 +85,7 @@ fi
 # No visible kitty anywhere. If we *just* spawned one it may still be
 # opening - wait for it and tab into it instead of stacking another
 # fresh terminal (rapid Super+Enter presses).
-MARKER="$XDG_RUNTIME_DIR/terminal-smart.spawned"
+MARKER="$XDG_RUNTIME_DIR/hexciri-kitty.spawned"
 now=$(date +%s)
 age=999
 [[ -f "$MARKER" ]] && age=$(( now - $(stat -c %Y "$MARKER" 2>/dev/null || echo 0) ))
