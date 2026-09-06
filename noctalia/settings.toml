@@ -35,25 +35,25 @@ auto_locate = true
 [lockscreen_widgets]
 enabled = true
 schema_version = 2
-widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@DP-1", "lockscreen-widget-0000000000000001" ]
+widget_order = [ "lockscreen-login-box@HDMI-A-2", "lockscreen-login-box@DP-4", "lockscreen-widget-0000000000000001" ]
 
     [lockscreen_widgets.grid]
     cell_size = 16
     major_interval = 4
     visible = true
 
-    [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-4"]
     box_height = 196.0
     box_width = 810.0
-    cx = 1440.0
-    cy = 1438.0
-    output = "DP-1"
-    placement_height = 1620.0
-    placement_width = 2880.0
+    cx = 1280.0
+    cy = 1270.0
+    output = "DP-4"
+    placement_height = 1440.0
+    placement_width = 2560.0
     rotation = 0.0
     type = "login_box"
 
-        [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-4".settings]
         background_color = "surface_variant"
         background_opacity = 0.88
         background_radius = 12.0
@@ -69,18 +69,18 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@DP-1", "
         show_unlock_hint = true
         show_weather = true
 
-    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-2"]
     box_height = 196.0
     box_width = 810.0
     cx = 540.0
     cy = 1738.0
-    output = "HDMI-A-1"
+    output = "HDMI-A-2"
     placement_height = 1920.0
     placement_width = 1080.0
     rotation = 0.0
     type = "login_box"
 
-        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
+        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-2".settings]
         background_color = "surface_variant"
         background_opacity = 0.88
         background_radius = 12.0
@@ -99,11 +99,11 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@DP-1", "
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
     box_height = 0.0
     box_width = 0.0
-    cx = 1440.0
-    cy = 589.0
-    output = "DP-1"
-    placement_height = 1620.0
-    placement_width = 2880.0
+    cx = 1280.0
+    cy = 520.0
+    output = "DP-4"
+    placement_height = 1440.0
+    placement_width = 2560.0
     rotation = 0.0
     type = "calendar"
 
@@ -148,15 +148,15 @@ swap_pct_critical_threshold = 100
 directory = "/mnt/Photos/wallpapers"
 
     [wallpaper.default]
-    path = "/home/deoxizn/.local/state/noctalia/wallpaper/3840x2160_aesthetic_various-arch-v2.png"
+    path = "/home/devi/.local/state/noctalia/wallpaper/3840x2160_aesthetic_various-arch-v2.png"
 
     [wallpaper.last]
     path = "/mnt/Photos/wallpapers/symbols_t_black.png"
 
-    [wallpaper.monitors.DP-1]
+    [wallpaper.monitors.DP-4]
     path = "/mnt/Photos/wallpapers/wallhaven-kx996m.jpg"
 
-    [wallpaper.monitors.HDMI-A-1]
+    [wallpaper.monitors.HDMI-A-2]
     path = "/mnt/Photos/wallpapers/symbols_t_black.png"
 
 [weather]

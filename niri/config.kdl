@@ -51,17 +51,17 @@ cursor {
 // "transform" = rotation ("90" = 90° clockwise, "180" = upside down)
 // ──────────────────────────────────────────────
 
-output "HDMI-A-1" {
-    mode "1920x1080@60"                     // 1080p at 60Hz
-    transform "90"                          // Rotated 90° (portrait)
-    position x=0 y=0                        // Positioned at top-left
+output "DP-4" {
+    mode "3840x2160@144"                    // ASUS VG28UQL1A 4K at 144Hz
+    scale 1.5                               // UI scaling (4K at 1.5 ≈ 2560x1440 logical)
+    position x=1080 y=0                     // To the right of the rotated 1080p monitor
+    variable-refresh-rate                   // Enable VRR (reduces screen tearing in games)
 }
 
-output "DP-1" {
-    mode "3840x2160@144"                    // 4K at 144Hz
-    scale 1.33                              // Scale UI to ~150% (4K at 1.33 ≈ 2880x1620 logical)
-    position x=1080 y=0                     // Positioned to the right of the 1080p monitor
-    variable-refresh-rate                   // Enable VRR (reduces screen tearing in games)
+output "HDMI-A-2" {
+    mode "1920x1080@60"                     // Dell P2212H 1080p at 60Hz
+    transform "90"                          // Rotated 90° (portrait)
+    position x=0 y=0                        // Positioned at left
 }
 
 // ──────────────────────────────────────────────
@@ -443,8 +443,8 @@ window-rule {
 }
 
 // Workspace assignments
-// DP-1: ws1=browser, ws2=files, ws3=spotify, ws4=games
-// HDMI-A-1: ws1=vesktop, ws2=messenger, ws3=terminal
+// DP-4: ws1=browser, ws2=files, ws3=spotify, ws4=games
+// HDMI-A-2: ws1=vesktop, ws2=messenger, ws3=terminal
 
 // Browser — always opens on workspace 1
 window-rule {
@@ -513,10 +513,10 @@ window-rule {
     open-maximized true
 }
 
-// World of Warcraft — fullscreen on the gaming monitor (DP-1)
+// World of Warcraft — fullscreen on the gaming monitor (DP-4)
 window-rule {
     match app-id="wow.exe"
-    open-on-output "DP-1"                   // Open on specific monitor
+    open-on-output "DP-4"                   // Open on specific monitor
     open-on-workspace "4"
     open-fullscreen true
 }
@@ -536,7 +536,7 @@ window-rule {
 }
 
 // Terminal — opens on current workspace
-// (HDMI-A-1 ws3 doesn't exist yet; rule removed)
+// (HDMI-A-2 ws3 doesn't exist yet; rule removed)
 
 // ──────────────────────────────────────────────
 // Layer rules

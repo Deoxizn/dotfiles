@@ -1,3 +1,13 @@
+# Static information about the filesystems.
+# See fstab(5) for details.
+
+# <file system> <dir> <type> <options> <dump> <pass>
+# /dev/nvme0n1p2 LABEL=hexciri
+UUID=6993be35-3940-4887-ad9a-792bd9a7359e	/         	btrfs     	rw,relatime,ssd,discard=async,space_cache=v2,subvol=/	0 0
+
+# /dev/nvme0n1p1
+UUID=950C-AEBB      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
+
 #network mounts
 192.168.8.169:/volume1/Applications /mnt/Applications nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0
 192.168.8.169:/volume1/AudioBooks /mnt/AudioBooks nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0

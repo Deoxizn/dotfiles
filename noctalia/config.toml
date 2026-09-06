@@ -29,8 +29,8 @@ start  = ["launcher", "wallpaper", "workspaces", "spacer", "active_window"]
 center = ["clock"]
 end    = ["bongocat", "notifications", "clipboard", "media", "tray", "network", "bluetooth", "brightness", "battery", "yuuto/arch-updater:widget", "sysmon-cpu", "sysmon-ram", "sysmon-temp", "sysmon-disk", "sysmon-net", "control-center"]
 
-[bar.default.monitor.HDMI-A-1]
-match = "HDMI-A-1"
+[bar.default.monitor.HDMI-A-2]
+match = "HDMI-A-2"
 start  = ["workspaces"]
 center = []
 end    = []
@@ -45,7 +45,6 @@ tooltip_format = "{:%A, %B %d, %Y}"
 [widget.bongocat]
 type = "noctalia/bongocat:cat"
 input_devices = [
-  "/dev/input/by-id/usb-Keychron_Keychron_Q6_Max-event-kbd",
   "/dev/input/by-id/usb-Keychron_Keychron_Link-if02-event-kbd",
 ]
 audio_spectrum = true
@@ -112,12 +111,12 @@ disk_poll_seconds = 10.0
 # ──────────────────────────────────────────────
 # Notifications
 # Per https://docs.noctalia.dev/noctalia/services/notifications/
-# monitors = [] clones to all outputs (default). Set to ["DP-1"] to
-# suppress toasts on HDMI-A-1 (portrait). Falls back to all if DP-1 disconnected.
+# monitors = [] clones to all outputs (default). Set to ["DP-4"] to
+# suppress toasts on HDMI-A-2 (peripheral). Falls back to all if DP-4 disconnected.
 # ──────────────────────────────────────────────
 
 [notification]
-monitors = ["DP-1"]
+monitors = ["DP-4"]
 position = "top_right"
 max_visible = 5
 enable_daemon = true
@@ -132,7 +131,7 @@ enabled = true
 timeout = 300.0
 
 [lockscreen]
-monitors = ["DP-1"]
+monitors = ["DP-4"]
 
 # ──────────────────────────────────────────────
 # Wallpaper
