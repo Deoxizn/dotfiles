@@ -331,6 +331,8 @@ binds {
 
     // ── Notifications ──
     Mod+Comma { spawn "noctalia" "msg" "notification-clear-active"; }   // Clear active notifications
+    Mod+Ctrl+Comma { spawn "noctalia" "msg" "notification-clear-active"; }   // Clear active notifications
+    Mod+Ctrl+Period { spawn "noctalia" "msg" "notification-clear-history"; }  // Clear notification history
 
     // ── Overview ──
     Mod+O { toggle-overview; }                                  // Toggle workspace overview

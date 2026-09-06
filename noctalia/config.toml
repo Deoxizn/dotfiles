@@ -139,7 +139,6 @@ monitors = ["DP-4"]
 
 [wallpaper]
 enabled = true
-directory = "~/Pictures/Wallpapers"
 fill_mode = "crop"
 transition = "fade"
 

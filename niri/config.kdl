@@ -113,16 +113,16 @@ layout {
     // Focus ring — thin highlight around the active window
     focus-ring {
         width 2
-        active-color "#B6849D"              // Color of the focused window's ring
-        inactive-color "#6B5E72"            // Color of unfocused windows' ring
+        active-color "#99CEEF"              // Color of the focused window's ring
+        inactive-color "#63677F"            // Color of unfocused windows' ring
     }
 
     // Border — thicker outline around all windows
     border {
         on                                  // Enable borders (set to "off" to disable)
         width 1
-        active-color "#B6849D"              // Focused window border color
-        inactive-color "#6B5E72"            // Unfocused window border color
+        active-color "#99CEEF"              // Focused window border color
+        inactive-color "#63677F"            // Unfocused window border color
         urgent-color "#f87171"              // Urgent window border color (e.g. notification)
     }
 
@@ -332,6 +332,8 @@ binds {
 
     // ── Notifications ──
     Mod+Comma { spawn "noctalia" "msg" "notification-clear-active"; }   // Clear active notifications
+    Mod+Ctrl+Comma { spawn "noctalia" "msg" "notification-clear-active"; }   // Clear active notifications
+    Mod+Ctrl+Period { spawn "noctalia" "msg" "notification-clear-history"; }  // Clear notification history
 
     // ── Overview ──
     Mod+O { toggle-overview; }                                  // Toggle workspace overview
