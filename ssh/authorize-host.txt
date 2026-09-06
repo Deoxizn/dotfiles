@@ -1,0 +1,7 @@
+# TEMPLATE — the pubkey below belongs to THIS box (pre-hexciri wipe).
+# It dies with the machine; DO NOT use as-is. After reinstall run
+# `gh auth login` (creates a fresh ~/.ssh/id_ed25519), paste the new
+# pubkey here and install it on every PC's ~/.ssh/authorized_keys.
+mkdir -p ~/.ssh && chmod 700 ~/.ssh
+grep -qF 'PASTE_NEW_PUBKEY_FINGERPRINT_HERE' ~/.ssh/authorized_keys || echo 'PASTE_NEW_PUBKEY_HERE asphyxiated.god@gmail.com' >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
