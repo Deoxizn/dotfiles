@@ -1,0 +1,41 @@
+#!/bin/bash
+# zedit - edit root-owned files with zeditor.
+#
+# sudo zeditor <file> does not work: root gets none of the Wayland session
+# environment, so the GUI cannot connect to the display and zed also loses
+# your user config. This wrapper uses the sudoedit pattern instead:
+#   - sudo stages each file (mode 600, owned by you)
+#   - zeditor opens the staging copy as YOUR user (real display, real config)
+#   - on exit, sudo writes the file back, restoring original owner/mode
+set -euo pipefail
+
+usage() { echo "usage: zedit <file> [file...]" >&2; exit 1; }
+[ "$#" -ge 1 ] || usage
+
+staging="$(mktemp -d "${TMPDIR:-/tmp}/zedit.XXXXXX")"
+trap 'rm -rf "$staging"' EXIT
+
+files=()
+staged=()
+for f in "$@"; do
+    [ -e "$f" ] || { echo "zedit: not found: $f" >&2; exit 1; }
+    [ -d "$f" ] && { echo "zedit: is a directory: $f" >&2; exit 1; }
+    base="$(basename "$f")"
+    dst="$staging/$base"
+    [ -e "$dst" ] && dst="$staging/${base}.$(printf '%s' "$f" | md5sum | cut -c1-6)"
+    files+=("$f")
+    staged+=("$dst")
+    sudo install -m 600 -o "$(id -u)" -g "$(id -g)" "$f" "$dst"
+done
+
+zeditor -w "${staged[@]}" || true
+
+for i in "${!files[@]}"; do
+    orig="${files[$i]}"
+    st="${staged[$i]}"
+    mode="$(stat -c %a "$orig")"
+    own="$(stat -c %U:%G "$orig")"
+    sudo install -m "$mode" -o "${own%%:*}" -g "${own##*:}" "$st" "$orig"
+done
+
+echo "zedit: wrote back ${#files[@]} file(s)."

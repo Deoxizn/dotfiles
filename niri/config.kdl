@@ -16,6 +16,7 @@
 // ──────────────────────────────────────────────
 
 environment {
+    PATH "/home/devi/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
     QT_QPA_PLATFORM "wayland;xcb"               // Qt apps: prefer Wayland, fall back to X11
     QT_WAYLAND_DISABLE_WINDOWDECORATION "1"     // Qt apps: disable client-side decorations
     // NOTE: do NOT set DISPLAY null here — it unsets DISPLAY for every Niri
