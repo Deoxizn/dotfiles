@@ -5,5 +5,7 @@
 # exports (uses the running Xwayland instance, e.g. :1 via xwayland-satellite);
 # runs the stable extracted binary (avoids the AppImage's per-run
 # /tmp/.mount_* regeneration that broke autostart).
+# NOTE: no --profile flag — the old deoxizn.orp pins device locations that
+# don't match a fresh install; re-save from the UI so it starts clean.
 
-exec env "$HOME/appimg/openrgb/OpenRGB-extracted/usr/bin/OpenRGB" --profile "$HOME/.config/OpenRGB/deoxizn.orp" "$@"
+exec env "$HOME/appimg/openrgb/OpenRGB-extracted/usr/bin/OpenRGB" "$@"
