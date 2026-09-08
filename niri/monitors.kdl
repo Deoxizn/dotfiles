@@ -1,0 +1,20 @@
+// ──────────────────────────────────────────────
+// Niri fragment: Monitors / outputs
+// Included by config.kdl. This is the ONLY fragment the WM-swap carry-over
+// replaces whole-hog (your installed monitor layout overwrites hexciri's copy),
+// so keep it to pure `output { }` blocks and comments about them.
+//
+// Desktop: ASUS VG28UQL1A 4K@144 (right) + Dell P2212H 1080p@60 portrait (left).
+// ──────────────────────────────────────────────
+output "DP-4" {
+    mode "3840x2160@144"                    // ASUS VG28UQL1A 4K at 144Hz
+    scale 1.5                               // UI scaling (4K at 1.5 ≈ 2560x1440 logical)
+    position x=1080 y=0                     // To the right of the rotated 1080p monitor
+    variable-refresh-rate                   // Enable VRR (reduces screen tearing in games)
+}
+
+output "HDMI-A-2" {
+    mode "1920x1080@60"                     // Dell P2212H 1080p at 60Hz
+    transform "90"                          // Rotated 90° (portrait)
+    position x=0 y=0                        // Positioned at left
+}

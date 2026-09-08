@@ -1,0 +1,13 @@
+// ──────────────────────────────────────────────
+// Niri fragment: Autostart (spawn at startup)
+// Included by config.kdl. Machine-specific — laptop with cliphist + Strata updater.
+// Edit the lines here to change what boots with the session.
+// ──────────────────────────────────────────────
+
+spawn-at-startup "hexciri-theme-ensure"    // First login: re-apply the active theme if the chroot seed left it dormant
+spawn-sh-at-startup "hexciri-strata-install --check >/dev/null 2>&1"   // Keep per-user Strata current with upstream's near-daily releases (in-app Updates does the rest)
+spawn-at-startup "noctalia"                 // Noctalia shell (bar, notifications, idle/lock, etc.)
+spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"   // Polkit auth dialogs (vanilla GNOME agent)
+spawn-sh-at-startup "wl-paste --type text --watch cliphist store"   // Feed text copies into clipboard history
+spawn-sh-at-startup "wl-paste --type image --watch cliphist store"  // Feed image copies into clipboard history
+spawn-sh-at-startup "systemctl --user import-environment $(env | cut -d= -f1) && dbus-update-activation-environment --systemd --all"   // Import env into systemd/dbus

@@ -1,0 +1,11 @@
+// ──────────────────────────────────────────────
+// Niri fragment: Cursor
+// Included by config.kdl. Your cursor look is a per-machine choice (theme
+// name, size), never theme-owned — keep it here, separate from looknfeel.kdl.
+// ──────────────────────────────────────────────
+cursor {
+    xcursor-theme "Future-dark-cursors"    // Cursor theme name (change to match your installed theme)
+    xcursor-size 24                        // Cursor size in pixels
+    hide-when-typing                       // Hide cursor while typing
+    hide-after-inactive-ms 1000            // Hide cursor after 1 second of inactivity
+}

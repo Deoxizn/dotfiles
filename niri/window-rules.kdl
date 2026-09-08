@@ -1,0 +1,210 @@
+// ──────────────────────────────────────────────
+// Niri fragment: Window rules (workspace targets, floating, blur)
+// Included by config.kdl. Machine-specific — webapp/game/opacity rules carried
+// over from the pre-split config.kdl. niri treats these as multipart sections:
+// they INSERT as-is (never merged away), so this file is the only place they
+// live, and a theme template must not duplicate them.
+// ──────────────────────────────────────────────
+
+window-rule {
+    match app-id="pavucontrol"              // PulseAudio volume control
+    open-floating true
+}
+
+window-rule {
+    match app-id="nm-connection-editor"     // Network Manager connection editor
+    open-floating true
+}
+
+window-rule {
+    match app-id="blueman-manager"          // Bluetooth manager
+    open-floating true
+}
+
+window-rule {
+    match app-id="org.gnome.Calculator"     // GNOME Calculator
+    open-floating true
+}
+
+window-rule {
+    match app-id="org.gnome.Settings"       // GNOME Settings
+    open-floating true
+}
+
+window-rule {
+    match app-id="feh"                      // Image viewer
+    open-floating true
+}
+
+window-rule {
+    match app-id="imv"                      // Image viewer (wayland-native)
+    open-floating true
+}
+
+window-rule {
+    match app-id="localsend"
+    match title="Share"
+    open-floating true
+    default-column-width { fixed 1100; }
+    default-window-height { fixed 700; }
+}
+
+window-rule {
+    match app-id=".*fast\\.com.*"
+    open-floating true
+    default-column-width { fixed 1100; }
+    default-window-height { fixed 700; }
+}
+
+window-rule {
+    match app-id="mpv"                      // Video player
+    open-floating true
+}
+
+window-rule {
+    match app-id="WebcamOverlay"
+    open-floating true
+}
+
+window-rule {
+    match app-id="TUI\\.float"             // Matches apps launched with --app-id=TUI.float
+    open-floating true
+    default-column-width { fixed 1000; }    // Fixed width in pixels
+    default-window-height { fixed 720; }    // Fixed height in pixels
+    background-effect {
+        blur true
+    }
+}
+
+window-rule {
+    match app-id="Alacritty"
+    default-column-width { proportion 0.5; }
+}
+
+window-rule {
+    match app-id="app.hexciri.ff"
+    open-floating true
+    default-column-width { fixed 1550; }    // ← adjust width here
+    default-window-height { fixed 720; }    // ← adjust height here
+}
+
+window-rule {
+    match app-id="zen|zen-alpha|zen-beta"
+    open-on-workspace "1"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="chromium"
+    open-on-workspace "1"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="brave-browser"
+    open-on-workspace "1"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="firefox"
+    open-on-workspace "1"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="io.github.lgse.Strata"
+    open-on-workspace "2"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="spotify"
+    open-on-workspace "3"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="brave-www.messenger.com__-Default"
+    default-column-width { proportion 1.0; }
+    open-maximized true
+}
+
+window-rule {
+    match app-id="brave-gemini.google.com__app-Default"
+    default-column-width { proportion 1.0; }
+    open-maximized true
+}
+
+window-rule {
+    match app-id="brave-photopea.com__-Default"
+    default-column-width { proportion 1.0; }
+    open-maximized true
+}
+
+window-rule {
+    match app-id="steam|steamwebhelper|steam_app"
+    open-on-workspace "4"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="wow.exe"
+    open-on-output "DP-4"                   // Open on specific monitor
+    open-on-workspace "4"
+    open-fullscreen true
+}
+
+window-rule {
+    match app-id="discord|vesktop"
+    open-on-workspace "1"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="Messenger"
+    open-on-workspace "2"
+    open-maximized true
+}
+
+layer-rule {
+    match namespace="fuzzel"                // Fuzzel app launcher
+    background-effect {
+        blur true
+    }
+}
+
+layer-rule {
+    match namespace="noctalia"              // Noctalia shell (bar, launcher, etc.)
+    background-effect {
+        blur true
+    }
+}
+
+window-rule {
+    match app-id="alacritty"
+    opacity 0.85                            // 85% opaque
+}
+
+window-rule {
+    match app-id="kitty"
+    opacity 0.85
+    draw-border-with-background false       // Border is see-through
+}
+
+window-rule {
+    match app-id="app.hexciri.ff"         // Fastfetch window
+    opacity 0.85
+    draw-border-with-background false
+}
+
+window-rule {
+    match app-id="foot"
+    opacity 0.85
+}
+
+window-rule {
+    match app-id="io.github.lgse.Strata"
+    opacity 0.90                            // 90% opaque (slightly less transparent)
+}
+

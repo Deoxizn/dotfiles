@@ -1,0 +1,14 @@
+// ──────────────────────────────────────────────
+// Niri fragment: Monitors / outputs
+// Included by config.kdl. This is the ONLY fragment the WM-swap carry-over
+// replaces whole-hog (your installed monitor layout overwrites hexciri's copy),
+// so keep it to pure `output { }` blocks and comments about them.
+//
+// Laptop panel: eDP-1 2880x1920@120.
+// ──────────────────────────────────────────────
+output "eDP-1" {
+    mode "2880x1920@120"
+    scale 1.5
+    variable-refresh-rate
+    position x=0 y=0
+}

@@ -1,0 +1,117 @@
+// ──────────────────────────────────────────────
+// Niri fragment: Window rules (workspace targets, floating, blur)
+// Included by config.kdl. Machine-specific — laptop terminal half-width rules
+// carried over from the pre-split config.kdl (no webapp/game launchers).
+// niri treats these as multipart sections: they INSERT as-is (never merged
+// away), so this file is the only place they live.
+// ──────────────────────────────────────────────
+
+window-rule {
+    match app-id="pavucontrol"              // PulseAudio volume control
+    open-floating true
+}
+
+window-rule {
+    match app-id="nm-connection-editor"     // Network Manager connection editor
+    open-floating true
+}
+
+window-rule {
+    match app-id="blueman-manager"          // Bluetooth manager
+    open-floating true
+}
+
+window-rule {
+    match app-id="org.gnome.Calculator"     // GNOME Calculator
+    open-floating true
+}
+
+window-rule {
+    match app-id="org.gnome.Settings"       // GNOME Settings
+    open-floating true
+}
+
+window-rule {
+    match app-id="feh"                      // Image viewer
+    open-floating true
+}
+
+window-rule {
+    match app-id="imv"                      // Image viewer (wayland-native)
+    open-floating true
+}
+
+window-rule {
+    match app-id="localsend"
+    match title="Share"
+    open-floating true
+    default-column-width { fixed 1100; }
+    default-window-height { fixed 700; }
+}
+
+window-rule {
+    match app-id=".*fast\\.com.*"
+    open-floating true
+    default-column-width { fixed 1100; }
+    default-window-height { fixed 700; }
+}
+
+window-rule {
+    match app-id="mpv"                      // Video player
+    open-floating true
+}
+
+window-rule {
+    match app-id="WebcamOverlay"
+    open-floating true
+}
+
+window-rule {
+    match app-id="kitty"
+    default-column-width { proportion 0.5; }
+    background-effect {
+        blur true
+    }
+}
+
+window-rule {
+    match app-id="Alacritty"
+    default-column-width { proportion 0.5; }
+}
+
+window-rule {
+    match app-id="foot"
+    default-column-width { proportion 0.5; }
+}
+
+window-rule {
+    match app-id="com.mitchellh.ghostty"
+    default-column-width { proportion 0.5; }
+}
+
+window-rule {
+    match app-id="TUI\\.float"             // Matches apps launched with --app-id=TUI.float
+    open-floating true
+    default-column-width { fixed 1000; }    // Fixed width in pixels
+    default-window-height { fixed 720; }    // Fixed height in pixels
+}
+
+window-rule {
+    match app-id="io.github.lgse.Strata"
+    open-maximized true
+}
+
+layer-rule {
+    match namespace="fuzzel"                // Fuzzel app launcher
+    background-effect {
+        blur true
+    }
+}
+
+layer-rule {
+    match namespace="noctalia"              // Noctalia shell (bar, launcher, etc.)
+    background-effect {
+        blur true
+    }
+}
+

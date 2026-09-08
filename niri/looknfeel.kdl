@@ -1,0 +1,105 @@
+// ──────────────────────────────────────────────
+// Niri fragment: Look & feel — THEME-OWNED.
+// Included by config.kdl. The hexciri theme hook (hexciri-sync.sh) REWRITES
+// this file on every theme change, so:
+//   • keep it to theme surface only (borders, focus ring, shadow, blur)
+//   • don't put spacing/column/strut tweaks here — those live in config.kdl
+//   • NOTE the niri include quirk: `layout { border {} }` written here does
+//     NOT enable the border by presence alone — each block must say on/off
+//     explicitly (that's why they're written out below, never omitted).
+// ──────────────────────────────────────────────
+
+layout {
+    // Focus ring — thin highlight around the active window.
+    focus-ring {
+        width 2
+        active-color "#7c7ca8"              // Color of the focused window's ring
+        inactive-color "#586070"            // Color of unfocused windows' ring
+    }
+
+    // Border — on (desktop has opaque terminals/edges, so a border is safe).
+    border {
+        on
+        width 1
+        active-color "#7c7ca8"              // Focused window border color
+        inactive-color "#586070"            // Unfocused window border color
+        urgent-color "#f87171"              // Urgent window border color (e.g. notification)
+    }
+
+    // Drop shadow behind windows
+    shadow {
+        on                                  // Enable shadows (set to "off" to disable)
+        softness 30                         // Shadow blur radius
+        spread 5                            // How far the shadow extends
+        offset x=0 y=5                      // Shadow offset (x=horizontal, y=vertical)
+        color "#0007"                       // Shadow color with alpha (0007 = semi-transparent black)
+    }
+}
+
+// ──────────────────────────────────────────────
+// Blur settings
+// Controls the blur effect applied by layer rules in window-rules.kdl.
+// Higher passes = stronger blur. Higher offset = more spread.
+// ──────────────────────────────────────────────
+
+blur {
+    passes 3                                // Number of blur passes (more = stronger blur)
+    offset 3.0                              // Blur spread distance
+    noise 0.02                              // Subtle noise texture
+    saturation 1.5                          // Color saturation boost
+}
+
+// ──────────────────────────────────────────────
+// Animations — the "feel" half of look-and-feel.
+// Controls how windows move, open, close, and switch.
+// "spring" = physics-based (bouncy feel). "duration-ms" = fixed time.
+// damping-ratio: 1.0 = no bounce, <1.0 = bouncy, >1.0 = overdamped
+// stiffness: higher = faster/snappier
+// ──────────────────────────────────────────────
+
+animations {
+    workspace-switch {
+        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001    // Snappy, no bounce
+    }
+
+    window-open {
+        duration-ms 150
+        curve "ease-out-expo"               // Fast start, slows down at end
+    }
+
+    window-close {
+        duration-ms 150
+        curve "ease-out-quad"
+    }
+
+    horizontal-view-movement {
+        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
+    }
+
+    window-movement {
+        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
+    }
+
+    window-resize {
+        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
+    }
+
+    overview-open-close {
+        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
+    }
+
+    screenshot-ui-open {
+        duration-ms 200
+        curve "ease-out-quad"
+    }
+}
+
+// ──────────────────────────────────────────────
+// Hotkey overlay
+// The "Important Hotkeys" popup that shows on startup.
+// ──────────────────────────────────────────────
+
+hotkey-overlay {
+    skip-at-startup                         // Don't show the overlay when Niri starts
+    hide-not-bound                          // Hide keybinds that aren't bound to any key
+}

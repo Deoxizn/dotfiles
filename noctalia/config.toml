@@ -130,6 +130,11 @@ enable_daemon = true
 enabled = true
 timeout = 300.0
 
+[idle.behavior.screen-off]
+enabled = true
+timeout = 300.0
+action = "screen_off"
+
 [lockscreen]
 monitors = ["DP-4"]
 

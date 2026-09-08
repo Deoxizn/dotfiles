@@ -1,0 +1,12 @@
+// ──────────────────────────────────────────────
+// Niri fragment: Autostart (spawn at startup)
+// Included by config.kdl. Machine-specific — desktop with swayidle DPMS + OpenRGB.
+// Edit the lines here to change what boots with the session.
+// ──────────────────────────────────────────────
+
+spawn-at-startup "hexciri-theme-ensure"    // First login: re-apply the active theme if the chroot seed left it dormant
+spawn-at-startup "noctalia"                 // Noctalia shell (bar, notifications, etc.)
+spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"   // Polkit auth dialogs (vanilla GNOME agent)
+spawn-at-startup "swayidle" "-w" "timeout" "600" "niri msg action power-off-monitors" "resume" "niri msg action power-on-monitors"   // DPMS off after 10 min idle, power on on resume/wake
+spawn-sh-at-startup "systemctl --user import-environment $(env | cut -d= -f1) && dbus-update-activation-environment --systemd --all"   // Import env into systemd/dbus
+spawn-sh-at-startup "sleep 2 && openrgb-start"   // Start OpenRGB with 2s delay (for Wayland to be ready)

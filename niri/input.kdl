@@ -1,0 +1,27 @@
+// ──────────────────────────────────────────────
+// Niri fragment: Input devices
+// Included by config.kdl. Keyboard layout, touchpad, mouse, focus-follows-mouse.
+// ──────────────────────────────────────────────
+input {
+    keyboard {
+        xkb {
+            layout "us"                      // Keyboard layout (us, gb, de, etc.)
+            // options "ctrl:nocaps"          // Uncomment to make CapsLock act as Ctrl
+        }
+        numlock                              // Enable Num Lock on startup
+    }
+
+    touchpad {
+        tap                                 // Enable tap-to-click
+        natural-scroll                      // Scroll direction matches content movement
+        // disabled-while-typing is on by default
+    }
+
+    mouse {
+        // natural-scroll                   // Uncomment to reverse scroll direction on mouse
+    }
+
+    // focus-follows-mouse                  // Uncomment: focus windows just by hovering over them
+    // focus-follows-mouse-delay 250        // Delay before focusing (ms) — only works with focus-follows-mouse
+    // scroll-factor 3                      // Multiply scroll speed (useful for touchpads)
+}
