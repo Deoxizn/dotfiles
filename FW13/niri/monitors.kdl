@@ -4,11 +4,19 @@
 // replaces whole-hog (your installed monitor layout overwrites hexciri's copy),
 // so keep it to pure `output { }` blocks and comments about them.
 //
-// Laptop panel: eDP-1 2880x1920@120.
+// Laptop panel: eDP-1 2880x1920@120 (secondary).
+// External: ASUS VG28UQL1A on DP-2, 4K@60 (link-limited to 60Hz; see notes),
+// scale 1.3, primary/mostly used when docked with the lid closed.
 // ──────────────────────────────────────────────
+output "DP-2" {
+    mode "3840x2160@59.997"
+    scale 1.3
+    position x=0 y=0
+}
+
 output "eDP-1" {
     mode "2880x1920@120"
     scale 1.5
     variable-refresh-rate
-    position x=0 y=0
+    position x=2953 y=0
 }
