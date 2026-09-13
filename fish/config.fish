@@ -32,7 +32,6 @@ alias nfs='sudo mount -a'
 alias svr='env TERM=xterm-256color ssh deoxizn@192.168.8.209'
 alias kids='env TERM=xterm-256color ssh clug@192.168.8.231'
 alias 2pc='env TERM=xterm-256color ssh jackie@192.168.8.118'
-alias psync='docker compose run --rm plextraktsync sync'
 alias hxup='hexciri-update-run'
 alias ga='git add .'
 alias gp='git push'
@@ -42,8 +41,6 @@ alias snprl='sudo snapper list'
 alias snprd='sudo snapper delete'
 alias ff='fastfetch'
 alias c='opencode'
-alias d='docker'
-alias r='rails'
 alias sptx='bash (curl -sSL https://spotx-official.github.io/run.sh | psub)'
 
 function gc
@@ -58,13 +55,6 @@ function co
     else
         echo "No orphans to remove."
     end
-end
-
-# Init Key Tools
-set -gx STARSHIP_CONFIG $HOME/.config/starship.toml
-starship init fish | source
-if type -q zoxide
-    zoxide init fish | source
 end
 
 # General Settings
@@ -82,7 +72,6 @@ alias cpp='cp -R'
 alias cp='cp -i'
 alias mv='mv -i'
 alias add-to-path='set -U fish_user_paths (pwd) $fish_user_paths'
-alias path-update='set -gx PATH (bash -c "source ~/Work/stuff/config/path; echo \$PATH")'
 
 # System Monitoring
 alias df='df -h'
@@ -143,21 +132,6 @@ end
 
 function m --description "Math using Python"
   python -c "print($argv)"
-end
-
-if type -q nicl
-  alias cal="nicl -w3 -f ~/Work/stuff/documents/bank_days.csv"
-else
-  alias cal="ncal -bM3"
-end
-
-if type -q sssh2
-  alias ssh=sssh2
-end
-
-if type -q plug
-  alias unplug='plug -u'
-  alias plug='cd (command plug)'
 end
 
 function qr --description "Prints QR as unicode blocks (works in foot)"
