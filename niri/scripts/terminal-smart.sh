@@ -14,11 +14,22 @@
 # counts. (kitty's own platform_window_id is always null under Niri, so it
 # cannot be used.) Without Niri (Hyprland session), fall back to the
 # original "socket answers" probe.
+#
+# JSON is parsed with python3 (stdlib only): Niri spawns carry a minimal
+# PATH and jq may not be installed, while python3 ships with the system.
 
 # One pid per line for every live window Niri knows about.
 niri_window_pids() {
 	[[ -n "${NIRI_SOCKET:-}" ]] && command -v niri >/dev/null 2>&1 || return 0
-	niri msg --json windows 2>/dev/null | jq -r '.[].pid // empty' 2>/dev/null | sort -u
+	niri msg --json windows 2>/dev/null | python3 -c 'import json,sys
+try:
+    windows = json.load(sys.stdin)
+except Exception:
+    windows = []
+for w in windows if isinstance(windows, list) else []:
+    pid = w.get("pid") if isinstance(w, dict) else None
+    if pid is not None:
+        print(pid)' 2>/dev/null | sort -u
 }
 
 # 0 = kitty pid owns a live window. On Niri this is ground truth from the
@@ -37,14 +48,34 @@ pid_is_live() { # $1 = kitty pid, $2 = pid list from niri_window_pids
 # Prints "<app-id> <pid>" of the focused window. Niri first, Hyprland fallback.
 focused_info() {
 	if [[ -n "${NIRI_SOCKET:-}" ]] && command -v niri >/dev/null 2>&1; then
-		niri msg --json focused-window 2>/dev/null | \
-			jq -r '"\(.app_id // empty) \(.pid // empty)"' 2>/dev/null
+		niri msg --json focused-window 2>/dev/null | python3 -c 'import json,sys
+try:
+    w = json.load(sys.stdin)
+except Exception:
+    w = {}
+if not isinstance(w, dict):
+    w = {}
+app = w.get("app_id")
+pid = w.get("pid")
+print(app if app is not None else "", pid if pid is not None else "")' 2>/dev/null
 		return 0
 	fi
 	local info class pid
 	info=$(hyprctl activewindow -j 2>/dev/null)
-	class=$(jq -r '.class // empty' <<<"$info" 2>/dev/null)
-	pid=$(jq -r '.pid // empty' <<<"$info" 2>/dev/null)
+	class=$(python3 -c 'import json,sys
+try:
+    w = json.load(sys.stdin)
+except Exception:
+    w = {}
+cls = w.get("class") if isinstance(w, dict) else None
+print(cls if cls is not None else "")' <<<"$info" 2>/dev/null)
+	pid=$(python3 -c 'import json,sys
+try:
+    w = json.load(sys.stdin)
+except Exception:
+    w = {}
+pid = w.get("pid") if isinstance(w, dict) else None
+print(pid if pid is not None else "")' <<<"$info" 2>/dev/null)
 	printf '%s %s' "$class" "$pid"
 }
 
