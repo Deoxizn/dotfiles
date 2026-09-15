@@ -1,7 +1,7 @@
 ---
 name: quickshell
 description: >
-  Expert knowledge for Quickshell (Qt6/QML desktop shell toolkit, v0.3.0 on
+  Expert knowledge for Quickshell (Qt6/QML desktop shell toolkit, v0.3.1 on
   this machine). Use when creating or debugging ANY Quickshell-based shell or
   widget — shell.qml entry points, PanelWindow/PopupWindow/FloatingWindow,
   singletons and qs.* root-relative imports, IpcHandler + `qs ipc`,
@@ -16,14 +16,16 @@ description: >
 # Quickshell Skill
 
 Quickshell is a Qt6/QML toolkit for building custom desktop shells (bars,
-launchers, lock screens) on Wayland. This machine runs **Quickshell 0.3.0**
-(Arch package `quickshell 0.3.0-3`, binary `/usr/bin/qs`). Real-world reference
+launchers, lock screens) on Wayland. This machine runs **Quickshell 0.3.1**
+(Arch package `quickshell 0.3.1`, binary `/usr/bin/qs`; released 2026-08-20,
+bugfix follow-up to 0.3.0 — no API breaks). Real-world reference
 implementation installed here: **Caelestia** at `~/.config/quickshell/caelestia/`
-(see the `caelestia` skill for its config system).
+(see the `caelestia` skill for its config system). Current as of 2026-09:
+0.3.1 is the latest stable; the versioned docs below track it.
 
 ## 0. Authoritative references
 
-- Docs (versioned): <https://quickshell.org/docs/v0.3.0/guide/> — types index: <https://quickshell.org/docs/v0.3.0/types>
+- Docs (versioned): <https://quickshell.org/docs/v0.3.1/guide/> — types index: <https://quickshell.org/docs/v0.3.1/types>
 - Changelog (feature gates like `qs.*` imports): <https://quickshell.org/changelog/>
 - Source: <https://git.outfoxxed.me/quickshell/quickshell> (GitHub mirror: quickshell-mirror/quickshell)
 - Example configs: <https://git.outfoxxed.me/outfoxxed/quickshell-examples>

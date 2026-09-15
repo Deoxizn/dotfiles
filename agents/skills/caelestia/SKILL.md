@@ -19,8 +19,9 @@ description: >
 # Caelestia Shell Skill
 
 Expert agent for the **Caelestia shell** on this machine. Grounded reality:
-Caelestia shell **v2.3.0+** (git checkout at `~/.config/quickshell/caelestia`),
-running under **Quickshell 0.3.0** on **Hyprland 0.56.2**, inside an
+Caelestia shell **v2.4.0+** (git checkout at `~/.config/quickshell/caelestia`,
+current as of 2026-09; v2.4.0 released early Sept 2026),
+running under **Quickshell 0.3.1** on **Hyprland 0.56.2**, inside an
 **Omarchy base with Caelestia replacing omarchy-shell** (the "omartia-dots-remux").
 
 ## 0. Primary references

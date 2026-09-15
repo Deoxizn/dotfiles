@@ -88,6 +88,9 @@ sudo pacman -S xdg-desktop-portal xdg-desktop-portal-gtk
 systemctl --user enable --now xdg-desktop-portal xdg-desktop-portal-gtk
 # or just let the session start it (graphical-session.target Wants)
 ```
+Current as of 2026-09: upstream **xdg-desktop-portal 1.22.x** (1.22.1, June 2026);
+backend packages (`-gtk`, `-hyprland`, `-gnome`, `-kde`) track their own versions —
+confirm with `pacman -Q xdg-desktop-portal*` before citing.
 
 ### Key backends for niri
 - **File dialogs**: the Gtk backend provides `org.freedesktop.portal.FileChooser`.

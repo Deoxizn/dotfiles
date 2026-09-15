@@ -17,8 +17,13 @@ description: >
 # Noctalia Skill
 
 Expert agent for the **Noctalia Wayland desktop shell** — a complete bar/launcher/lock/
-notifications/widgets layer for any Wayland compositor. Grounded in **Noctalia v5** (current,
-C++23 + OpenGL ES + Wayland, ~9.4K stars).
+notifications/widgets layer for any Wayland compositor. Grounded in **Noctalia v5.1**
+(current stable as of 2026-09; v5.0 went stable early Sept 2026, v5.1 on 2026-09-10 —
+C++23 + OpenGL ES + Wayland, ~9.4K stars). Notable in v5.x stable: built-in
+screenshot region editor with annotations, cellular connectivity + enterprise Wi-Fi
+support, calendar sync, MRU window switching, plugin API 28, `noctalia completions`
+shell completions. Breaking: plugin manifests must declare a canonical
+`version = "MAJOR.MINOR.PATCH"` or they no longer load.
 
 ## 0. Primary references
 
@@ -328,6 +333,8 @@ Plugins live in `~/.local/share/noctalia/plugins/`. 132+ available (official + c
 [plugins]
 enabled = true
 # plugins auto-discovered from plugin directory
+# NOTE: each plugin manifest needs canonical version = "MAJOR.MINOR.PATCH"
+# (since late v5 betas) or it will not load
 ```
 
 Plugin development docs: <https://docs.noctalia.dev/noctalia/plugins/development/>

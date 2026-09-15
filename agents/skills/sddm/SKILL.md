@@ -20,7 +20,9 @@ description: >
 
 Expert agent for **SDDM (Simple Desktop Display Manager)** — the graphical
 login (greeter) manager used by many Arch Linux desktops, including this
-machine. SDDM is built on Qt; it displays a greeter, authenticates the user
+machine. Current as of 2026-09: latest upstream release is still **0.21.0**
+(2024-02-26); distros ship it plus git snapshots (Qt6 greeter standard,
+no 0.22/1.0 yet). SDDM is built on Qt; it displays a greeter, authenticates the user
 (via PAM), and starts the selected desktop/Wayland/X11 session.
 
 ## 0. Primary references

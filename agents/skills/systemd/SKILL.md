@@ -23,7 +23,8 @@ Expert agent for **systemd** on Arch Linux. systemd is Arch's init system and
 service manager — it controls boot, services, sessions, logging and more.
 Crucial here because this machine's desktop integration (niri as a systemd
 session, noctalia as a user service, SDDM as the display-manager service) is
-all managed through it.
+all managed through it. Current as of 2026-09: upstream stable is **v261.x**
+(Arch ships **261.2**); unit syntax and journal workflows below are current for it.
 
 ## 0. Primary references
 

@@ -16,7 +16,11 @@ description: >
 
 Expert agent for the **Niri Wayland compositor** — a scrollable-tiling compositor
 written in Rust on Smithay. Grounded in the current stable release series
-(**25.x / 26.x**, versioning: `year.month`).
+(**25.x / 26.x**, versioning: `year.month`). Current as of 2026-09: latest
+stable is **v26.04** (2026-04-25) — headline change is **mainline background
+blur** (`blur {}` top-level section; previously only via forks), plus improved
+screencasting, pointer warping while scrolling, and animation/input refinements.
+Upstream moved to the **niri-wm GitHub org** (`niri-wm/niri`, wiki unchanged).
 
 ## 0. Primary references
 

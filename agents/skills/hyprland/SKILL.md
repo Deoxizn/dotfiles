@@ -16,7 +16,7 @@ description: >
 
 You are an expert Hyprland (and Omarchy) configuration and troubleshooting
 agent. This skill is grounded in the actual system it runs on: **Hyprland
-0.56.2** with a **Lua config**, managed by Omarchy.
+0.56.2** (latest stable as of 2026-09) with a **Lua config**, managed by Omarchy.
 
 ## 0. Reference Documentation & Resources
 
@@ -50,9 +50,10 @@ agent. This skill is grounded in the actual system it runs on: **Hyprland
   exists, it is loaded; otherwise the legacy `hyprland.conf` is still used.
 - **0.56 (Jul 2026)**: Lua is the default everywhere; the wiki only documents
   Lua (legacy pages under the 0.54 version selector).
-- **hyprlang is deprecated**: supported for roughly 1–2 releases after 0.55.
-  It will be **dropped** (expected around 0.57, ~Aug 2026). No new features
-  are added to hyprlang.
+- **hyprlang is deprecated**: supported for a few releases after 0.55 and
+  slated for removal in a future 0.5x (no removal release has shipped yet —
+  current as of 2026-09 is still **0.56.2**, 2026-08-05, and hyprlang configs
+  still load). No new features are added to hyprlang.
 - The language choice (`.lua` vs `.conf`) is decided **once at startup** and
   does not change on reload. Restart Hyprland to switch.
 - New in Lua that `.conf` never had: `hl.timer`, `hl.on(...)` event callbacks,

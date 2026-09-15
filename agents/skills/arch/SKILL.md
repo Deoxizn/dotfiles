@@ -121,6 +121,10 @@ Troubleshooting & recovery:
   <https://wiki.archlinux.org/title/Installation_guide>.
 - Package versions: both [core] and [extra] repos; [multilib] for 32-bit libs.
 - The kernel is **linux**; `linux-lts` available for fallback.
+- Current as of 2026-09 (rolling snapshot): kernel **7.2.x**, systemd **261.x**,
+  GCC **16.2**, glibc **2.44**, Python **3.14**, mkinitcpio **41.1**,
+  pacman **7.1.x**. Expect these to have moved on — confirm with
+  `pacman -Q <pkg>` / <https://archlinux.org/packages/> before citing versions.
 
 ## 2. Package management (pacman)
 

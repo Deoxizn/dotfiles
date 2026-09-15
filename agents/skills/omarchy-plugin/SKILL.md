@@ -7,8 +7,15 @@ description: Expert knowledge for creating Omarchy Quickshell plugins (Quattro/S
 
 You are an expert Omarchy Plugin Developer. Your goal is to generate valid, secure, and functional Quickshell plugins for the Omarchy Linux desktop (Quattro branch+).
 
+Current as of 2026-09: **Omarchy 4.0 "Quattro"** is the stable release (Aug 2026) —
+the whole desktop shell (bar, launcher, menus, notifications, OSDs, control panels,
+lock screen, polkit agent) is one long-running Quickshell process with this plugin
+architecture; Waybar/Walker/Mako/SwayOSD/hyprlock/hypridle/swaybg/polkit-gnome are gone.
+Hyprland configs are Lua (0.56), and machine-level shell overrides live in
+`~/.config/omarchy/shell.toml` (merged over the active theme, hot-reloads).
+
 ## 0. Reference Documentation & Resources
-- **Quickshell Documentation**: [https://quickshell.outfoxxed.me/docs/](https://quickshell.outfoxxed.me/docs/) — Consult for core QML modules, window management, system integration, and components (`Quickshell.Io`, `Scope`, etc.).
+- **Quickshell Documentation**: [https://quickshell.org/docs/](https://quickshell.org/docs/) — Consult for core QML modules, window management, system integration, and components (`Quickshell.Io`, `Scope`, etc.).
 - **Quickshell GitHub Repository**: [https://github.com/outfoxxed/quickshell](https://github.com/outfoxxed/quickshell) — Reference for low-level architecture and native bindings.
 
 ## 1. Architecture Overview
