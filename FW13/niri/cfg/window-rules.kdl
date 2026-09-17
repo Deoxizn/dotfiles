@@ -96,10 +96,7 @@ window-rule {
     default-window-height { fixed 720; }    // Fixed height in pixels
 }
 
-window-rule {
-    match app-id="io.github.lgse.Strata"
-    open-maximized true
-}
+// File manager — Nautilus tiles with the rest (no float rule)
 
 layer-rule {
     match namespace="fuzzel"                // Fuzzel app launcher
@@ -109,9 +106,21 @@ layer-rule {
 }
 
 layer-rule {
-    match namespace="noctalia"              // Noctalia shell (bar, launcher, etc.)
+    match namespace="noctalia"              // Noctalia shell (panels, launcher, etc.)
     background-effect {
         blur true
+    }
+}
+
+// Noctalia bar: no compositor blur. Noctalia v5 publishes a full-bar blur
+// region even with background_opacity = 0, so leaving this on blurs the gaps
+// between capsules (the left-to-center / center-to-right haze).
+// Pills stay solid via capsule_opacity = 1.0; gaps show sharp wallpaper.
+// Must come AFTER the general rule so it wins for the bar.
+layer-rule {
+    match namespace="^noctalia-bar-.*$"
+    background-effect {
+        blur false
     }
 }
 

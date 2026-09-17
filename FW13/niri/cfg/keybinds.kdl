@@ -1,0 +1,92 @@
+// Keybinds — hexciri core, hand-written.
+// Niri has NO default binds — this block defines ALL of them.
+// "Mod" = Super key.
+binds {
+    Mod+0 { focus-workspace "browser"; }
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+C { spawn "sh" "-c" "wtype -M ctrl -k c"; }
+    Mod+F { maximize-column; }
+    Mod+H { focus-column-left; }
+    Mod+I { focus-workspace-up; }
+    Mod+J { focus-window-down; }
+    Mod+K { spawn "hexciri-keybinds"; }
+    Mod+L { focus-column-right; }
+    Mod+N { spawn "noctalia" "msg" "panel-toggle" "notifications"; }
+    Mod+O { toggle-overview; }
+    Mod+P { focus-floating; }
+    Mod+Q { close-window; }
+    Mod+R { switch-preset-column-width; }
+    Mod+U { focus-workspace-down; }
+    Mod+V { spawn "sh" "-c" "wtype -M ctrl -k v"; }
+    Mod+X { spawn "sh" "-c" "wtype -M ctrl -k x"; }
+    Mod+Up { focus-window-up; }
+    Mod+Down { focus-window-down; }
+    Mod+Left { focus-column-left; }
+    Alt+Print { spawn "hexciri-screenrecord"; }
+    Mod+Comma { spawn "noctalia" "msg" "notification-clear-active"; }
+    Mod+Print { screenshot; }
+    Mod+Right { focus-column-right; }
+    Mod+Space { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
+    Mod+grave { spawn "hexciri-agent"; }
+    Ctrl+Print { spawn "sh" "-c" "grim -g \"$(slurp)\" - | wl-copy"; }
+    Mod+Ctrl+F { fullscreen-window; }
+    Mod+Ctrl+H { move-column-left; }
+    Mod+Ctrl+J { move-window-down; }
+    Mod+Ctrl+K { move-window-up; }
+    Mod+Ctrl+L { spawn "hexciri-lock"; }
+    Mod+Ctrl+M { spawn "hexciri-launch-or-focus-webapp" "messenger" "https://www.messenger.com"; }
+    Mod+Ctrl+V { spawn "hexciri-clipboard"; }
+    Mod+Escape { spawn "hexciri-power"; }
+    Mod+Return { spawn-sh "~/.config/niri/scripts/terminal-smart.sh"; }
+    Mod+Ctrl+Up { move-window-up; }
+    Mod+Shift+0 { move-column-to-workspace "browser"; }
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+Shift+6 { move-column-to-workspace 6; }
+    Mod+Shift+7 { move-column-to-workspace 7; }
+    Mod+Shift+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
+    Mod+Shift+B { spawn "xdg-open" "https://"; }
+    Mod+Shift+C { spawn "hexciri-fuzzel" "calc"; }
+    Mod+Shift+E { spawn "zeditor"; }
+    Mod+Shift+F { spawn "nautilus"; }
+    Mod+Shift+M { spawn "spotify" "Spotify"; }
+    Mod+Shift+P { focus-tiling; }
+    Mod+Shift+R { toggle-column-tabbed-display; }
+    Mod+Shift+S { spawn "hexciri-fuzzel" "search"; }
+    Mod+Alt+Space { spawn "hexciri-menu"; }
+    Mod+Ctrl+Down { move-window-down; }
+    Mod+Ctrl+Left { move-column-left; }
+    XF86AudioMute { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86AudioNext { spawn "playerctl" "next"; }
+    XF86AudioPlay { spawn "playerctl" "play-pause"; }
+    XF86AudioPrev { spawn "playerctl" "previous"; }
+    Mod+Ctrl+Right { move-column-right; }
+    Mod+Ctrl+Period { spawn "noctalia" "msg" "notification-clear-history"; }
+    Mod+Ctrl+S { spawn "noctalia" "msg" "settings-toggle"; }
+    Mod+Ctrl+D { spawn "vesktop" "Vesktop";}
+    Mod+BracketLeft { consume-window-into-column; }
+    Mod+Shift+Space { toggle-window-floating; }
+    Mod+BracketRight { expel-window-from-column; }
+    XF86AudioMicMute { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+    XF86MonBrightnessUp { spawn "brightnessctl" "set" "5%+"; }
+    XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
+    XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+    XF86MonBrightnessDown { spawn "brightnessctl" "set" "5%-"; }
+
+// ── adapted from stock binds (one-time): combos the previous config shipped that ours doesn't define — kept below, edit freely. // hexciri-adapted-stock
+    Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }  // Scroll to workspace below
+    Mod+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }      // Scroll to workspace above
+    Mod+Ctrl+Comma { spawn "noctalia" "msg" "notification-clear-active"; }   // Clear active notifications
+}

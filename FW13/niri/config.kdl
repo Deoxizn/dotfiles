@@ -5,28 +5,28 @@
 // below. niri merges their sections and live-reloads EVERY included file —
 // edit any fragment and the running session applies it immediately.
 //
-//   include "cursors.kdl"        // cursor { } — cursor theme/size (per-machine)
-//   include "env.kdl"            // environment { } — Wayland hints for every app
-//   include "monitors.kdl"       // output { } — screens, scale, mode, VRR
-//   include "input.kdl"          // input { } — keyboard layout, touchpad, mouse
-//   include "looknfeel.kdl"     // layout borders/focus-ring/shadow, blur,
-//                                //   animations, hotkey-overlay (theme-owned feel)
-//   include "window-rules.kdl"   // workspace names + window-rule + layer-rule
-//   include "keybinds.kdl"       // binds { } — rendered from config/keybinds/intents.toml
-//   include "autostart.kdl"      // spawn-at-startup — boot-time services & shell
+//   include "cfg/cursors.kdl"        // cursor { } — cursor theme/size (per-machine)
+//   include "cfg/env.kdl"            // environment { } — Wayland hints for every app
+//   include "cfg/monitors.kdl"       // output { } — screens, scale, mode, VRR
+//   include "cfg/input.kdl"          // input { } — keyboard layout, touchpad, mouse
+//   include "cfg/looknfeel.kdl"     // layout borders/focus-ring/shadow, blur,
+//                                    //   animations, hotkey-overlay (theme-owned feel)
+//   include "cfg/window-rules.kdl"   // workspace names + window-rule + layer-rule
+//   include "cfg/keybinds.kdl"       // binds { } — rendered from config/keybinds/intents.toml
+//   include "cfg/autostart.kdl"      // spawn-at-startup — boot-time services & shell
 //
 // Split so each concern is easy to find, edit and back up on its own.
 // To add MORE custom keybinds without touching the schema, append a
 // `binds { ... }` block here after the includes — extra bind sections merge.
 
-include "cursors.kdl"
-include "env.kdl"
-include "monitors.kdl"
-include "input.kdl"
-include "looknfeel.kdl"
-include "window-rules.kdl"
-include "keybinds.kdl"
-include "autostart.kdl"
+include "cfg/cursors.kdl"
+include "cfg/env.kdl"
+include "cfg/monitors.kdl"
+include "cfg/input.kdl"
+include "cfg/looknfeel.kdl"
+include "cfg/window-rules.kdl"
+include "cfg/keybinds.kdl"
+include "cfg/autostart.kdl"
 
 // ──────────────────────────────────────────────
 // Layout — the static parts of how columns are arranged.

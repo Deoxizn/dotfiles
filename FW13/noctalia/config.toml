@@ -24,6 +24,18 @@ position = "top"
 thickness = 40                        # Bar height in pixels
 background_opacity = 0.95             # 0.0 = transparent, 1.0 = opaque
 reserve_space = true                  # Reserve screen space (don't overlap windows)
+# Islands look: floating, detached pill bar
+margin_edge = 10                      # Float 10px off the top edge (requires concave_edge_corners = false)
+margin_ends = 10                      # Inset 10px from left/right ends for island effect
+concave_edge_corners = false          # Must be false when margin_edge > 0 (concave only works docked at margin_edge = 0)
+radius = 16                           # Uniform rounding for all four floating corners
+padding = 10                          # Internal main-axis padding
+widget_spacing = 4                    # Tighter gaps for pill grouping
+capsule = true                        # Pill background on every widget
+capsule_fill = "surface_variant"
+capsule_thickness = 0.76              # Capsule height as fraction of thickness
+contact_shadow = true                 # Seamless lift where attached panels meet the bar
+panel_overlap = 1                     # Default seam overlap; try 0 if you see a hairline, raise if you see a gap
 start  = ["launcher", "wallpaper", "workspaces", "spacer", "media"]
 center = ["active_window", "spacer_2", "clock"]
 end    = ["notifications", "clipboard", "tray", "network", "bluetooth", "volume", "brightness", "battery", "yuuto/arch-updater:widget", "control-center"]
