@@ -96,6 +96,19 @@ window-rule {
     default-window-height { fixed 720; }    // Fixed height in pixels
 }
 
+window-rule {
+    match app-id="app.hexciri.ff"         // Fastfetch floating window (Mod+Ctrl+F)
+    open-floating true
+    default-column-width { fixed 1205; }
+    default-window-height { fixed 670; }
+}
+
+window-rule {
+    match app-id="app.hexciri.ff"         // Fastfetch window transparency
+    opacity 0.85
+    draw-border-with-background false
+}
+
 // File manager — Nautilus tiles with the rest (no float rule)
 
 layer-rule {
@@ -123,4 +136,3 @@ layer-rule {
         blur false
     }
 }
-

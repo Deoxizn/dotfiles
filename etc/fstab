@@ -9,12 +9,12 @@ UUID=6993be35-3940-4887-ad9a-792bd9a7359e	/         	btrfs     	rw,relatime,ssd,
 UUID=950C-AEBB      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
 
 #network mounts
-192.168.8.169:/volume1/Applications /mnt/Applications nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0
-192.168.8.169:/volume1/AudioBooks /mnt/AudioBooks nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0
-192.168.8.169:/volume1/Backups /mnt/Backups nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0
-192.168.8.169:/volume1/Books /mnt/Books nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0
-192.168.8.169:/volume1/Comics /mnt/Comics nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0
-192.168.8.169:/volume1/Downloads /mnt/Downloads nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0
-192.168.8.169:/volume1/Music /mnt/Music nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0
-192.168.8.169:/volume1/Photos /mnt/Photos nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0
-192.168.8.169:/volume1/Video /mnt/Video nfs defaults,_netdev,x-systemd.requires=network-online.target,rw,auto,nofail,soft,intr 0 0
+//192.168.8.169/Applications /mnt/Applications cifs credentials=/etc/samba/nas.creds,uid=1000,gid=1000,file_mode=0644,dir_mode=0755,vers=3.0,iocharset=utf8,_netdev,x-systemd.requires=network-online.target,noauto,x-systemd.automount,nofail 0 0
+//192.168.8.169/AudioBooks /mnt/AudioBooks cifs credentials=/etc/samba/nas.creds,uid=1000,gid=1000,file_mode=0644,dir_mode=0755,vers=3.0,iocharset=utf8,_netdev,x-systemd.requires=network-online.target,noauto,x-systemd.automount,nofail 0 0
+//192.168.8.169/Backups /mnt/Backups cifs credentials=/etc/samba/nas.creds,uid=1000,gid=1000,file_mode=0644,dir_mode=0755,vers=3.0,iocharset=utf8,_netdev,x-systemd.requires=network-online.target,noauto,x-systemd.automount,nofail 0 0
+//192.168.8.169/Books /mnt/Books cifs credentials=/etc/samba/nas.creds,uid=1000,gid=1000,file_mode=0644,dir_mode=0755,vers=3.0,iocharset=utf8,_netdev,x-systemd.requires=network-online.target,noauto,x-systemd.automount,nofail 0 0
+//192.168.8.169/Comics /mnt/Comics cifs credentials=/etc/samba/nas.creds,uid=1000,gid=1000,file_mode=0644,dir_mode=0755,vers=3.0,iocharset=utf8,_netdev,x-systemd.requires=network-online.target,noauto,x-systemd.automount,nofail 0 0
+//192.168.8.169/Downloads /mnt/Downloads cifs credentials=/etc/samba/nas.creds,uid=1000,gid=1000,file_mode=0644,dir_mode=0755,vers=3.0,iocharset=utf8,_netdev,x-systemd.requires=network-online.target,noauto,x-systemd.automount,nofail 0 0
+//192.168.8.169/Music /mnt/Music cifs credentials=/etc/samba/nas.creds,uid=1000,gid=1000,file_mode=0644,dir_mode=0755,vers=3.0,iocharset=utf8,_netdev,x-systemd.requires=network-online.target,noauto,x-systemd.automount,nofail 0 0
+//192.168.8.169/Photos /mnt/Photos cifs credentials=/etc/samba/nas.creds,uid=1000,gid=1000,file_mode=0644,dir_mode=0755,vers=3.0,iocharset=utf8,_netdev,x-systemd.requires=network-online.target,noauto,x-systemd.automount,nofail 0 0
+//192.168.8.169/Video /mnt/Video cifs credentials=/etc/samba/nas.creds,uid=1000,gid=1000,file_mode=0644,dir_mode=0755,vers=3.0,iocharset=utf8,_netdev,x-systemd.requires=network-online.target,noauto,x-systemd.automount,nofail 0 0

@@ -22,7 +22,7 @@
 [bar.default]
 position = "top"
 thickness = 40                        # Bar height in pixels
-background_opacity = 0.95             # 0.0 = transparent, 1.0 = opaque
+background_opacity = 0.0             # 0.0 = transparent, 1.0 = opaque
 reserve_space = true                  # Reserve screen space (don't overlap windows)
 # Islands look: floating, detached pill bar
 margin_edge = 10                      # Float 10px off the top edge (requires concave_edge_corners = false)

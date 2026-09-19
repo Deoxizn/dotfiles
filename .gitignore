@@ -1,0 +1,4 @@
+# Real NAS credentials — never commit (template is etc/samba/nas.creds.example)
+etc/samba/nas.creds
+etc/nas.creds
+**/nas.creds

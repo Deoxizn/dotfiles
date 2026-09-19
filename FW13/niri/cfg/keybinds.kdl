@@ -38,6 +38,7 @@ binds {
     Mod+grave { spawn "hexciri-agent"; }
     Ctrl+Print { spawn "sh" "-c" "grim -g \"$(slurp)\" - | wl-copy"; }
     Mod+Ctrl+F { fullscreen-window; }
+    Mod+Alt+F { spawn "kitty" "--class=app.hexciri.ff" "fish" "-c" "ff; exec fish"; }
     Mod+Ctrl+H { move-column-left; }
     Mod+Ctrl+J { move-window-down; }
     Mod+Ctrl+K { move-window-up; }
