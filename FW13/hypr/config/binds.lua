@@ -175,7 +175,7 @@ hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special())
 -- personal launchers. Premerge backups alongside as *.premerge-20260922.
 -- Mod+Return (smart terminal) lives in config.hexciri-binds (overlay took
 -- over the stock slot — see note there); the script is scripts/terminal-smart.sh.
-hl.bind(mainMod .. " + ALT + F",   hl.dsp.exec_cmd(launchPrefix .. "kitty --class=app.hexciri.ff fish -c 'ff; exec fish'"))
+hl.bind(mainMod .. " + ALT + F",   hl.dsp.exec_cmd(launchPrefix .. "kitty --class=app.hexciri.ff -o 'font_family=Ransom Mono Unruly NF' fish -c 'ff; exec fish'"))
 hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd(launchPrefix .. "spotify Spotify"))
 hl.bind(mainMod .. " + CONTROL + D", hl.dsp.exec_cmd(launchPrefix .. "vesktop Vesktop"))
 

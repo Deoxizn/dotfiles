@@ -2,6 +2,13 @@
 -- if you use UWSM, define your variables in ~/.config/uwsm/env
 -- if you don't use UWSM, define your variables here (e.g. hl.env("QT_QPA_PLATFORM", "wayland"))
 
+-- Cursors: Future-dark-cursors from ~/.icons (XCursor theme, size 24 to match GTK)
+-- NOTE: you launch via uwsm, so these must ALSO be in ~/.config/uwsm/env
+-- to apply on next login (Hyprland reads them at startup).
+hl.env("XCURSOR_THEME", "Future-dark-cursors")
+hl.env("XCURSOR_SIZE", "24")
+hl.env("HYPRCURSOR_SIZE", "24")
+
 -- if you have an NVIDIA GPU uncomment the following lines:
 
 -- hl.env("GBM_BACKEND", "nvidia-drm") -- force GBM as a backend

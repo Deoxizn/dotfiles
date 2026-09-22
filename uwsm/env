@@ -1,0 +1,6 @@
+# UWSM environment (sourced shell) - cursors for Hyprland
+# Required because Hyprland is started via `uwsm start` and reads these at startup.
+# GTK settings (nwg-look/gsettings) do NOT affect the Hyprland compositor cursor.
+export XCURSOR_THEME="Future-dark-cursors"
+export XCURSOR_SIZE=24
+export HYPRCURSOR_SIZE=24
