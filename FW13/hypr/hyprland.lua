@@ -1,0 +1,17 @@
+-- CachyOS Hyprland Configuration
+
+require("config.animations")
+require("config.autostart")
+require("config.hexciri-autostart")
+require("config.colors")
+require("config.decorations")
+require("config.variables")
+require("config.environment")
+require("config.inputs")
+require("config.binds")
+require("config.hexciri-binds")
+require("config.hexciri-layout")
+require("config.misc")
+require("config.monitors")
+require("config.windowrules")
+require("config.workspaces")
