@@ -44,6 +44,13 @@ end    = ["notifications", "clipboard", "tray", "network", "bluetooth", "volume"
 hide_when_empty = true                 # Only show workspaces that have windows/apps
                                        # (workspaces are global per-monitor, so this keeps
                                        # every output's bar tidy)
+urgent_color = "secondary"             # Urgent highlight off: urgent pills wear
+                                       # the occupied color
+show_labels = true                     # Draw text labels (false = unlabeled pills)
+label_source = "name"                  # "name" = Hyprland default_name, "id" = number
+max_label_chars = 5                    # v5 default is 1 — that's why you only saw
+                                       # first letters ("web" → "w"). 5 covers
+                                       # files/music, the longest names below.
 
 [widget.clock]
 format = "{:%I:%M %p}"                 # 12-hour time, e.g. 02:30 PM (see date-format-tokens in Noctalia docs)
@@ -68,6 +75,11 @@ display = "icon_and_text"             # App icon + title (alternatives: icon, te
 clipboard_enabled = true
 clipboard_history_max_entries = 100
 time_format = "{:%I:%M %p}"           # 12-hour time (Control Center / dashboard headers)
+
+# Screenshots (Noctalia Print binds: screenshot-region / screenshot-fullscreen)
+# match hexciri-compositor grim/slurp flow — empty defaults to ~/Pictures.
+[shell.screenshot]
+directory = "~/Pictures/Screenshots"
 
 # ──────────────────────────────────────────────
 # Notifications

@@ -24,3 +24,11 @@ hl.config({
         force_zero_scaling = true
     },
 })
+
+-- ── HEXCIRI layout ──
+hl.config({
+    general = {
+        layout = "dwindle",
+    },
+})
+-- ── END HEXCIRI layout ──

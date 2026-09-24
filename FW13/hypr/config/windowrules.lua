@@ -12,8 +12,9 @@ hl.window_rule({
     pin               = true,
 })
 
--- Gaming
-local gamingApps = "^(steam_app.*|gamescope)$"
+-- Gaming (numeric Steam AppIDs + gamescope only; custom shortcuts like
+-- steam_app_battlenet are excluded so they don't inherit fullscreen/size)
+local gamingApps = "^(steam_app_[0-9]+|gamescope)$"
 local gamingWorkspace = "name:gaming"
 
 hl.window_rule({ match = { content = "game" }, workspace = gamingWorkspace })
@@ -35,7 +36,7 @@ hl.window_rule({
 })
 hl.window_rule({
     match = {
-        class         = "^(steam_app.*)$",
+        class         = "^(steam_app_[0-9]+)$",
         initial_title = "^$",
     },
     center           = true,
@@ -43,6 +44,38 @@ hl.window_rule({
     fullscreen       = false,
     fullscreen_state = 0,
     workspace        = gamingWorkspace,
+})
+-- Battle.net launcher / dialogs: floating menu on ws 4, never fullscreen.
+-- Must come AFTER gaming rules: last match wins.
+hl.window_rule({
+    match = {
+        class = "^(steam_app_battlenet)$",
+        title = "negative:^(World of Warcraft.*)$",
+    },
+    workspace        = "4",
+    float            = true,
+    center           = true,
+    size             = { "monitor_w*0.55", "monitor_h*0.80" },
+    fullscreen       = false,
+    fullscreen_state = 0,
+    sync_fullscreen  = false,
+    content          = "none",
+    decorate         = true,
+})
+-- WoW game window itself: tiled like a normal app on ws 4, never fullscreen.
+hl.window_rule({
+    match = {
+        class = "^(steam_app_battlenet)$",
+        title = "^(World of Warcraft.*)$",
+    },
+    workspace        = "4",
+    float            = false,
+    tile             = true,
+    fullscreen       = false,
+    fullscreen_state = 0,
+    sync_fullscreen  = false,
+    content          = "none",
+    decorate         = true,
 })
 
 -- Apps
@@ -130,6 +163,15 @@ hl.layer_rule({
   blur_popups = true,
 })
 
---- Machine customs (ported 2026-09-22 from niri TUI.float habit) ---
--- Float the fastfetch terminal (Mod+Alt+F): 1000x720, centered.
-hl.window_rule({ match = { class = "^(app\\.hexciri\\.ff)$" }, float = true, size = { "1210", "720" }, center = true })
+-- ── HEXCIRI windowrules ──
+-- TUI apps — float at 1000x720, centered.
+-- Used by hexciri-agent (opencode), install/remove menus, maintenance,
+-- network QR, reminders, share, hw disk-speedtest, setup, system, etc.
+-- All of them launch via `xdg-terminal-exec --app-id=TUI.float`, so one
+-- rule catches every TUI. Niri equivalent: match app-id="TUI\\.float",
+-- open-floating + fixed 1000x720.
+hl.window_rule({ match = { class = "^(TUI\\.float)$" }, float = true, size = { "1000", "720" }, center = true })
+
+-- Fastfetch terminal (Mod+Alt+F) — float at 1210x840, centered.
+hl.window_rule({ match = { class = "^(app\\.hexciri\\.ff)$" }, float = true, size = { "1320", "690" }, center = true })
+-- ── END HEXCIRI windowrules ──

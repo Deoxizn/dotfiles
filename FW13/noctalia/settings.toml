@@ -1,8 +1,13 @@
 config_version = 14
 
 [bar.default]
-background_opacity = 0.0
+background_opacity = 0.19999999552965164
+capsule = true
+capsule_fill = "surface_variant"
+capsule_thickness = 0.76000000000000001
 center = [ "active_window", "spacer_2", "clock", "spacer_2", "weather" ]
+concave_edge_corners = false
+contact_shadow = true
 end = [
     "notifications",
     "clipboard",
@@ -16,6 +21,12 @@ end = [
     "bluetooth",
     "control-center"
 ]
+margin_edge = 10
+margin_ends = 10
+padding = 10
+panel_overlap = 1
+radius = 16
+widget_spacing = 4
 
 [calendar]
 enabled = true
@@ -67,7 +78,7 @@ widget_order = [ "lockscreen-login-box@eDP-1" ]
 aur_helper = "auto"
 auto_check_hours = 1
 flatpak_enabled = false
-terminal = "kitty"
+terminal = "kitty --app-id=TUI.float"
 update_cmd = "hexciri-update"
 update_mode = "terminal"
 
@@ -76,20 +87,55 @@ categories = false
 compact = true
 sort_by_usage = false
 
-[wallpaper.default]
-path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-wallhaven-3q5k8y.png"
+[shell.screenshot]
+directory = "~/Pictures/Screenshots"
 
-[wallpaper.last]
-path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-wallhaven-3q5k8y.png"
+[theme]
+builtin = "Noctalia"
+community_palette = "Oxocarbon"
+custom_palette = "hexciri"
+shell_mode = "dark"
+source = "custom"
+wallpaper_scheme = "m3-content"
 
-[wallpaper.monitors.eDP-1]
-path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-wallhaven-3q5k8y.png"
+[wallpaper]
+fill_mode = "stretch"
+
+    [wallpaper.default]
+    path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-wallhaven-j5lqe5.jpg"
+
+    [wallpaper.last]
+    path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-wallhaven-j5lqe5.jpg"
+
+    [wallpaper.monitors.eDP-1]
+    path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-wallhaven-j5lqe5.jpg"
+
+    [[wallpaper.favorite]]
+    custom_palette = "hexciri"
+    palette_source = "custom"
+    path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-hexciri-chan-WP.png"
+    theme_mode = "dark"
+
+    [[wallpaper.favorite]]
+    path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-hexciri-chan-WP2.png"
+    theme_mode = "auto"
 
 [weather]
 unit = "imperial"
 
 [widget.clipboard]
 enabled = false
+
+[widget.media]
+max_length = 250
+
+[widget.spacer]
+enabled = false
+length = 5
+
+[widget.spacer_2]
+enabled = false
+length = 5
 
 [widget.weather]
 show_condition = false
