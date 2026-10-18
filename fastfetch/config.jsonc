@@ -2,9 +2,9 @@
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
     "type": "auto",
-    "source": "~/.config/fastfetch/fw.png",
-    "width": 45,
-    "height": 65,
+    "source": "~/.config/fastfetch/hexciri-ecchi3.png",
+    "width": 80,
+    "height": 30,
     "padding": { "top": 3, "bottom": 0 },
   },
   "display": {
@@ -29,23 +29,14 @@
     ],
   },
   "modules": [
-    {
-      "type": "custom",
-      "format": "      {#30}\u001b]66;s=2;󰮯\u0007    {#31}\u001b]66;s=2;󰮯\u0007    \u001b[38;2;153;206;239m\u001b]66;s=2;󰮯\u0007    {#33}\u001b]66;s=2;󰮯\u0007    {#34}\u001b]66;s=2;󰮯\u0007    {#35}\u001b]66;s=2;󰮯\u0007    {#36}\u001b]66;s=2;󰮯\u0007    {#37}\u001b]66;s=2;󰮯\u0007",
-    },
-    {
-      "type": "break",
-    },
-    {
-      "type": "break",
-    },
+
     {
       "type": "title",
       "format": "\u001b[1m\u001b[38;2;153;206;239m{user-name} @ \u001b[38;2;153;206;239m{host-name}",
     },
     {
       "type": "custom",
-      "format": "   \u001b[38;2;153;206;239m►{#37} Hexciri - Arch × Niri × Noctalia",
+      "format": "   \u001b[38;2;153;206;239m►\u001b[0m Hexciri",
     },
     {
       "type": "break",
@@ -115,13 +106,7 @@
       "type": "command",
       "key": "OS",
       "keyWidth": 18,
-      "text": "echo \"Hexciri\"",
-    },
-    {
-      "type": "command",
-      "key": "CHANNEL",
-      "keyWidth": 18,
-      "text": "hexciri-channel-current 2>/dev/null || echo \"?\"",
+      "text": "os=$(grep '^PRETTY_NAME=' /etc/os-release | cut -d= -f2 | tr -d '\"'); echo \"$os | Hexciri\"",
     },
     {
       "type": "command",
@@ -139,7 +124,7 @@
       "type": "command",
       "key": "WM",
       "keyWidth": 18,
-      "text": "niri_ver=$(niri --version 2>/dev/null | grep -oE '[0-9]+\\.[0-9]+' | head -1); noctalia_ver=$(pacman -Q noctalia 2>/dev/null | awk '{print $2}' | sed 's/-[0-9]*$//'); echo \"Niri ${niri_ver:-?} | Noctalia ${noctalia_ver:-?}\"",
+      "text": "wm=$(hexciri-session wm 2>/dev/null || echo niri); sh=$(cat \"${HEXCIRI_SELECTOR_DIR:-$HOME/.config/hexciri}\"/shell 2>/dev/null || echo noctalia); if [ \"$wm\" = hyprland ]; then ver=$(pacman -Q hyprland 2>/dev/null | awk '{print $2}' | sed 's/-[0-9.]*$//'); wm_s=\"Hyprland ${ver:-?}\"; else ver=$(niri --version 2>/dev/null | grep -oE '[0-9]+\\.[0-9]+' | head -1); wm_s=\"Niri  ${ver:-?}\"; fi; [ \"$sh\" = \"none\" ] && { echo \"$wm_s\"; exit 0; }; sv=$(pacman -Q \"$sh\" 2>/dev/null | awk '{print $2}' | sed 's/-[0-9]*$//'); echo \"${wm_s} | ${sh^} ${sv:-?}\"",
     },
     {
       "type": "command",
@@ -211,20 +196,6 @@
       "text": "bt=$(fastfetch -s bluetooth --format json 2>/dev/null | jq -r '.[0].result[] | \"\\(.name) \\(.battery)%\"' | paste -sd ' | ' -); razer=$(python3 -c 'import openrazer.client; m=openrazer.client.DeviceManager(); [print(d.name.split(\"(\")[0].strip() + \" \" + str(d.battery_level) + \"%\") for d in m.devices]' 2>/dev/null | paste -sd ' | ' -); echo \"${bt}${bt:+ | }${razer}\"",
     },
 
-    {
-      "type": "break",
-    },
-    {
-      "type": "break",
-    },
 
-    {
-      "type": "custom",
-      "format": "      {#90}\u001b]66;s=2;󰊠\u0007    {#91}\u001b]66;s=2;󰊠\u0007    \u001b[38;2;153;206;239m\u001b]66;s=2;󰊠\u0007    {#93}\u001b]66;s=2;󰊠\u0007    {#94}\u001b]66;s=2;󰊠\u0007    {#95}\u001b]66;s=2;󰊠\u0007    {#96}\u001b]66;s=2;󰊠\u0007    {#97}\u001b]66;s=2;󰊠\u0007",
-    },
-
-    {
-      "type": "break",
-    },
   ],
 }

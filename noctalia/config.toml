@@ -1,56 +1,106 @@
-# Noctarchy — Noctalia config
-# https://github.com/deoxizn/noctarchy
+# Hexciri — Noctalia config (Noctalia v5 schema)
+# https://github.com/deoxizn/hexciri
 #
-# NOTE (v5): [general] default-apps and [launcher] command were removed upstream.
-# Defaults live in omarchy/xdg-settings (noctarchy-defaults); fuzzel runs from its keybind.
-
-# ──────────────────────────────────────────────
-# Shell
-# ──────────────────────────────────────────────
-
-[shell]
-time_format = "{:%-I:%M %p}"
-clipboard_enabled = true
-clipboard_history_max_entries = 100
-
-[shell.animation]
-enabled = false
+# Note: v5 removed several v4 sections ([general] default apps, [launcher]
+# command, [lock], [clipboard]). Default apps live in xdg-settings + state
+# (see hexciri-defaults); the lock screen is internal (see hexciri-lock).
 
 # ──────────────────────────────────────────────
 # Bar
+# Widget IDs are v5 names (spacer, active_window, ...). Per-widget settings
+# live in [widget.<name>] tables below.
+#
+# Composition: mirrors the daily bar (launcher, wallpaper, workspaces,
+# active_window, clock, notifications, clipboard, tray, network, bluetooth,
+# volume, brightness, battery, arch-updater, control-center/settings owl).
+# Deliberately removed: bongo-cat and the sysmon stack (cpu/ram/temp/disk/net)
+# — clutter that duplicates system monitors. Volume stays (everyone needs it),
+# brightness stays (laptops). Edit freely; install.sh never overwrites a file
+# you've modified (repo default lands alongside as <file>.hexciri).
 # ──────────────────────────────────────────────
 
 [bar.default]
 position = "top"
-thickness = 40
-background_opacity = 0.95
-reserve_space = true
-start  = ["launcher", "wallpaper", "workspaces", "spacer", "active_window"]
-center = ["clock"]
-end    = ["bongocat", "notifications", "clipboard", "media", "tray", "network", "bluetooth", "brightness", "battery", "yuuto/arch-updater:widget", "sysmon-cpu", "sysmon-ram", "sysmon-temp", "sysmon-disk", "sysmon-net", "control-center"]
+thickness = 40                        # Bar height in pixels
+background_opacity = 0.0              # Islands: bar itself transparent, pills carry the color (0.0–1.0)
+reserve_space = true                  # Reserve screen space (don't overlap windows)
+# Islands look: floating, detached pill bar
+margin_edge = 10                      # Float 10px off the top edge (requires concave_edge_corners = false)
+margin_ends = 10                      # Inset 10px from left/right ends for island effect
+concave_edge_corners = false          # Must be false when margin_edge > 0 (concave only works docked at margin_edge = 0)
+radius = 16                           # Uniform rounding for all four floating corners
+padding = 10                          # Internal main-axis padding
+widget_spacing = 4                    # Tighter gaps for pill grouping
+capsule = true                        # Pill background on every widget
+capsule_fill = "surface_variant"
+capsule_thickness = 0.76              # Capsule height as fraction of thickness
+contact_shadow = true                 # Seamless lift where attached panels meet the bar
+panel_overlap = 1                     # Default seam overlap; try 0 if you see a hairline, raise if you see a gap
+start  = ["launcher", "wallpaper", "workspaces", "spacer", "media"]
+center = ["active_window", "spacer_2", "clock"]
+end    = ["bongocat", "notifications", "clipboard", "media", "tray", "network", "bluetooth", "volume", "yuuto/arch-updater:widget", "sysmon-cpu", "sysmon-ram", "sysmon-temp", "sysmon-disk", "sysmon-net", "control-center"]
 
-[bar.default.monitor.HDMI-A-2]
-match = "HDMI-A-2"
+# Second bar on the portrait monitor (Dell P2212H, rotated 90°) — workspaces
+# only, keeps the main bar uncluttered on the 4K. Renamed from the desktop
+# dotfiles' HDMI-A-2 → this box's HDMI-A-1.
+[bar.default.monitor.HDMI-A-1]
+match = "HDMI-A-1"
 start  = ["workspaces"]
 center = []
 end    = []
 
-[bar.widgets]
-enabled = false
+[widget.workspaces]
+hide_when_empty = true                 # Only show workspaces that have windows/apps
+                                       # (workspaces are global per-monitor, so this keeps
+                                       # every output's bar tidy)
+urgent_color = "secondary"             # Urgent highlight off: urgent pills wear
+                                       # the occupied color, so notifications
+                                       # stop tugging at other workspaces
+show_labels = true                     # Draw text labels (false = unlabeled pills)
+label_source = "name"                  # "name" = Hyprland default_name, "id" = number
+                                       # Without these two the bar renders numbers even
+                                       # though the workspaces carry names in Hyprland.
+max_label_chars = 5                    # v5 default is 1 — that's why only the first
+                                       # glyph would show. 5 covers WS3's three-glyph
+                                       # name, the longest of the set.
 
 [widget.clock]
-format = "{:%-I:%M %p}"
-tooltip_format = "{:%A, %B %d, %Y}"
+format = "{:%I:%M %p}"                 # 12-hour time, e.g. 02:30 PM (see date-format-tokens in Noctalia docs)
+tooltip_format = "{:%A, %d %B %Y}"    # Full date on hover
 
+[widget.spacer]
+type = "spacer"
+length = 8                            # Gap in pixels between workspaces and window title
+
+[widget.spacer_2]
+type = "spacer"
+
+[widget.active_window]
+show_empty_label = true               # Show placeholder when no window is focused
+display = "icon_and_text"             # App icon + title (alternatives: icon, text)
+
+# Bongocat (noctalia/bongocat plugin, v1.1.4 — enabled in settings). Taps along
+# to keypresses + audio. The Q6 Max is one board with two identities: 2.4GHz
+# dongle enumerates as "Keychron_Link" (input2 = real keyboard), wired/charging
+# enumerates as "Q6_Max". MUST use the *-if02-event-kbd (input2) node for each —
+# the bare Q6_Max-event-kbd is the input0 media/consumer-control interface, which
+# never emits normal key events. List BOTH modes so the cat dances either way.
 [widget.bongocat]
 type = "noctalia/bongocat:cat"
 input_devices = [
   "/dev/input/by-id/usb-Keychron_Keychron_Link-if02-event-kbd",
+  "/dev/input/by-id/usb-Keychron_Keychron_Q6_Max-if02-event-kbd",
 ]
 audio_spectrum = true
 tappy_mode = true
 rave_mode = false
 use_mpris_filter = false
+
+# ──────────────────────────────────────────────
+# System monitor widgets (desktop — ported from the desktop dotfiles bar).
+# Each is a `sysmon` type reading one stat; the [system.monitor] block below
+# drives the polling. Dropped battery/brightness — laptop-only, n/a here.
+# ──────────────────────────────────────────────
 
 [widget.sysmon-cpu]
 type = "sysmon"
@@ -80,26 +130,7 @@ stat = "net_rx"
 network_speed_compact = true
 show_value = true
 
-[widget.spacer]
-type = "spacer"
-length = 8
-
-[widget.active_window]
-show_empty_label = true
-display = "icon_and_text"
-title_scroll = "on_hover"
-max_length = 260
-
-[widget.taskbar]
-show_all_outputs = false
-show_window_title = true
-window_title_max_width = 180
-show_active_indicator = true
-
-# ──────────────────────────────────────────────
-# System Monitor
-# ──────────────────────────────────────────────
-
+# Poller for the sysmon widgets above
 [system.monitor]
 enabled = true
 cpu_poll_seconds = 2.0
@@ -109,67 +140,99 @@ network_poll_seconds = 3.0
 disk_poll_seconds = 10.0
 
 # ──────────────────────────────────────────────
+# Shell services (clipboard history lives here in v5)
+# ──────────────────────────────────────────────
+
+[shell]
+clipboard_enabled = true
+clipboard_history_max_entries = 100
+time_format = "{:%I:%M %p}"           # 12-hour time (Control Center / dashboard headers)
+
+# Screenshots (Noctalia Print binds: screenshot-region / screenshot-fullscreen)
+# match hexciri-compositor grim/slurp flow — empty defaults to ~/Pictures.
+[shell.screenshot]
+directory = "~/Pictures/Screenshots"
+
+# ──────────────────────────────────────────────
 # Notifications
-# Per https://docs.noctalia.dev/noctalia/services/notifications/
-# monitors = [] clones to all outputs (default). Set to ["DP-4"] to
-# suppress toasts on HDMI-A-2 (peripheral). Falls back to all if DP-4 disconnected.
 # ──────────────────────────────────────────────
 
 [notification]
-monitors = ["DP-4"]
-position = "top_right"
-max_visible = 5
-enable_daemon = true
+position = "top_right"                # Corner for toast popups
+max_visible = 5                       # Max stacked toasts
+enable_daemon = true                  # Run the notification daemon
 
 # ──────────────────────────────────────────────
-# Lock screen (v5: idle auto-lock lives under [idle.behavior.lock];
-# before_sleep is lockscreen.lock_before_suspend, default true)
+# Audio / UI sounds
+#
+# enable_sounds = false: Noctalia's UI sounds (message-new-instant on every
+# notification, audio-volume-change, power-plug/unplug) each open a short-lived
+# PipeWire stream on whatever the current default sink is. When that sink is a
+# Bluetooth A2DP device, every Discord message added/removed a stream on the
+# live SBC session, forcing it to renegotiate — which gated the ongoing music
+# stream for ~1s and produced an audible dropout for ALL audio on that sink,
+# not just the notification. Busy channels made it constant.
+#
+# Verified by correlating PipeWire sink-input churn against notification
+# timestamps: transient "noctalia-sound" sink-inputs appeared within ~100 ms of
+# each notification (15:27:13.784 vs 15:27:13.722, 15:29:44.478 vs 15:29:44.365).
+#
+# Note this is stream churn, not profile churn. A Bluetooth headset profile
+# autoswitch rule (wireplumber bluetooth.autoswitch-to-headset-profile) is a
+# separate failure mode and is handled separately.
+#
+# To re-enable: flip this back to true. Notification *toasts* are unaffected —
+# only the audible chime is suppressed.
+# ──────────────────────────────────────────────
+
+[audio]
+enable_sounds = false
+
+# ──────────────────────────────────────────────
+# Idle → lock screen after 5 minutes
 # ──────────────────────────────────────────────
 
 [idle.behavior.lock]
 enabled = true
-timeout = 300.0
-
-[idle.behavior.screen-off]
-enabled = true
-timeout = 300.0
-action = "screen_off"
-
-[lockscreen]
-monitors = ["DP-4"]
+timeout = 300.0                       # Seconds idle before locking
 
 # ──────────────────────────────────────────────
-# Wallpaper
+# Wallpaper (picker + rotation use the active theme's backgrounds)
 # ──────────────────────────────────────────────
 
 [wallpaper]
 enabled = true
-fill_mode = "crop"
-transition = "fade"
+directory = "~/.local/state/hexciri/current/theme/backgrounds"
+fill_mode = "crop"                    # Fill screen, cropping overflow
+transition = ["fade"]                 # Transition effect between wallpapers
 
 [wallpaper.automation]
-enabled = true
-interval_seconds = 300
+enabled = false                   # Rotation off — wallpaper changes only via the bar picker
+interval_seconds = 3600           # Unused while automation is disabled
+order = "random"
 
 # ──────────────────────────────────────────────
-# Dock
+# Dock (disabled — top bar only)
 # ──────────────────────────────────────────────
 
 [dock]
 enabled = false
 
 # ──────────────────────────────────────────────
-# OSD (volume/brightness overlays)
+# OSD (volume/brightness overlays; per-kind toggles default on)
 # ──────────────────────────────────────────────
 
 [osd]
 enabled = true
 
 # ──────────────────────────────────────────────
-# Theming
+# Theming (custom palette generated from the hexciri theme on every
+# theme switch by hooks/theme-set.d/hexciri-sync.sh)
 # ──────────────────────────────────────────────
 
 [theme]
 source = "custom"
 custom_palette = "hexciri"
 mode = "dark"
+[plugins]
+enabled = ["yuuto/arch-updater"]
