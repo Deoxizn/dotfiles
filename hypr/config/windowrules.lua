@@ -12,9 +12,14 @@ hl.window_rule({
     pin               = true,
 })
 
--- Gaming
+-- Gaming — all gaming windows live on WS4 (DP-1, named 󰺵).
+-- NOTE: NO named "gaming" workspace. `workspace = "name:gaming"` used to
+-- create a dynamic workspace with no monitor binding — it materialized on
+-- whichever monitor was focused (usually the Dell/HDMI) and never matched
+-- WS4. WS4 IS the gaming workspace; it is pinned to DP-1 in workspaces.lua.
 local gamingApps = "^(steam_app.*|gamescope)$"
-local gamingWorkspace = "name:gaming"
+local gamingLaunchers = "^(steam|battle\\.net\\.exe|net\\.lutris\\.Lutris|com\\.heroicgameslauncher\\.hgl|heroic|retroarch|minecraft-launcher)$"
+local gamingWorkspace = "4"
 
 hl.window_rule({ match = { content = "game" }, workspace = gamingWorkspace })
 hl.window_rule({ match = { xdg_tag = "^(.*game.*)$" }, workspace = gamingWorkspace, fullscreen_state = 2, content = "game", sync_fullscreen = true })
@@ -24,6 +29,11 @@ hl.window_rule({ match = { class = "^(steam)$", title = "^(Launching\\.{3})$" },
 hl.window_rule({
     match = {
         class         = gamingApps,
+        -- Battle.net is a launcher, not a game: all its Wine windows share
+        -- class steam_app_battlenet, so without this exclusion the fullscreen
+        -- treatment below hit its settings/messages popups too (stretched to
+        -- monitor size, undecorated, laggy). See the battlenet rule below.
+        initial_class = "negative:^(steam_app_battlenet|battle\\.net\\.exe)$",
         title         = "^(.+)$",
         initial_title = "negative:^(.*\\\\home\\\\.*)$",
     },
@@ -45,10 +55,30 @@ hl.window_rule({
     workspace        = gamingWorkspace,
 })
 
+-- Launcher windows themselves (Steam, Battle.net, Lutris, Heroic, RetroArch,
+-- Minecraft) also belong on the gaming workspace, not wherever you happen to be.
+hl.window_rule({ match = { class = gamingLaunchers }, workspace = gamingWorkspace })
+
+-- Battle.net launcher + all of its Wine dialogs (settings, messages, login,
+-- agent popups — every window it opens is class steam_app_battlenet or
+-- battle.net.exe): normal decorated floating windows, centered, natural size.
+-- Excluded from the fullscreen game treatment above via initial_class
+-- negative: on that rule.
+local battlenetApps = "^(steam_app_battlenet|battle\\.net\\.exe)$"
+hl.window_rule({
+    match            = { class = battlenetApps },
+    workspace        = gamingWorkspace,
+    float            = true,
+    center           = true,
+    fullscreen_state = 0,
+})
+
 -- Apps
 hl.window_rule({ match = { class = "^(.*\\.exe)$", float = true }, monitor = PRIMARY_MONITOR, center = true, fullscreen_state = 0 })
 hl.window_rule({ match = { class = "^(.*[Ll]auncher.*)$" }, float = true, monitor = PRIMARY_MONITOR })
-hl.window_rule({ match = { class = "^(vesktop|discord)$" }, monitor = PRIMARY_MONITOR })
+-- vesktop/discord: pinned to WS6 (Dell portrait) — see the hexciri
+-- named-workspace assignments at the bottom. A monitor rule here would fight
+-- the workspace rule (WS6 lives on HDMI-A-1, not PRIMARY_MONITOR).
 hl.window_rule({ match = { class = "^(.*[Cc]alc.*)$" }, float = true, size = { "max(monitor_w, monitor_h)*0.17", "min(monitor_w, monitor_h)*0.43" } })
 hl.window_rule({ match = { class = "^(org\\.kde\\.keditfiletype)$" }, float = true })
 hl.window_rule({ match = { class = "^(org\\.kde\\.ark)$" }, size = { "max(monitor_w, monitor_h)*0.40", "min(monitor_w, monitor_h)*0.40" } })
@@ -141,4 +171,34 @@ hl.window_rule({ match = { class = "^(TUI\\.float)$" }, float = true, size = { "
 
 -- Fastfetch terminal (Mod+Alt+F) — float at 1210x720, centered.
 hl.window_rule({ match = { class = "^(app\\.hexciri\\.ff)$" }, float = true, size = { "1820", "720" }, center = true })
+
+-- ── HEXCIRI: named-workspace app assignments ──
+-- Each named workspace owns its app(s); they only ever open there. Workspace
+-- map is in config/workspaces.lua:
+--   1 🦁 Brave Origin · 2  Strata · 3 󰽫󰽻󰽩 Spotify · 4 󰺵 gaming ·
+--   6  Vesktop · 7 󰣋 Messenger · 8 󱚟 AI (Muse/Gemini/ChatGPT)
+-- Rules apply in order and the LAST match wins, so the webapp title rules
+-- MUST come after the generic brave-origin rule (webapps are also brave).
+local workspaceApps = {
+    { match = { class = "^(brave-origin)$" },                 workspace = "1" },
+    { match = { class = "^(io\\.github\\.lgse\\.Strata)$" },  workspace = "2" },
+    { match = { class = "^(Spotify)$" },                      workspace = "3" },
+    { match = { class = "^(vesktop|discord)$" },              workspace = "6" },
+}
+for _, r in ipairs(workspaceApps) do
+    hl.window_rule({ match = r.match, workspace = r.workspace })
+end
+
+-- Webapp windows (brave --app=..., launched via hexciri-launch-or-focus-webapp)
+-- keep class brave-origin — route them by title.
+local workspaceWebapps = {
+    { title = "(?i)messenger", workspace = "7" }, -- 󰣋 Messenger (title may be "(2) Messenger")
+    { title = "(?i)^muse",     workspace = "8" }, -- 󱚟 Muse
+    { title = "(?i)^gemini",   workspace = "8" }, -- 󱚟 Gemini
+    { title = "(?i)^chatgpt",  workspace = "8" }, -- 󱚟 ChatGPT
+    { title = "(?i)^xbox",     workspace = "4" }, -- 󰺵 Xbox Cloud Gaming
+}
+for _, r in ipairs(workspaceWebapps) do
+    hl.window_rule({ match = { class = "^(brave-origin)$", title = r.title }, workspace = r.workspace })
+end
 -- ── END HEXCIRI windowrules ──

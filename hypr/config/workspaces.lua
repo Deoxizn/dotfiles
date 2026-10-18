@@ -19,18 +19,18 @@ end
 -- FantasqueSansM Nerd Font, the lion in Noto Color Emoji. Only the
 -- workspaces with a designated app are named -- 5, 9, 10 stay numeric.
 -- These layer on top of the monitor/persistent rules above.
--- browser (Brave Origin)
+-- Brave Origin
 hl.workspace_rule({ workspace = "1", default_name = "🦁" })
--- file manager (Strata)
+-- Strata
 hl.workspace_rule({ workspace = "2", default_name = "" })
--- music (Spotify)
+-- Spotify
 hl.workspace_rule({ workspace = "3", default_name = "󰽫󰽻󰽩" })
--- gaming
+-- gaming (Steam / Battle.net / launchers — see config/windowrules.lua)
 hl.workspace_rule({ workspace = "4", default_name = "󰺵" })
--- chat (Vesktop)
-hl.workspace_rule({ workspace = "6", default_name = "󱚟" })
--- Messenger webapp
+-- Vesktop
+hl.workspace_rule({ workspace = "6", default_name = "" })
+-- Messenger
 hl.workspace_rule({ workspace = "7", default_name = "󰣋" })
--- AI webapps (Muse/Gemini/ChatGPT)
-hl.workspace_rule({ workspace = "8", default_name = "󰗕" })
+-- AI (Muse/Gemini/ChatGPT)
+hl.workspace_rule({ workspace = "8", default_name = "󱚟" })
 -- ── END HEXCIRI workspace names ──

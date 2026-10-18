@@ -1,59 +1,70 @@
-config_version = 13
+config_version = 15
+
+[audio]
+enable_sounds = false
 
 [bar.default]
+background_opacity = 0.0
+capsule = true
+capsule_fill = "surface_variant"
+capsule_thickness = 0.76000000000000001
+concave_edge_corners = false
+contact_shadow = true
 end = [
     "bongocat",
-    "sysmon-cpu",
-    "sysmon-cpu-temp",
-    "sysmon-gpu-temp",
-    "sysmon-gpu-usage",
-    "sysmon-ram",
-    "sysmon-disk",
-    "sysmon-net-down",
-    "sysmon-net-up",
-    "notifications",
     "clipboard",
     "tray",
     "network",
+    "sysmon-cpu",
+    "sysmon-temp",
+    "sysmon-ram",
+    "network_rx",
+    "network_tx",
+    "sysmon-disk",
+    "volume",
+    "notifications",
     "bluetooth",
-    "brightness",
-    "battery",
     "yuuto/arch-updater:widget",
     "control-center"
 ]
-start = [ "launcher", "wallpaper", "workspaces", "spacer", "media", "active_window" ]
+margin_edge = 10
+margin_ends = 10
+padding = 10
+panel_overlap = 1
+radius = 16
+widget_spacing = 4
 
 [calendar]
 enabled = true
 
-    [calendar.account.deoxizn]
+    [calendar.account.personal_google]
     type = "google"
 
 [location]
 auto_locate = true
 
 [lockscreen_widgets]
-enabled = true
+enabled = false
 schema_version = 2
-widget_order = [ "lockscreen-login-box@HDMI-A-2", "lockscreen-login-box@DP-4", "lockscreen-widget-0000000000000001" ]
+widget_order = [ "lockscreen-login-box@DP-1", "lockscreen-login-box@HDMI-A-1" ]
 
     [lockscreen_widgets.grid]
     cell_size = 16
     major_interval = 4
     visible = true
 
-    [lockscreen_widgets.widget."lockscreen-login-box@DP-4"]
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
     box_height = 196.0
     box_width = 810.0
-    cx = 1280.0
-    cy = 1270.0
-    output = "DP-4"
-    placement_height = 1440.0
-    placement_width = 2560.0
+    cx = 1440.0
+    cy = 1415.25
+    output = "DP-1"
+    placement_height = 1620.0
+    placement_width = 2880.0
     rotation = 0.0
     type = "login_box"
 
-        [lockscreen_widgets.widget."lockscreen-login-box@DP-4".settings]
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
         background_color = "surface_variant"
         background_opacity = 0.88
         background_radius = 12.0
@@ -65,22 +76,23 @@ widget_order = [ "lockscreen-login-box@HDMI-A-2", "lockscreen-login-box@DP-4", "
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
 
-    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-2"]
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
     box_height = 196.0
     box_width = 810.0
     cx = 540.0
-    cy = 1738.0
-    output = "HDMI-A-2"
+    cy = 1596.4444580078125
+    output = "HDMI-A-1"
     placement_height = 1920.0
     placement_width = 1080.0
     rotation = 0.0
     type = "login_box"
 
-        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-2".settings]
+        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
         background_color = "surface_variant"
         background_opacity = 0.88
         background_radius = 12.0
@@ -92,127 +104,64 @@ widget_order = [ "lockscreen-login-box@HDMI-A-2", "lockscreen-login-box@DP-4", "
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
 
-    [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
-    box_height = 0.0
-    box_width = 0.0
-    cx = 1280.0
-    cy = 520.0
-    output = "DP-4"
-    placement_height = 1440.0
-    placement_width = 2560.0
-    rotation = 0.0
-    type = "calendar"
+[plugin_settings."yuuto/arch-updater"]
+aur_helper = "auto"
+auto_check_hours = 1
+flatpak_enabled = false
+terminal = "kitty --app-id=TUI.float"
+update_cmd = "hexciri-update"
+update_mode = "terminal"
 
 [plugins]
 enabled = [ "yuuto/arch-updater", "noctalia/bongocat" ]
 
-[shell]
-panel_anchor_bar = "default"
+[shell.launcher]
+categories = false
+compact = true
+default_view = "all"
+layout = "simple"
+sort_by_usage = false
 
-    [shell.panel]
-    control_center_position = "center"
+[shell.screenshot]
+directory = "~/Pictures/Screenshots"
 
-[system.monitor]
-cpu_poll_seconds = 2.0
-cpu_temp_activity_threshold = 80
-cpu_temp_critical_threshold = 100
-cpu_usage_activity_threshold = 80
-cpu_usage_critical_threshold = 100
-disk_poll_seconds = 10.0
-disk_used_critical_threshold = 100
-disk_used_pct_critical_threshold = 100
-enabled = true
-gpu_poll_seconds = 5.0
-gpu_temp_activity_threshold = 80
-gpu_temp_critical_threshold = 100
-gpu_usage_activity_threshold = 80
-gpu_usage_critical_threshold = 100
-gpu_vram_activity_threshold = 80
-gpu_vram_critical_threshold = 100
-memory_poll_seconds = 2.0
-net_rx_activity_threshold = 50.0
-net_rx_critical_threshold = 100.0
-net_tx_activity_threshold = 50.0
-net_tx_critical_threshold = 100.0
-network_poll_seconds = 3.0
-ram_pct_activity_threshold = 80
-ram_pct_critical_threshold = 100
-swap_pct_activity_threshold = 80
-swap_pct_critical_threshold = 100
+[theme]
+custom_palette = "hexciri"
+source = "custom"
 
-[wallpaper]
-directory = "/mnt/Photos/wallpapers"
+[wallpaper.default]
+path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-wallpapers--mnt-Photos-wallpapers-wallhaven-3q3z59.jpg"
 
-    [wallpaper.default]
-    path = "/home/devi/.local/state/noctalia/wallpaper/3840x2160_aesthetic_various-arch-v2.png"
+[wallpaper.last]
+path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-wallpapers--mnt-Photos-wallpapers-wallhaven-kx996m.jpg"
 
-    [wallpaper.last]
-    path = "/mnt/Photos/wallpapers/symbols_t_black.png"
+[wallpaper.monitors.DP-1]
+path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-wallpapers--mnt-Photos-wallpapers-wallhaven-kx996m.jpg"
 
-    [wallpaper.monitors.DP-4]
-    path = "/mnt/Photos/wallpapers/wallhaven-kx996m.jpg"
-
-    [wallpaper.monitors.HDMI-A-2]
-    path = "/mnt/Photos/wallpapers/symbols_t_black.png"
+[wallpaper.monitors.HDMI-A-1]
+path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-wallpapers--mnt-Photos-wallpapers-wallhaven-3q3z59.jpg"
 
 [weather]
 unit = "imperial"
 
+[widget.clipboard]
+enabled = false
+
 [widget.media]
 art_size = 20
-max_length = 600
-title_scroll = "always"
+max_length = 420
 
 [widget.network]
-show_vpn_label = true
+enabled = false
 
 [widget.sysmon-cpu]
-show_value = true
-stat = "cpu_usage"
-type = "sysmon"
+stat = "cpu_temp"
 visualization = "gauge"
 
-[widget.sysmon-cpu-temp]
-show_value = true
-stat = "cpu_temp"
-type = "sysmon"
-
-[widget.sysmon-disk]
-path = "/"
-show_value = true
-stat = "disk_used_pct"
-type = "sysmon"
-
-[widget.sysmon-gpu-temp]
-show_value = true
+[widget.sysmon-temp]
 stat = "gpu_temp"
-type = "sysmon"
-
-[widget.sysmon-gpu-usage]
-show_value = true
-stat = "gpu_usage"
-type = "sysmon"
-
-[widget.sysmon-net-down]
-network_speed_compact = true
-show_value = true
-stat = "net_rx"
-type = "sysmon"
-
-[widget.sysmon-net-up]
-network_speed_compact = true
-show_value = true
-stat = "net_tx"
-type = "sysmon"
-
-[widget.sysmon-ram]
-show_value = true
-stat = "ram_pct"
-type = "sysmon"
-
-[widget.workspaces]
-hide_when_empty = true

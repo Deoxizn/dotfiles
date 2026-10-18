@@ -183,7 +183,10 @@ hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hexciri-fuzzel calc"))
 hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd(launchPrefix .. TERMINAL .. " -e btm"))
 
 -- Default apps (terminal/editor/browser/file manager via hexciri defaults layer)
-hl.bind(mainMod .. " + Return",   hl.dsp.exec_cmd("hexciri-terminal"))
+-- Mod+Return = smart terminal: tab into a live kitty (focused one first,
+-- else the newest), and only spawn via hexciri-terminal when none is up.
+-- Liveness is hyprctl ground truth (no tabbing into windowless leftovers).
+hl.bind(mainMod .. " + Return",   hl.dsp.exec_cmd("$HOME/.config/hypr/scripts/terminal-smart.sh"))
 hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("zeditor"))
 hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("xdg-open https://"))
 hl.bind(mainMod .. " + CONTROL + B", hl.dsp.exec_cmd("brave-origin --incognito"))
