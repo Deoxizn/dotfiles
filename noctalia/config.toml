@@ -38,7 +38,7 @@ contact_shadow = true                 # Seamless lift where attached panels meet
 panel_overlap = 1                     # Default seam overlap; try 0 if you see a hairline, raise if you see a gap
 start  = ["launcher", "wallpaper", "workspaces", "spacer", "media"]
 center = ["active_window", "spacer_2", "clock"]
-end    = ["bongocat", "notifications", "clipboard", "media", "tray", "network", "bluetooth", "volume", "yuuto/arch-updater:widget", "sysmon-cpu", "sysmon-ram", "sysmon-temp", "sysmon-disk", "sysmon-net", "control-center"]
+end    = ["bongocat", "cpurr", "notifications", "clipboard", "media", "tray", "network", "bluetooth", "volume", "yuuto/arch-updater:widget", "sysmon-cpu", "sysmon-ram", "sysmon-temp", "sysmon-disk", "sysmon-net", "control-center"]
 
 # Second bar on the portrait monitor (Dell P2212H, rotated 90°) — workspaces
 # only, keeps the main bar uncluttered on the 4K. Renamed from the desktop
@@ -95,6 +95,11 @@ audio_spectrum = true
 tappy_mode = true
 rave_mode = false
 use_mpris_filter = false
+
+# CPU-usage cat — local Noctalia plugin (source: ~/Work/cpurr)
+[widget.cpurr]
+type = "deoxizn/cpurr:cat"
+size = 32
 
 # ──────────────────────────────────────────────
 # System monitor widgets (desktop — ported from the desktop dotfiles bar).

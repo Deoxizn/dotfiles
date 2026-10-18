@@ -11,8 +11,8 @@ capsule_thickness = 0.76000000000000001
 concave_edge_corners = false
 contact_shadow = true
 end = [
+    "cpurr",
     "bongocat",
-    "deoxizn/cpurr:cat",
     "clipboard",
     "tray",
     "network",
