@@ -12,6 +12,7 @@ concave_edge_corners = false
 contact_shadow = true
 end = [
     "bongocat",
+    "deoxizn/cpurr:cat",
     "clipboard",
     "tray",
     "network",
@@ -118,7 +119,7 @@ update_cmd = "hexciri-update"
 update_mode = "terminal"
 
 [plugins]
-enabled = [ "yuuto/arch-updater", "noctalia/bongocat" ]
+enabled = [ "yuuto/arch-updater", "noctalia/bongocat", "deoxizn/cpurr" ]
 
 [shell.launcher]
 categories = false
@@ -165,3 +166,6 @@ visualization = "gauge"
 
 [widget.sysmon-temp]
 stat = "gpu_temp"
+
+[widget.volume]
+enabled = false
