@@ -173,7 +173,12 @@ hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special())
 -- Root menu / keybind reference / agent
 hl.bind(mainMod .. " + ALT + Space", hl.dsp.exec_cmd("hexciri-menu"))
 hl.bind(mainMod .. " + K",           hl.dsp.exec_cmd("hexciri-keybinds"))
-hl.bind(mainMod .. " + grave",       hl.dsp.exec_cmd("hexciri-agent"))
+-- Mod+grave = agent lands on WS8 (󱚟 AI workspace): focus first, then exec,
+-- so the TUI opens on the AI workspace like the rest of its roommates.
+hl.bind(mainMod .. " + grave", function()
+    hl.dispatch(hl.dsp.focus({ workspace = "8" }))
+    hl.dispatch(hl.dsp.exec_cmd("hexciri-agent"))
+end)
 
 -- Search / calculator (fuzzel providers)
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("hexciri-fuzzel search"))
