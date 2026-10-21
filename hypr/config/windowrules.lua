@@ -184,7 +184,7 @@ hl.layer_rule({
 hl.window_rule({ match = { class = "^(TUI\\.float)$" }, float = true, size = { "1000", "720" }, center = true })
 
 -- Fastfetch terminal (Mod+Alt+F) — float at 1210x720, centered.
-hl.window_rule({ match = { class = "^(app\\.hexciri\\.ff)$" }, float = true, size = { "1820", "720" }, center = true })
+hl.window_rule({ match = { class = "^(app\\.hexciri\\.ff)$" }, float = true, size = { "1870", "720" }, center = true })
 
 -- Media player — floating; the window follows the video's native resolution
 -- (mpv's own autofit-larger=100%x100% in ~/.config/mpv/mpv.conf), so no size here.
