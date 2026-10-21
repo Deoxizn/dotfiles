@@ -113,6 +113,7 @@ widget_order = [ "lockscreen-login-box@DP-1", "lockscreen-login-box@HDMI-A-1" ]
 [plugin_settings."yuuto/arch-updater"]
 aur_helper = "auto"
 auto_check_hours = 1
+config_review = false
 flatpak_enabled = false
 terminal = "kitty --app-id=TUI.float"
 update_cmd = "hexciri-update"
@@ -130,6 +131,9 @@ sort_by_usage = false
 
 [shell.screenshot]
 directory = "~/Pictures/Screenshots"
+
+[shell.greeter_sync]
+auto_sync = true
 
 [theme]
 custom_palette = "hexciri"

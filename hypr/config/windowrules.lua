@@ -174,6 +174,12 @@ hl.window_rule({ match = { class = "^(TUI\\.float)$" }, float = true, size = { "
 -- Fastfetch terminal (Mod+Alt+F) — float at 1210x720, centered.
 hl.window_rule({ match = { class = "^(app\\.hexciri\\.ff)$" }, float = true, size = { "1820", "720" }, center = true })
 
+-- Media player — floating; the window follows the video's native resolution
+-- (mpv's own autofit-larger=100%x100% in ~/.config/mpv/mpv.conf), so no size here.
+-- PiP is excluded by title so it keeps the stock size/pin treatment above.
+-- Niri equivalent: match app-id="mpv", open-floating.
+hl.window_rule({ match = { class = "^(mpv)$", title = "negative:^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$" }, float = true, center = true })
+
 -- ── HEXCIRI: named-workspace app assignments ──
 -- Each named workspace owns its app(s); they only ever open there. Workspace
 -- map is in config/workspaces.lua:
