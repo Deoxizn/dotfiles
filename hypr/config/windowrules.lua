@@ -180,13 +180,16 @@ hl.window_rule({ match = { class = "^(app\\.hexciri\\.ff)$" }, float = true, siz
 -- Niri equivalent: match app-id="mpv", open-floating.
 hl.window_rule({ match = { class = "^(mpv)$", title = "negative:^([Pp]icture[-\\s]?[Ii]n[-\\s]?[Pp]icture)(.*)$" }, float = true, center = true })
 
--- ── HEXCIRI: named-workspace app assignments ──
+-- ── END HEXCIRI windowrules ──
+
+-- ── workspace pins (personal — dotfiles, not hexciri) ──
 -- Each named workspace owns its app(s); they only ever open there. Workspace
 -- map is in config/workspaces.lua:
 --   1 🦁 Brave Origin · 2  Strata · 3 󰽫󰽻󰽩 Spotify · 4 󰺵 gaming ·
 --   6  Vesktop · 7 󰣋 Messenger · 8 󱚟 AI (Muse/Gemini/ChatGPT)
--- Rules apply in order and the LAST match wins, so the webapp title rules
--- MUST come after the generic brave-origin rule (webapps are also brave).
+-- Rules apply in order and the LAST match wins, so the webapp rules MUST
+-- come after the generic brave-origin rule (a webapp tab in the browser
+-- window is also brave).
 local workspaceApps = {
     { match = { class = "^(brave-origin)$" },                 workspace = "1" },
     { match = { class = "^(io\\.github\\.lgse\\.Strata)$" },  workspace = "2" },
@@ -198,15 +201,24 @@ for _, r in ipairs(workspaceApps) do
 end
 
 -- Webapp windows (brave --app=..., launched via hexciri-launch-or-focus-webapp)
--- keep class brave-origin — route them by title.
+-- do NOT keep the browser's own class: Chromium derives a per-URL WM_CLASS
+-- from the host — brave-www.messenger.com__-Default for messenger, NOT
+-- brave-origin. The old rule matched brave-origin + title, so it never
+-- fired and every webapp opened on whichever workspace happened to be
+-- focused (Messenger was supposed to live on WS7). Route by the host baked
+-- into the class; the title match stays as a net for webapps opened as a
+-- plain tab inside the regular browser window.
 local workspaceWebapps = {
-    { title = "(?i)messenger", workspace = "7" }, -- 󰣋 Messenger (title may be "(2) Messenger")
-    { title = "(?i)^muse",     workspace = "8" }, -- 󱚟 Muse
-    { title = "(?i)^gemini",   workspace = "8" }, -- 󱚟 Gemini
-    { title = "(?i)^chatgpt",  workspace = "8" }, -- 󱚟 ChatGPT
-    { title = "(?i)^xbox",     workspace = "4" }, -- 󰺵 Xbox Cloud Gaming
+    { host = "messenger\\.com",     title = "(?i)messenger", workspace = "7" }, -- 󰣋 Messenger
+    { host = "muse\\.ai",           title = "(?i)^muse",     workspace = "8" }, -- 󱚟 Muse
+    { host = "gemini\\.google\\.com", title = "(?i)^gemini",  workspace = "8" }, -- 󱚟 Gemini
+    { host = "chatgpt\\.com",       title = "(?i)^chatgpt",  workspace = "8" }, -- 󱚟 ChatGPT
+    { host = "xbox\\.com",          title = "(?i)^xbox",     workspace = "4" }, -- 󰺵 Xbox Cloud Gaming
 }
 for _, r in ipairs(workspaceWebapps) do
+    -- Chromium app window: the URL host lives in the WM_CLASS.
+    hl.window_rule({ match = { class = "^brave-(www\\.)?" .. r.host .. "__.*$" }, workspace = r.workspace })
+    -- Same app as a plain tab in the regular browser window.
     hl.window_rule({ match = { class = "^(brave-origin)$", title = r.title }, workspace = r.workspace })
 end
--- ── END HEXCIRI windowrules ──
+-- ── END workspace pins ──
