@@ -1,27 +1,74 @@
-    /**
-    * @name Omarchy
-    * @author @bypass_
-    * @version 0.1.0
-    * @description Match Omarchy system theme.
-    * @source https://github.com/imbypass/base16-Discord
-    **/
-    @import url("https://imbypass.github.io/base16-discord/omarchy-discord.theme.css");
+/**
+ * @name Hexciri
+ * @description ClearVision-based theme matching the current Hexciri palette.
+ * @version 0.1.0
+ * @source https://github.com/ClearVision/ClearVision-v7
+ * @website https://clearvision.github.io
+ */
+@import url("https://clearvision.github.io/ClearVision-v7/main.css");
+@import url("https://clearvision.github.io/ClearVision-v7/betterdiscord.css");
 
-    :root {
-        --color00: #1f1f28;
-        --color01: #1f1f28;
-        --color02: #1f1f28;
-        --color03: #c8c093;
-        --color04: #dcd7ba;
-        --color05: #dcd7ba;
-        --color06: #dcd7ba;
-        --color07: #dcd7ba;
-        --color08: #c34043;
-        --color09: #c0a36e;
-        --color10: #e6c384;
-        --color11: #76946a;
-        --color12: #6a9589;
-        --color13: #7e9cd8;
-        --color14: #957fb8;
-        --color15: #c0a36e;
-    }
+:root {
+  /* ACCENT COLORS */
+  --main-color: #5d6367;
+  --hover-color: #798186;
+  --success-color: #9fa5a9;
+  --danger-color: #565d60;
+  /* STATUS COLORS */
+  --online-color: #9fa5a9;
+  --idle-color: #d9dbdc;
+  --dnd-color: #565d60;
+  --streaming-color: #aeaeae;
+  --offline-color: #4b4e55;
+  /* APP BACKGROUND: mirror the active hexciri wallpaper */
+  --background-shading-percent: 80%;
+  --background-image: url("file:///home/devi/.local/state/hexciri/current/theme/backgrounds/1-on-pole.webp");
+  --background-position: center;
+  --background-size: cover;
+  --background-attachment: fixed;
+  --background-filter: saturate(calc(var(--saturation-factor, 1) * 1));
+  /* USER POPOUT BACKGROUND */
+  --user-popout-image: var(--background-image);
+  --user-popout-position: var(--background-position);
+  --user-popout-size: var(--background-size);
+  --user-popout-attachment: var(--background-attachment);
+  --user-popout-filter: var(--background-filter);
+  /* USER MODAL BACKGROUND */
+  --user-modal-image: var(--background-image);
+  --user-modal-position: var(--background-position);
+  --user-modal-size: var(--background-size);
+  --user-modal-attachment: var(--background-attachment);
+  --user-modal-filter: var(--background-filter);
+  /* HOME ICON */
+  --home-icon: url(https://clearvision.github.io/icons/discord.svg);
+  --home-size: cover;
+  /* CHANNEL COLORS */
+  --channel-normal: #cacccc;
+  --channel-muted: #4b4e55;
+  --channel-hover: #a5aeb4;
+  --channel-selected: #a5aeb4;
+  --channel-selected-bg: var(--main-color);
+  --channel-unread: var(--main-color);
+  --channel-unread-hover: var(--hover-color);
+  /* ACCESSIBILITY */
+  --focus-color: var(--main-color);
+}
+
+/* ClearVision colors the invite/action icons with --hsl-main-color, so on a
+   selected channel the light icon stays light on the main-color pill. Keep it
+   readable by tying it to the (already contrast-flipped) selected text. */
+:is([class*="modeSelected_"]) [class*="addButtonIcon_"],
+:is([class*="modeSelected_"]) [class*="actionIcon_"] {
+  color: var(--channel-selected) !important;
+}
+
+/* Remove ClearVision branding (guild list header + settings About) */
+:is(.theme-dark, .theme-light):not(.platform-osx) .leading_c38106::before,
+:is(.theme-dark, .theme-light):not(.platform-osx) .leading_c38106::after,
+:is(.theme-dark, .theme-light):not(.platform-osx) [class*="guilds_"] [class*="leading_"]::before,
+:is(.theme-dark, .theme-light):not(.platform-osx) [class*="guilds_"] [class*="leading_"]::after {
+  content: none !important;
+}
+.info__2debe::after {
+  content: none !important;
+}

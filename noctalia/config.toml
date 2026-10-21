@@ -158,6 +158,18 @@ time_format = "{:%I:%M %p}"           # 12-hour time (Control Center / dashboard
 [shell.screenshot]
 directory = "~/Pictures/Screenshots"
 
+# Login greeter follow (greetd + noctalia-greeter). Noctalia re-syncs the
+# greeter after every wallpaper / palette / theme-mode / shell-font change, so
+# picker picks and per-monitor wallpapers reach the login screen too — not only
+# `hexciri-theme set` (which still syncs at the end of the theme bridge).
+# The greeter keeps its own local copies under /var/lib/noctalia-greeter, so
+# boot/login never needs the source files to be reachable (e.g. NAS/SMB).
+# The sync runs through pkexec; make it promptless once per user with
+#   sudo noctalia-greeter passwordless-sync enable "$USER"
+# (install.sh and root `hexciri-sync` already do this on fresh boxes).
+[shell.greeter_sync]
+auto_sync = true
+
 # ──────────────────────────────────────────────
 # Notifications
 # ──────────────────────────────────────────────

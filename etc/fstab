@@ -1,14 +1,21 @@
-# Static information about the filesystems.
-# See fstab(5) for details.
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a device; this may
+# be used with UUID= as a more robust way to name devices that works even if
+# disks are added and removed. See fstab(5).
+#
+# <file system>             <mount point>  <type>  <options>  <dump>  <pass>
+UUID=1B64-504B                            /boot          vfat    defaults,umask=0077 0 2
+UUID=5f40a4c4-2848-419f-8b5a-7710933307f2 /              btrfs   subvol=/@,defaults,noatime,compress=zstd:1 0 0
+UUID=5f40a4c4-2848-419f-8b5a-7710933307f2 /home          btrfs   subvol=/@home,defaults,noatime,compress=zstd:1 0 0
+UUID=5f40a4c4-2848-419f-8b5a-7710933307f2 /root          btrfs   subvol=/@root,defaults,noatime,compress=zstd:1 0 0
+UUID=5f40a4c4-2848-419f-8b5a-7710933307f2 /srv           btrfs   subvol=/@srv,defaults,noatime,compress=zstd:1 0 0
+UUID=5f40a4c4-2848-419f-8b5a-7710933307f2 /var/cache     btrfs   subvol=/@cache,defaults,noatime,compress=zstd:1 0 0
+UUID=5f40a4c4-2848-419f-8b5a-7710933307f2 /var/tmp       btrfs   subvol=/@tmp,defaults,noatime,compress=zstd:1 0 0
+UUID=5f40a4c4-2848-419f-8b5a-7710933307f2 /var/log       btrfs   subvol=/@log,defaults,noatime,compress=zstd:1 0 0
+tmpfs                                     /tmp           tmpfs   defaults,noatime,mode=1777 0 0
 
-# <file system> <dir> <type> <options> <dump> <pass>
-# /dev/nvme0n1p2 LABEL=hexciri
-UUID=6993be35-3940-4887-ad9a-792bd9a7359e	/         	btrfs     	rw,relatime,ssd,discard=async,space_cache=v2,subvol=/	0 0
-
-# /dev/nvme0n1p1
-UUID=950C-AEBB      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
-
-#network mounts
+# NAS CIFS mounts (appended 2026-10-17; nofail + noauto so boot never blocks)
 //192.168.8.169/Applications /mnt/Applications cifs credentials=/etc/samba/nas.creds,uid=1000,gid=1000,file_mode=0644,dir_mode=0755,vers=3.0,iocharset=utf8,_netdev,x-systemd.requires=network-online.target,noauto,x-systemd.automount,nofail 0 0
 //192.168.8.169/AudioBooks /mnt/AudioBooks cifs credentials=/etc/samba/nas.creds,uid=1000,gid=1000,file_mode=0644,dir_mode=0755,vers=3.0,iocharset=utf8,_netdev,x-systemd.requires=network-online.target,noauto,x-systemd.automount,nofail 0 0
 //192.168.8.169/Backups /mnt/Backups cifs credentials=/etc/samba/nas.creds,uid=1000,gid=1000,file_mode=0644,dir_mode=0755,vers=3.0,iocharset=utf8,_netdev,x-systemd.requires=network-online.target,noauto,x-systemd.automount,nofail 0 0

@@ -132,9 +132,9 @@ sort_by_usage = false
 [shell.screenshot]
 directory = "~/Pictures/Screenshots"
 
+
 [shell.greeter_sync]
 auto_sync = true
-
 [theme]
 custom_palette = "hexciri"
 source = "custom"
