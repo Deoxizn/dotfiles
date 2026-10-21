@@ -14,7 +14,7 @@ for i = 6, 10 do
     hl.workspace_rule({ workspace = tostring(i), monitor = MONITOR2, default = true, persistent = true })
 end
 
--- ── HEXCIRI workspace names ──
+-- ── workspace names (personal — dotfiles, not hexciri) ──
 -- Names ported from FW13 (hypr/config/workspaces.lua); glyphs render in
 -- FantasqueSansM Nerd Font, the lion in Noto Color Emoji. Only the
 -- workspaces with a designated app are named -- 5, 9, 10 stay numeric.
@@ -33,4 +33,4 @@ hl.workspace_rule({ workspace = "6", default_name = "" })
 hl.workspace_rule({ workspace = "7", default_name = "󰣋" })
 -- AI (Muse/Gemini/ChatGPT)
 hl.workspace_rule({ workspace = "8", default_name = "󱚟" })
--- ── END HEXCIRI workspace names ──
+-- ── END workspace names ──
