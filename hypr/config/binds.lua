@@ -88,8 +88,7 @@ hl.bind("XF86Calculator",           hl.dsp.exec_cmd(launchPrefix .. CALCULATOR))
 -- [hexciri] hl.bind("CONTROL + SHIFT + Escape", hl.dsp.exec_cmd(launchPrefix .. TERMINAL .. " -e btop"))
 hl.bind(mainMod .. " + Z",          hl.dsp.exec_cmd(noctCall .. "settings-toggle"))
 hl.bind(mainMod .. " + X",          hl.dsp.exec_cmd(noctCall .. "panel-toggle control-center"))
-hl.bind(mainMod .. " + Space",      hl.dsp.exec_cmd(noctCall .. "panel-toggle launcher"))
-hl.bind(mainMod .. " + period",     hl.dsp.exec_cmd(noctCall .. "panel-toggle launcher /emo"))
+-- [hexciri] hl.bind(mainMod .. " + period",     hl.dsp.exec_cmd(noctCall .. "panel-toggle launcher /emo"))
 -- [hexciri] hl.bind(mainMod .. " + L",          hl.dsp.exec_cmd(noctCall .. "session lock"))
 hl.bind(mainMod .. " + ALT + C",    hl.dsp.exec_cmd(noctCall .. "panel-toggle session"))
 
@@ -122,8 +121,7 @@ hl.bind(mainMod .. " + P",     hl.dsp.exec_cmd("hyprpicker -a -n"))
 hl.bind("Print",               hl.dsp.exec_cmd(noctCall .. "screenshot-region"))
 hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd(noctCall .. "screenshot-fullscreen"))
 
--- Theming and Wallpaper
-hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(noctCall .. "panel-toggle wallpaper"))
+-- Theming and Wallpaper: picker removed (Mod+Shift+W is World of Warcraft now)
 
 -- Clipboard
 -- [hexciri] hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(noctCall .. "panel-toggle clipboard"))
@@ -311,6 +309,14 @@ hl.bind(mainMod .. " + CONTROL + S",      hl.dsp.exec_cmd("noctalia msg settings
 -- initial FW13-derived port). Same chords/actions as the niri set. ──
 
 -- Apps
+-- World of Warcraft retail — straight Wow.exe, no Battle.net launcher. Focus
+-- the gaming workspace first so the client comes up in view. Direct launch
+-- uses WoW's own login screen: Battle.net's saved session is a launch token
+-- it passes to the client, not something Wow.exe can pick up on its own.
+hl.bind(mainMod .. " + SHIFT + W", function()
+    hl.dispatch(hl.dsp.focus({ workspace = "4" }))
+    hl.dispatch(hl.dsp.exec_cmd("launch-wow"))
+end)
 hl.bind(mainMod .. " + SHIFT + M",     hl.dsp.exec_cmd(launchPrefix .. "spotify"))
 hl.bind(mainMod .. " + CONTROL + D",   hl.dsp.exec_cmd(launchPrefix .. "vesktop"))
 -- Fastfetch in a floating window (key emits via XF86Tools). Class app.hexciri.ff

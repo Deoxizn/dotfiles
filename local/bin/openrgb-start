@@ -1,11 +1,10 @@
 #!/bin/bash
-# noctarchy:summary=Launch OpenRGB (extracted AppImage) via XWayland.
-# OpenRGB's Qt AppImage bundles only the xcb (X11) platform plugin, so under
-# Niri XWayland it needs DISPLAY. Rely on the ambient DISPLAY that niri already
-# exports (uses the running Xwayland instance, e.g. :1 via xwayland-satellite);
-# runs the stable extracted binary (avoids the AppImage's per-run
-# /tmp/.mount_* regeneration that broke autostart).
-# NOTE: no --profile flag — the old deoxizn.orp pins device locations that
-# don't match a fresh install; re-save from the UI so it starts clean.
+# noctarchy:summary=Launch OpenRGB (system package) for this desktop.
+# Rewired 2026-10-17 from the old extracted-AppImage path
+# (~/appimg/openrgb/OpenRGB-extracted/...) to the Arch repo binary.
+# The deoxizn.orp / OpenRGB.json profile in ~/.config/OpenRGB survived the
+# WM swap; OpenRGB's built-in AutoStart (enabled, profile=deoxizn) applies it.
+# No --profile flag here on purpose: the orp pins device locations that must
+# match what OpenRGB detects on THIS board — let the saved profile drive it.
 
-exec env "$HOME/appimg/openrgb/OpenRGB-extracted/usr/bin/OpenRGB" "$@"
+exec /usr/bin/openrgb "$@"

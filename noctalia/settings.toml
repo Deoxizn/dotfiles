@@ -1,4 +1,4 @@
-config_version = 15
+config_version = 16
 
 [audio]
 enable_sounds = false
@@ -6,7 +6,7 @@ enable_sounds = false
 [bar.default]
 background_opacity = 0.0
 capsule = true
-capsule_fill = "surface_variant"
+capsule_fill = "surface_container"
 capsule_thickness = 0.76000000000000001
 concave_edge_corners = false
 contact_shadow = true
@@ -66,7 +66,7 @@ widget_order = [ "lockscreen-login-box@DP-1", "lockscreen-login-box@HDMI-A-1" ]
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -94,7 +94,7 @@ widget_order = [ "lockscreen-login-box@DP-1", "lockscreen-login-box@HDMI-A-1" ]
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -122,6 +122,9 @@ update_mode = "terminal"
 [plugins]
 enabled = [ "yuuto/arch-updater", "noctalia/bongocat", "deoxizn/cpurr" ]
 
+[shell.greeter_sync]
+auto_sync = true
+
 [shell.launcher]
 categories = false
 compact = true
@@ -132,15 +135,12 @@ sort_by_usage = false
 [shell.screenshot]
 directory = "~/Pictures/Screenshots"
 
-
-[shell.greeter_sync]
-auto_sync = true
 [theme]
 custom_palette = "hexciri"
 source = "custom"
 
 [wallpaper.default]
-path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-wallpapers--mnt-Photos-wallpapers-wallhaven-3q3z59.jpg"
+path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-wallpapers--mnt-Photos-wallpapers-wallhaven-kx996m.jpg"
 
 [wallpaper.last]
 path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-wallpapers--mnt-Photos-wallpapers-wallhaven-kx996m.jpg"
@@ -149,7 +149,7 @@ path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-wallpa
 path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-wallpapers--mnt-Photos-wallpapers-wallhaven-kx996m.jpg"
 
 [wallpaper.monitors.HDMI-A-1]
-path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-wallpapers--mnt-Photos-wallpapers-wallhaven-3q3z59.jpg"
+path = "/home/devi/.local/state/hexciri/current/theme/backgrounds/zz-user-wallpapers--mnt-Photos-wallpapers-wallhaven-o5o285.jpg"
 
 [weather]
 unit = "imperial"
@@ -159,7 +159,7 @@ enabled = false
 
 [widget.media]
 art_size = 20
-max_length = 420
+max_length = 520
 
 [widget.network]
 enabled = false

@@ -59,14 +59,29 @@ hl.window_rule({
 -- Minecraft) also belong on the gaming workspace, not wherever you happen to be.
 hl.window_rule({ match = { class = gamingLaunchers }, workspace = gamingWorkspace })
 
+-- WoW launched directly (launch-wow) runs Wow.exe under the same umu
+-- GAMEID as Battle.net, so it inherits class steam_app_battlenet. Named rules
+-- run before anonymous ones: keep the game tiled on the gaming workspace
+-- instead of inheriting the launcher's float rule below.
+hl.window_rule({
+    name             = "world-of-warcraft",
+    match            = { class = "^(steam_app_battlenet)$", title = "^(World of Warcraft)$" },
+    workspace        = gamingWorkspace,
+    float            = false,
+    center           = false,
+    fullscreen_state = 0,
+    content          = "game",
+})
+
 -- Battle.net launcher + all of its Wine dialogs (settings, messages, login,
 -- agent popups — every window it opens is class steam_app_battlenet or
 -- battle.net.exe): normal decorated floating windows, centered, natural size.
 -- Excluded from the fullscreen game treatment above via initial_class
--- negative: on that rule.
+-- negative: on that rule. The title negative keeps the WoW client (same
+-- class) out of here when it is launched directly.
 local battlenetApps = "^(steam_app_battlenet|battle\\.net\\.exe)$"
 hl.window_rule({
-    match            = { class = battlenetApps },
+    match            = { class = battlenetApps, title = "negative:^(World of Warcraft)$" },
     workspace        = gamingWorkspace,
     float            = true,
     center           = true,
@@ -103,6 +118,11 @@ local terminals = "^(kitty|ghostty|[Kk]onsole|Alacritty|gnome-terminal|xfce[0-9]
 -- Browsers stay fully opaque: Firefox/Zen plus every Brave window — the main
 -- browser (brave-origin) and --app webapps (class brave-<slug>-Default).
 hl.window_rule({ match = { class = "^(firefox|zen|brave-origin|brave-.+)$" }, opacity = "1.0 override" })
+
+-- Vesktop/Discord: keep the app's own transparency, but disable Hyprland blur
+-- so the desktop shows through crisply instead of as a haze. Do not set
+-- `opaque` here; that would remove the see-through effect.
+hl.window_rule({ match = { class = "^(vesktop|discord)$" }, opacity = "1.0 override", no_blur = true })
 
 -- Games stay fully opaque too: the global decoration opacity (0.95/0.85) makes
 -- them washy and shows the wallpaper through them mid-fight. `content = "game"`

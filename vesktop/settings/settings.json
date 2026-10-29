@@ -593,6 +593,9 @@
         },
         "NoMiddleClickPaste": {
             "enabled": false
+        },
+        "DirectFileDownload": {
+            "enabled": false
         }
     },
     "uiElements": {
@@ -609,7 +612,7 @@
         "authenticated": true,
         "url": "https://api.vencord.dev/",
         "settingsSync": true,
-        "settingsSyncVersion": 1792430259869
+        "settingsSyncVersion": 1792643310205
     },
     "windowsMaterial": "none",
     "nativeTitleBar": false
