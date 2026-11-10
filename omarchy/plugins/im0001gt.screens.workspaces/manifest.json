@@ -1,0 +1,23 @@
+{
+  "author": "IM0001GT",
+  "barWidget": {
+    "allowMultiple": false,
+    "category": "Compositor",
+    "defaultSection": "left",
+    "description": "Names and icons for each screen's workspaces. Right-click a number. Omarchy places the workspaces.",
+    "displayName": "Screens workspaces"
+  },
+  "description": "Names and icons for each screen's workspaces. Omarchy places the workspaces.",
+  "entryPoints": {
+    "barWidget": "Workspaces.qml"
+  },
+  "homepage": "https://github.com/IM0001GT/omarchy-screens",
+  "id": "im0001gt.screens.workspaces",
+  "kinds": [
+    "bar-widget"
+  ],
+  "license": "MIT",
+  "name": "Screens workspaces",
+  "schemaVersion": 1,
+  "version": "1.16.1"
+}

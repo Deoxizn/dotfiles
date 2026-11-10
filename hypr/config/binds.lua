@@ -328,7 +328,7 @@ hl.bind(mainMod .. " + CONTROL + D",   hl.dsp.exec_cmd(launchPrefix .. "vesktop"
 -- it will still *report* Maple Mono; the rendering is what changes.
 hl.bind("XF86Tools",                   hl.dsp.exec_cmd(launchPrefix ..
     "kitty --class app.hexciri.ff -o 'font_family=Ransom Mono Unruly NF' -o font_size=10 fish -c \"fastfetch; exec fish\""))
--- Webapps (same hexciri-launch-or-focus-webapp helper as messenger on Mod+Ctrl+M)
+-- Webapps
 hl.bind("XF86Launch5",                 hl.dsp.exec_cmd("hexciri-launch-or-focus-webapp muse https://muse.ai"))
 hl.bind("XF86Launch6",                 hl.dsp.exec_cmd("hexciri-launch-or-focus-webapp photopea https://photopea.com"))
 

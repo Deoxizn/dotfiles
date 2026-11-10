@@ -12,19 +12,9 @@
         }
     },
     "AutoStart": {
-        "client": "localhost:6742",
-        "custom": "",
+        "custom_arguments": "",
         "enabled": true,
-        "host": "0.0.0.0",
-        "port": "6742",
-        "profile": "deoxizn",
-        "setclient": false,
-        "setcustom": false,
-        "setminimized": false,
-        "setprofile": true,
-        "setserver": false,
-        "setserverhost": false,
-        "setserverport": false
+        "start_minimized": true
     },
     "Detectors": {
         "detectors": {
@@ -1992,28 +1982,28 @@
     },
     "ProfileManager": {
         "exit_profile": {
-            "enabled": false,
-            "name": ""
+            "enabled": true,
+            "name": "deoxizn"
         },
         "open_profile": {
-            "enabled": false,
-            "name": ""
+            "enabled": true,
+            "name": "deoxizn"
         },
         "resume_profile": {
-            "enabled": false,
-            "name": ""
+            "enabled": true,
+            "name": "deoxizn"
         },
         "service_shutdown_profile": {
             "enabled": false,
             "name": ""
         },
         "service_startup_profile": {
-            "enabled": false,
-            "name": ""
+            "enabled": true,
+            "name": "deoxizn"
         },
         "suspend_profile": {
-            "enabled": false,
-            "name": ""
+            "enabled": true,
+            "name": "deoxizn"
         }
     },
     "Server": {
@@ -2023,20 +2013,6 @@
         "legacy_workaround": false
     },
     "UserInterface": {
-        "autoload_profiles": {
-            "exit_profile": {
-                "enabled": true,
-                "name": "deoxizn"
-            },
-            "resume_profile": {
-                "enabled": true,
-                "name": "deoxizn"
-            },
-            "suspend_profile": {
-                "enabled": true,
-                "name": "deoxizn"
-            }
-        },
         "geometry": {
             "height": 0,
             "load_geometry": false,
@@ -2045,8 +2021,9 @@
             "x": 0,
             "y": 0
         },
-        "greyscale_tray_icon": false,
         "language": "System Default",
-        "minimize_on_close": false
+        "minimize_on_close": false,
+        "monochrome_tray_icon": false,
+        "run_zone_checks": true
     }
 }

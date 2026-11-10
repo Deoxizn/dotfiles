@@ -1,84 +1,29 @@
 /**
- * @name Hexciri
- * @description ClearVision-based theme matching the current Hexciri palette.
- * @version 0.1.0
- * @source https://github.com/ClearVision/ClearVision-v7
- * @website https://clearvision.github.io
- */
-@import url("https://clearvision.github.io/ClearVision-v7/main.css");
-@import url("https://clearvision.github.io/ClearVision-v7/betterdiscord.css");
+* @name base16 Discord
+* @author @bypass_
+* @version 0.1.0
+* @description Built using Aether and Pywal
+* @source https://github.com/imbypass/base16-Discord
+**/
+
+/* import the parent */
+@import url('https://imbypass.github.io/base16-discord/omarchy-discord.theme.css');
 
 :root {
-  /* ACCENT COLORS */
-  --main-color: #5d6367;
-  --hover-color: #798186;
-  --success-color: #9fa5a9;
-  --danger-color: #565d60;
-  /* STATUS COLORS */
-  --online-color: #9fa5a9;
-  --idle-color: #d9dbdc;
-  --dnd-color: #565d60;
-  --streaming-color: #aeaeae;
-  --offline-color: #4b4e55;
-  /* APP BACKGROUND: translucent palette surface, no internal wallpaper */
-  --background-shading-percent: 100%;
-  --background-image: none;
-  /* HOME ICON */
-  --home-icon: url(https://clearvision.github.io/icons/discord.svg);
-  --home-size: cover;
-  /* CHANNEL COLORS */
-  --channel-normal: #cacccc;
-  --channel-muted: #4b4e55;
-  --channel-hover: #a5aeb4;
-  --channel-selected: #a5aeb4;
-  --channel-selected-bg: var(--main-color);
-  --channel-unread: var(--main-color);
-  --channel-unread-hover: var(--hover-color);
-  /* ACCESSIBILITY */
-  --focus-color: var(--main-color);
-}
-
-/* ClearVision sets these in :is(.theme-dark, .theme-light .theme-dark) and the
-   sibling theme blocks. Match those elements at the same specificity from a
-   later rule so the palette wins whether the theme class is on <html> or
-   <body>, instead of the fixed black/white defaults. The alphas are the
-   see-through level: lower them for more desktop, raise them for more text
-   contrast. Overlays stay more opaque than the base surface. */
-:root:root,
-.theme-dark.theme-dark,
-.theme-light.theme-light,
-.theme-darker.theme-darker,
-.theme-midnight.theme-midnight {
-  --background-shading: rgba(16, 19, 21, 0.50);
-  --card-shading: rgba(28, 31, 33, 0.50);
-  --popout-shading: rgba(36, 39, 41, 0.72);
-  --modal-shading: rgba(36, 39, 41, 0.68);
-  --input-shading: rgba(22, 25, 27, 0.45);
-  --normal-text: #cacccc;
-  --muted-text: #4b4e55;
-}
-
-/* Keep the wallpaper layer transparent: the see-through comes from the live
-   desktop, not a bundled image. */
-.bg__960e4 {
-  background: none;
-}
-
-/* ClearVision colors the invite/action icons with --hsl-main-color, so on a
-   selected channel the light icon stays light on the main-color pill. Keep it
-   readable by tying it to the (already contrast-flipped) selected text. */
-:is([class*="modeSelected_"]) [class*="addButtonIcon_"],
-:is([class*="modeSelected_"]) [class*="actionIcon_"] {
-  color: var(--channel-selected) !important;
-}
-
-/* Remove ClearVision branding (guild list header + settings About) */
-:is(.theme-dark, .theme-light):not(.platform-osx) .leading_c38106::before,
-:is(.theme-dark, .theme-light):not(.platform-osx) .leading_c38106::after,
-:is(.theme-dark, .theme-light):not(.platform-osx) [class*="guilds_"] [class*="leading_"]::before,
-:is(.theme-dark, .theme-light):not(.platform-osx) [class*="guilds_"] [class*="leading_"]::after {
-  content: none !important;
-}
-.info__2debe::after {
-  content: none !important;
+    --color00: #1c2023;
+    --color01: #cf867c;
+    --color02: #95c7ae;
+    --color03: #aec795;
+    --color04: #6f8aad;
+    --color05: #aa5b82;
+    --color06: #73899f;
+    --color07: #c7ccd1;
+    --color08: #747c84;
+    --color09: #cf867c;
+    --color10: #95c7ae;
+    --color11: #aec795;
+    --color12: #6f8aad;
+    --color13: #aa5b82;
+    --color14: #73899f;
+    --color15: #f3f4f5;
 }

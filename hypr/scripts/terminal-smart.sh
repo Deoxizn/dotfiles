@@ -111,4 +111,4 @@ if (( age < 4 )); then
 fi
 
 touch "$MARKER"
-exec hexciri-terminal
+exec kitty

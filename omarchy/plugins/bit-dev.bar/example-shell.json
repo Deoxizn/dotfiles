@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "bar": {
+    "id": "bit-dev.bar",
+    "position": "top",
+    "transparent": false,
+    "centerAnchor": "omarchy.clock",
+    "pillOpacity": 0.24,
+    "pillBorderOpacity": 0.35,
+    "layout": {
+      "left": [
+        {
+          "id": "omarchy.menu"
+        },
+        {
+          "id": "omarchy.workspaces"
+        },
+        {
+          "id": "bit-dev.system-pills"
+        }
+      ],
+      "center": [
+        {
+          "id": "omarchy.indicators"
+        },
+        {
+          "id": "omarchy.clock",
+          "format": "dddd HH:mm",
+          "formatAlt": "d MMMM 'W'ww yyyy",
+          "verticalFormat": "HH\n—\nmm"
+        },
+        {
+          "id": "omarchy.keyboard-layout"
+        },
+        {
+          "id": "omarchy.weather"
+        },
+        {
+          "id": "omarchy.system-update"
+        }
+      ],
+      "right": [
+        {
+          "id": "omarchy.bluetooth"
+        },
+        {
+          "id": "omarchy.audio"
+        },
+        {
+          "id": "omarchy.monitor"
+        },
+        {
+          "id": "omarchy.power"
+        },
+        {
+          "id": "omarchy.network"
+        },
+        {
+          "id": "bit-dev.ai-usage-pills"
+        },
+        {
+          "id": "omarchy.tray"
+        }
+      ]
+    }
+  },
+  "idle": {
+    "screensaver": 150,
+    "lock": 300
+  },
+  "plugins": []
+}

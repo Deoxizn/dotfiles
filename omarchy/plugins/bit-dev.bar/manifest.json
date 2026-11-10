@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "bit-dev.bar",
+  "name": "Pill Bar",
+  "version": "1.0.0",
+  "author": "bit-dev",
+  "license": "MIT",
+  "description": "Floating island pill-style status bar with translucent glassmorphic pills and dynamic module grouping for Omarchy.",
+  "kinds": [
+    "bar"
+  ],
+  "entryPoints": {
+    "bar": "Bar.qml"
+  },
+  "omarchy": {
+    "clonedFrom": "omarchy.bar"
+  }
+}

@@ -5,9 +5,9 @@
     "themeLinks": [],
     "eagerPatches": false,
     "enabledThemes": [
+        "MinimalImprovement.theme.css",
         "HorizontalServerList.theme.css",
         "MinimalImprovementBorderless.theme.css",
-        "MinimalImprovement.theme.css",
         "vencord.theme.css"
     ],
     "enableReactDevtools": false,
@@ -161,9 +161,6 @@
         "Experiments": {
             "enabled": false
         },
-        "ExpressionCloner": {
-            "enabled": false
-        },
         "F8Break": {
             "enabled": false
         },
@@ -276,7 +273,8 @@
         },
         "NoBlockedMessages": {
             "enabled": true,
-            "ignoreMessages": false
+            "ignoreMessages": true,
+            "applyToIgnoredUsers": true
         },
         "NoDevtoolsWarning": {
             "enabled": false
@@ -596,6 +594,27 @@
         },
         "DirectFileDownload": {
             "enabled": false
+        },
+        "ExpressionManager": {
+            "enabled": false
+        },
+        "JumpToTop": {
+            "enabled": false
+        },
+        "MutedServersActivityBadge": {
+            "enabled": false
+        },
+        "ConcatenatedComponentExtractor": {
+            "enabled": true
+        },
+        "ContextMenuAPI": {
+            "enabled": true
+        },
+        "FixDiscordCss": {
+            "enabled": true
+        },
+        "NoticesAPI": {
+            "enabled": true
         }
     },
     "uiElements": {
@@ -612,7 +631,7 @@
         "authenticated": true,
         "url": "https://api.vencord.dev/",
         "settingsSync": true,
-        "settingsSyncVersion": 1792643310205
+        "settingsSyncVersion": 1794062299688
     },
     "windowsMaterial": "none",
     "nativeTitleBar": false

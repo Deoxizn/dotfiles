@@ -2,3 +2,14 @@
 etc/samba/nas.creds
 etc/nas.creds
 **/nas.creds
+
+# Local secrets synced from the live machine — never commit
+opencode/service.json
+
+# Runtime state / sockets / logs
+herdr/*.sock
+herdr/*.log
+vesktop/state.json
+vesktop/Singleton*
+vesktop/sessionData/
+vesktop/Crashpad/

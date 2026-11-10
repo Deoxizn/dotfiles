@@ -1,19 +1,138 @@
 {
+  "bar": {
+    "background": "glassy",
+    "id": "bit-dev.bar",
+    "layout": {
+      "center": [
+        {
+          "id": "omarchy.active-window"
+        },
+        {
+          "format": "dddd h:mm AP",
+          "id": "omarchy.clock"
+        },
+        {
+          "id": "devi.weather",
+          "unit": "imperial"
+        },
+        {
+          "id": "devi.arch-updates"
+        }
+      ],
+      "centerBegin": [
+        {
+          "id": "omarchy.indicators"
+        }
+      ],
+      "centerEnd": [
+        {
+          "id": "omarchy.system-update"
+        }
+      ],
+      "left": [
+        {
+          "id": "im0001gt.screens.workspaces"
+        },
+        {
+          "id": "foliboni.media",
+          "maxLabelWidth": 500,
+          "showAlbumArt": true
+        }
+      ],
+      "right": [
+        {
+          "id": "io.github.diegopluna.argus",
+          "show": [
+            "cputemp",
+            "gputemp",
+            "ram",
+            "net",
+            "io"
+          ],
+          "homeTiles": [
+            "cpu"
+          ],
+          "hover": [
+            "host",
+            "uptime",
+            "load",
+            "bat",
+            "cpu",
+            "gpu",
+            "vram",
+            "disk"
+          ],
+          "tempUnit": "C"
+        },
+        {
+          "id": "dizziee.opencode-model-usage"
+        },
+        {
+          "id": "omarchy.keyboard-layout"
+        },
+        {
+          "displayConfig": {
+            "DP-1": {
+              "folder": "/mnt/Photos/wallpapers",
+              "mode": "single",
+              "pinned": "/mnt/Photos/wallpapers/wallhaven-kx996m.jpg",
+              "recursive": true,
+              "scaling": "fitWidth"
+            },
+            "HDMI-A-1": {
+              "folder": "/mnt/Photos/wallpapers",
+              "mode": "single",
+              "pinned": "/mnt/Photos/wallpapers/wallhaven-o5o285.jpg",
+              "recursive": true,
+              "scaling": "fitHeight"
+            },
+            "all": {
+              "folder": "/home/devi/Pictures/wallpapers",
+              "mode": "single",
+              "pinned": "/home/devi/Pictures/wallpapers/wallhaven-kx996m.jpg",
+              "recursive": true,
+              "scaling": "zoom"
+            }
+          },
+          "id": "matjam.omawall",
+          "perDisplayConfig": true,
+          "primaryDisplay": "HDMI-A-1"
+        },
+        {
+          "id": "omarchy.bluetooth"
+        },
+        {
+          "id": "omarchy.network"
+        },
+        {
+          "id": "im0001gt.screens"
+        },
+        {
+          "id": "omarchy.power"
+        },
+        {
+          "id": "omarchy.tray"
+        }
+      ],
+      "tray": []
+    },
+    "position": "top",
+    "transparent": true
+  },
+  "idle": {
+    "lock": 300,
+    "screensaver": 150
+  },
+  "plugins": [
+    {
+      "id": "io.github.oldjobobo.thpm"
+    }
+  ],
   "version": 1,
   "disabledPlugins": [
-    "omarchy.bar",
-    "omarchy.lock",
-    "omarchy.osd",
-    "omarchy.menu",
-    "omarchy.notifications",
-    "omarchy.background",
-    "omarchy.idle",
-    "omarchy.nightlight",
-    "omarchy.polkit",
-    "omarchy.clipboard",
-    "omarchy.emojis",
-    "omarchy.reminders",
-    "omarchy.image-picker"
+    "omarchy.background"
   ],
-  "plugins": []
+  "cloneSourceRestores": [
+    "matjam.omawall"
+  ]
 }

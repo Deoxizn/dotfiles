@@ -1,0 +1,1370 @@
+import QtQuick
+import QtQuick.Controls as QQC
+import QtQuick.Layouts
+import Quickshell
+import Quickshell.Io
+import qs.Commons
+import qs.Ui
+
+Item {
+    id: root
+
+    property var shell: null
+    property var plugins: []
+    property var counts: ({
+        "enabled": 0,
+        "disabled": 0,
+        "native": 0,
+        "unavailable": 0,
+        "attention": 0
+    })
+    property string message: "Loading integrations…"
+    property string query: ""
+    property int section: 0
+    property var doctorInfo: ({
+        "ok": true,
+        "summary": "Run Doctor to check your setup",
+        "errors": [],
+        "warnings": [],
+        "capabilities": ({
+            "routes": [],
+            "missing": []
+        })
+    })
+    property bool doctorHasRun: false
+    property string actionMessage: ""
+    property bool actionError: false
+    property string menuSurface: "gui"
+    property string menuSurfaceMessage: ""
+    property string restartPolicy: "automatic"
+    property string restartPolicyMessage: ""
+    property var updateInfo: ({
+        "status": "idle",
+        "currentVersion": "1.0.0rc24",
+        "availableVersion": null
+    })
+    property string updateMessage: ""
+    property bool updateError: false
+    property bool manualUpdateCheck: false
+    property bool updateActionActive: false
+    property bool closingFromHost: false
+    property bool opened: false
+    property string pendingPluginId: ""
+    property string pendingPluginLabel: ""
+    readonly property var visiblePlugins: plugins.filter(function(plugin) {
+        var needle = query.trim().toLowerCase();
+        if (!needle)
+            return true;
+
+        return (plugin.label + " " + plugin.id + " " + plugin.category + " " + plugin.description + " " + plugin.supportStatus).toLowerCase().indexOf(needle) !== -1;
+    })
+    readonly property var doctorItems: {
+        var items = [];
+        var errors = doctorInfo.errors || [];
+        var warnings = doctorInfo.warnings || [];
+        for (var i = 0; i < errors.length; ++i) items.push({
+            "severity": "error",
+            "plugin": errors[i].plugin || "System",
+            "message": errors[i].message
+        })
+        for (var j = 0; j < warnings.length; ++j) items.push({
+            "severity": "warning",
+            "plugin": warnings[j].plugin || "System",
+            "message": warnings[j].message
+        })
+        return items;
+    }
+
+    function open(payloadJson) {
+        closingFromHost = false;
+        opened = true;
+        surface.visible = true;
+        refresh.running = true;
+        updateCheck.command = ["thpm", "--json", "update", "status"];
+        updateCheck.running = true;
+        Qt.callLater(function() {
+            search.forceActiveFocus();
+        });
+    }
+
+    function close() {
+        closingFromHost = true;
+        opened = false;
+        surface.visible = false;
+        closingFromHost = false;
+    }
+
+    // Called by `thpm ui open` through the shell IPC bridge. Summon acceptance
+    // precedes asynchronous QML loading, so this is the launcher's readiness
+    // acknowledgement rather than trusting the IPC process exit status alone.
+    function health(payloadJson) {
+        return opened && surface.visible ? "open" : "loaded";
+    }
+
+    function requestClose() {
+        if (shell && typeof shell.hide === "function")
+            shell.hide("io.github.oldjobobo.thpm");
+        else
+            close();
+    }
+
+    function refreshState() {
+        try {
+            var state = JSON.parse(stateOutput.text);
+            plugins = state.plugins || [];
+            counts = state.counts || counts;
+            menuSurface = state.menuSurface || menuSurface;
+            restartPolicy = state.preferences && state.preferences.restartPolicy ? state.preferences.restartPolicy : restartPolicy;
+            if (!state.ok)
+                message = state.summary || "Unable to read THPM state";
+            else if (state.migration && state.migration.pending)
+                message = "Template refresh pending; run thpm reconcile --refresh.";
+            else
+                message = "";
+        } catch (error) {
+            message = "Unable to read THPM state";
+        }
+    }
+
+    function setPlugin(id, enabled) {
+        var plugin = null;
+        for (var i = 0; i < plugins.length; ++i) {
+            if (plugins[i].id === id) {
+                plugin = plugins[i];
+                break;
+            }
+        }
+        if (enabled && plugin && plugin.confirmationRequired) {
+            pendingPluginId = id;
+            pendingPluginLabel = plugin.label;
+            pluginConfirm.opened = true;
+            return;
+        }
+        performPluginMutation(id, enabled, false);
+    }
+
+    function performPluginMutation(id, enabled, confirmed) {
+        mutate.command = ["thpm", "--json", "plugin", enabled ? "enable" : "disable", id];
+        if (confirmed)
+            mutate.command.push("--yes");
+        mutate.running = true;
+    }
+
+    function readMutation() {
+        try {
+            var payload = JSON.parse(mutateOutput.text);
+            actionError = !payload.ok;
+            actionMessage = payload.summary || (payload.ok ? "Integration updated." : "Integration update failed");
+        } catch (error) {
+            actionError = true;
+            actionMessage = "Unable to read THPM mutation response";
+        }
+        refresh.running = true;
+    }
+
+    function runDoctor() {
+        doctorHasRun = true;
+        doctor.running = true;
+    }
+
+    function readDoctor() {
+        try {
+            doctorInfo = JSON.parse(doctorOutput.text);
+        } catch (error) {
+            doctorInfo = ({
+                "ok": false,
+                "summary": "Unable to read Doctor results",
+                "errors": [{
+                    "message": "THPM returned invalid diagnostic data"
+                }],
+                "warnings": [],
+                "capabilities": ({
+                    "routes": [],
+                    "missing": []
+                })
+            });
+        }
+    }
+
+    function readAction(text, successMessage) {
+        try {
+            var payload = JSON.parse(text);
+            actionError = !payload.ok;
+            if (payload.ok) {
+                var restartRequired = payload.restartRequired || [];
+                actionMessage = successMessage + (restartRequired.length ? " Restart needed: " + restartRequired.join(", ") + "." : "");
+            } else {
+                actionMessage = payload.summary || "Action failed";
+            }
+        } catch (error) {
+            actionError = true;
+            actionMessage = "Unable to read THPM response";
+        }
+        refresh.running = true;
+    }
+
+    function chooseMenuSurface(surfaceName) {
+        if (surfaceName === menuSurface || setMenuSurface.running)
+            return;
+
+        menuSurfaceMessage = "Switching Omarchy Menu to the " + surfaceName.toUpperCase() + "…";
+        setMenuSurface.command = ["thpm", "--json", "ui", "surface", surfaceName];
+        setMenuSurface.running = true;
+    }
+
+    function readMenuSurface(text) {
+        try {
+            var payload = JSON.parse(text);
+            if (!payload.ok)
+                throw new Error(payload.summary || "Unable to change menu launcher");
+
+            menuSurface = payload.result.surface;
+            menuSurfaceMessage = "Omarchy Menu now opens the " + menuSurface.toUpperCase() + ".";
+        } catch (error) {
+            menuSurfaceMessage = error.message || "Unable to change menu launcher";
+        }
+        refresh.running = true;
+    }
+
+    function chooseRestartPolicy(policy) {
+        if (policy === restartPolicy || setRestartPolicy.running)
+            return;
+
+        restartPolicyMessage = "Updating application restart policy…";
+        setRestartPolicy.command = ["thpm", "--json", "config", "restart-policy", policy];
+        setRestartPolicy.running = true;
+    }
+
+    function readRestartPolicy(text) {
+        try {
+            var payload = JSON.parse(text);
+            if (!payload.ok)
+                throw new Error(payload.summary || "Unable to change restart policy");
+
+            restartPolicy = payload.preferences.restartPolicy;
+            restartPolicyMessage = restartPolicy === "automatic" ? "Restart-capable running apps restart after theme changes." : "THPM will notify you when apps need restarting.";
+        } catch (error) {
+            restartPolicyMessage = error.message || "Unable to change restart policy";
+        }
+        refresh.running = true;
+    }
+
+    function readUpdateState(text) {
+        var reportErrors = manualUpdateCheck || updateActionActive;
+        try {
+            var payload = JSON.parse(text);
+            updateInfo = payload.result || ({
+                "status": "error"
+            });
+            updateError = payload.ok === false;
+            if (updateInfo.status === "updated" && updateError)
+                updateMessage = payload.summary || "Package updated, but per-user synchronization is incomplete.";
+            else if (updateInfo.status === "updated")
+                updateMessage = "Updated to " + updateInfo.availableVersion + ". Restart the shell to load the new panel." + (updateInfo.refreshRequired ? " Then run thpm reconcile --refresh to regenerate active theme outputs." : "") + (updateInfo.uiRefreshRequired ? " Run thpm ui install to synchronize the control panel." : "");
+            else if (updateInfo.status === "started")
+                updateMessage = "Package update opened in a terminal. It will synchronize integrations and the control panel after a successful upgrade; restart the shell when it finishes.";
+            else if (updateError && reportErrors)
+                updateMessage = payload.errors && payload.errors.length ? payload.errors[0].message : (payload.summary || "Update failed");
+            else
+                updateMessage = "";
+        } catch (error) {
+            updateInfo = ({
+                "status": "error"
+            });
+            updateError = true;
+            updateMessage = "Unable to read update status";
+        }
+        manualUpdateCheck = false;
+        updateActionActive = false;
+    }
+
+    Process {
+        id: refresh
+
+        command: ["thpm", "--json", "ui", "state"]
+
+        stdout: StdioCollector {
+            id: stateOutput
+
+            onStreamFinished: root.refreshState()
+        }
+
+    }
+
+    Process {
+        id: mutate
+
+        stdout: StdioCollector {
+            id: mutateOutput
+            onStreamFinished: root.readMutation()
+        }
+
+    }
+
+    Process {
+        id: doctor
+
+        command: ["thpm", "--json", "doctor"]
+
+        stdout: StdioCollector {
+            id: doctorOutput
+
+            onStreamFinished: root.readDoctor()
+        }
+
+    }
+
+    Process {
+        id: runTheme
+
+        command: ["thpm", "--json", "run"]
+
+        stdout: StdioCollector {
+            onStreamFinished: root.readAction(text, "Active theme reapplied.")
+        }
+
+    }
+
+    Process {
+        id: reconcile
+
+        command: ["thpm", "--json", "reconcile", "--refresh"]
+
+        stdout: StdioCollector {
+            onStreamFinished: root.readAction(text, "Templates reconciled and theme refreshed.")
+        }
+
+    }
+
+    Process {
+        id: setMenuSurface
+
+        stdout: StdioCollector {
+            onStreamFinished: root.readMenuSurface(text)
+        }
+
+    }
+
+    Process {
+        id: setRestartPolicy
+
+        stdout: StdioCollector {
+            onStreamFinished: root.readRestartPolicy(text)
+        }
+
+    }
+
+    Process {
+        id: updateCheck
+
+        stdout: StdioCollector {
+            id: updateCheckOutput
+
+            onStreamFinished: root.readUpdateState(text)
+        }
+
+    }
+
+    Process {
+        id: updateApply
+
+        command: ["thpm", "--json", "update", "apply", "--terminal"]
+
+        stdout: StdioCollector {
+            id: updateApplyOutput
+
+            onStreamFinished: root.readUpdateState(text)
+        }
+
+    }
+
+    Process {
+        id: restartShell
+
+        command: ["omarchy", "restart", "shell"]
+    }
+
+    Process {
+        id: openDonate
+
+        command: ["xdg-open", "https://ko-fi.com/oldjobobo"]
+    }
+
+    FloatingWindow {
+        id: surface
+
+        title: "THPM Theme Hook Plugins"
+        visible: false
+        color: Color.popups.background
+        implicitWidth: 940
+        implicitHeight: 760
+        minimumSize: Qt.size(760, 560)
+
+        onVisibleChanged: {
+            root.opened = visible;
+            if (!visible && !root.closingFromHost && root.shell && typeof root.shell.hide === "function")
+                root.shell.hide("io.github.oldjobobo.thpm");
+        }
+
+        RowLayout {
+                anchors.fill: parent
+                anchors.margins: Style.space(20)
+                spacing: Style.space(18)
+
+                BorderSurface {
+                    Layout.preferredWidth: Style.space(190)
+                    Layout.fillHeight: true
+                    radius: Style.cornerRadius
+                    color: Qt.rgba(0, 0, 0, 0.12)
+                    borderSpec: Border.surfaceSpec("popups", "border", Color.popups.border, Math.max(1, Style.normalBorderWidth))
+
+                    ColumnLayout {
+                        anchors.fill: parent
+                        anchors.margins: Style.space(12)
+                        spacing: Style.space(8)
+
+                        RowLayout {
+                            Layout.fillWidth: true
+                            Layout.bottomMargin: Style.space(10)
+
+                            Rectangle {
+                                width: Style.space(38)
+                                height: width
+                                radius: Style.cornerRadius
+                                color: Color.accent
+
+                                Text {
+                                    anchors.centerIn: parent
+                                    text: "󰏘"
+                                    color: Color.background
+                                    font.family: Style.font.family
+                                    font.pixelSize: Style.font.title
+                                }
+
+                            }
+
+                            ColumnLayout {
+                                Layout.fillWidth: true
+                                spacing: 0
+
+                                Text {
+                                    text: "THPM"
+                                    color: Color.foreground
+                                    font.family: Style.font.family
+                                    font.pixelSize: Style.font.body
+                                    font.bold: true
+                                }
+
+                                Text {
+                                    text: "Theme control"
+                                    color: Qt.darker(Color.foreground, 1.45)
+                                    font.family: Style.font.family
+                                    font.pixelSize: Style.font.caption
+                                }
+
+                            }
+
+                        }
+
+                        Button {
+                            Layout.fillWidth: true
+                            text: "Overview"
+                            iconText: "󰕮"
+                            bordered: true
+                            selected: root.section === 0
+                            focusable: true
+                            onClicked: root.section = 0
+                        }
+
+                        Button {
+                            Layout.fillWidth: true
+                            text: "Integrations"
+                            iconText: "󰏘"
+                            bordered: true
+                            selected: root.section === 1
+                            focusable: true
+                            onClicked: root.section = 1
+                        }
+
+                        Button {
+                            Layout.fillWidth: true
+                            text: "Doctor"
+                            iconText: "󰓙"
+                            bordered: true
+                            selected: root.section === 2
+                            focusable: true
+                            onClicked: {
+                                root.section = 2;
+                                if (!root.doctorHasRun)
+                                    root.runDoctor();
+
+                            }
+                        }
+
+                        Button {
+                            Layout.fillWidth: true
+                            text: "System"
+                            iconText: "󰒓"
+                            bordered: true
+                            selected: root.section === 3
+                            focusable: true
+                            onClicked: root.section = 3
+                        }
+
+                        Item {
+                            Layout.fillHeight: true
+                        }
+
+                        Rectangle {
+                            Layout.fillWidth: true
+                            height: Math.max(1, Style.normalBorderWidth)
+                            color: Color.popups.border
+                        }
+
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            Rectangle {
+                                width: Style.space(8)
+                                height: width
+                                radius: width / 2
+                                color: root.counts.attention > 0 ? Color.urgent : Color.accent
+                            }
+
+                            Text {
+                                Layout.fillWidth: true
+                                text: root.counts.attention > 0 ? root.counts.attention + " need attention" : "All systems ready"
+                                color: Qt.darker(Color.foreground, 1.3)
+                                wrapMode: Text.WordWrap
+                                font.family: Style.font.family
+                                font.pixelSize: Style.font.caption
+                            }
+
+                        }
+
+                        Text {
+                            text: "Version " + (root.updateInfo.currentVersion || "1.0.0rc24")
+                            color: Qt.darker(Color.foreground, 1.55)
+                            font.family: Style.font.family
+                            font.pixelSize: Style.font.caption
+                        }
+
+                    }
+
+                }
+
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    spacing: Style.space(14)
+
+                    RowLayout {
+                        Layout.fillWidth: true
+
+                        ColumnLayout {
+                            spacing: Style.space(2)
+
+                            Text {
+                                text: ["Overview", "Integrations", "Doctor", "System"][root.section]
+                                color: Color.foreground
+                                font.family: Style.font.family
+                                font.pixelSize: Style.font.title
+                                font.bold: true
+                            }
+
+                            Text {
+                                text: root.section === 0 ? "Your theme integration control center" : (root.section === 1 ? root.counts.enabled + " enabled  ·  " + root.counts.native + " handled by Omarchy" : (root.section === 2 ? "Configuration health and integration diagnostics" : "Theme lifecycle, updates, and maintenance"))
+                                color: Qt.darker(Color.foreground, 1.45)
+                                font.family: Style.font.family
+                                font.pixelSize: Style.font.caption
+                            }
+
+                        }
+
+                        Item {
+                            Layout.fillWidth: true
+                        }
+
+                        Button {
+                            iconText: "󰑐"
+                            tooltipText: "Refresh"
+                            focusable: true
+                            onClicked: refresh.running = true
+                        }
+
+                        Button {
+                            iconText: updateCheck.running || updateApply.running ? "󰑐" : (root.updateInfo.status === "available" ? "󰁪" : (root.updateInfo.status === "error" ? "󰅚" : "󰏖"))
+                            tooltipText: root.updateInfo.status === "available" ? "Update to " + root.updateInfo.availableVersion : (root.updateInfo.status === "error" ? "Update check failed · Retry" : "Check for updates")
+                            selected: root.updateInfo.status === "available"
+                            focusable: true
+                            enabled: !updateCheck.running && !updateApply.running
+                            onClicked: {
+                                if (root.updateInfo.status === "available") {
+                                    updateConfirm.opened = true;
+                                } else {
+                                    root.manualUpdateCheck = true;
+                                    updateCheck.command = ["thpm", "--json", "update", "check", "--force"];
+                                    updateCheck.running = true;
+                                }
+                            }
+                        }
+
+                        Button {
+                            iconText: "󰅖"
+                            tooltipText: "Close"
+                            focusable: true
+                            onClicked: root.requestClose()
+                        }
+
+                    }
+
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        visible: root.section === 0
+                        spacing: Style.space(14)
+
+                        GridLayout {
+                            Layout.fillWidth: true
+                            columns: 2
+                            columnSpacing: Style.space(10)
+                            rowSpacing: Style.space(10)
+
+                            BorderSurface {
+                                Layout.fillWidth: true
+                                Layout.preferredHeight: Style.space(112)
+                                radius: Style.cornerRadius
+                                color: Qt.rgba(0, 0, 0, 0.1)
+                                borderSpec: Border.surfaceSpec("popups", "border", Color.popups.border, Math.max(1, Style.normalBorderWidth))
+
+                                ColumnLayout {
+                                    anchors.fill: parent
+                                    anchors.margins: Style.space(14)
+                                    spacing: Style.space(4)
+
+                                    Text {
+                                        text: "󰏘  ACTIVE"
+                                        color: Qt.darker(Color.foreground, 1.35)
+                                        font.family: Style.font.family
+                                        font.pixelSize: Style.font.caption
+                                        font.bold: true
+                                    }
+
+                                    Text {
+                                        text: root.counts.enabled
+                                        color: Color.foreground
+                                        font.family: Style.font.family
+                                        font.pixelSize: Style.font.title
+                                        font.bold: true
+                                    }
+
+                                    Text {
+                                        text: "THPM integrations enabled"
+                                        color: Qt.darker(Color.foreground, 1.45)
+                                        font.family: Style.font.family
+                                        font.pixelSize: Style.font.caption
+                                    }
+
+                                }
+
+                            }
+
+                            BorderSurface {
+                                Layout.fillWidth: true
+                                Layout.preferredHeight: Style.space(112)
+                                radius: Style.cornerRadius
+                                color: Qt.rgba(0, 0, 0, 0.1)
+                                borderSpec: Border.surfaceSpec("popups", "border", Color.popups.border, Math.max(1, Style.normalBorderWidth))
+
+                                ColumnLayout {
+                                    anchors.fill: parent
+                                    anchors.margins: Style.space(14)
+                                    spacing: Style.space(4)
+
+                                    Text {
+                                        text: "󰓙  HEALTH"
+                                        color: Qt.darker(Color.foreground, 1.35)
+                                        font.family: Style.font.family
+                                        font.pixelSize: Style.font.caption
+                                        font.bold: true
+                                    }
+
+                                    Text {
+                                        text: root.counts.attention > 0 ? root.counts.attention : "Ready"
+                                        color: root.counts.attention > 0 ? Color.urgent : Color.foreground
+                                        font.family: Style.font.family
+                                        font.pixelSize: Style.font.title
+                                        font.bold: true
+                                    }
+
+                                    Text {
+                                        text: root.counts.attention > 0 ? "integrations need attention" : "no integration warnings"
+                                        color: Qt.darker(Color.foreground, 1.45)
+                                        font.family: Style.font.family
+                                        font.pixelSize: Style.font.caption
+                                    }
+
+                                }
+
+                            }
+
+                            BorderSurface {
+                                Layout.fillWidth: true
+                                Layout.preferredHeight: Style.space(112)
+                                radius: Style.cornerRadius
+                                color: Qt.rgba(0, 0, 0, 0.1)
+                                borderSpec: Border.surfaceSpec("popups", "border", Color.popups.border, Math.max(1, Style.normalBorderWidth))
+
+                                ColumnLayout {
+                                    anchors.fill: parent
+                                    anchors.margins: Style.space(14)
+                                    spacing: Style.space(4)
+
+                                    Text {
+                                        text: "󰍹  OMARCHY"
+                                        color: Qt.darker(Color.foreground, 1.35)
+                                        font.family: Style.font.family
+                                        font.pixelSize: Style.font.caption
+                                        font.bold: true
+                                    }
+
+                                    Text {
+                                        text: root.counts.native
+                                        color: Color.foreground
+                                        font.family: Style.font.family
+                                        font.pixelSize: Style.font.title
+                                        font.bold: true
+                                    }
+
+                                    Text {
+                                        text: "native integrations tracked"
+                                        color: Qt.darker(Color.foreground, 1.45)
+                                        font.family: Style.font.family
+                                        font.pixelSize: Style.font.caption
+                                    }
+
+                                }
+
+                            }
+
+                            BorderSurface {
+                                Layout.fillWidth: true
+                                Layout.preferredHeight: Style.space(112)
+                                radius: Style.cornerRadius
+                                color: Qt.rgba(0, 0, 0, 0.1)
+                                borderSpec: Border.surfaceSpec("popups", "border", Color.popups.border, Math.max(1, Style.normalBorderWidth))
+
+                                ColumnLayout {
+                                    anchors.fill: parent
+                                    anchors.margins: Style.space(14)
+                                    spacing: Style.space(4)
+
+                                    Text {
+                                        text: "󰅖  UNAVAILABLE"
+                                        color: Qt.darker(Color.foreground, 1.35)
+                                        font.family: Style.font.family
+                                        font.pixelSize: Style.font.caption
+                                        font.bold: true
+                                    }
+
+                                    Text {
+                                        text: root.counts.unavailable
+                                        color: Color.foreground
+                                        font.family: Style.font.family
+                                        font.pixelSize: Style.font.title
+                                        font.bold: true
+                                    }
+
+                                    Text {
+                                        text: "optional apps not installed"
+                                        color: Qt.darker(Color.foreground, 1.45)
+                                        font.family: Style.font.family
+                                        font.pixelSize: Style.font.caption
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                        Text {
+                            text: "Quick actions"
+                            color: Color.foreground
+                            font.family: Style.font.family
+                            font.pixelSize: Style.font.body
+                            font.bold: true
+                        }
+
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            Button {
+                                text: "Manage integrations"
+                                iconText: "󰏘"
+                                bordered: true
+                                focusable: true
+                                onClicked: root.section = 1
+                            }
+
+                            Button {
+                                text: "Run Doctor"
+                                iconText: "󰓙"
+                                bordered: true
+                                focusable: true
+                                onClicked: {
+                                    root.section = 2;
+                                    root.runDoctor();
+                                }
+                            }
+
+                            Button {
+                                text: runTheme.running ? "Applying…" : "Apply theme"
+                                iconText: "󰑐"
+                                bordered: true
+                                focusable: true
+                                enabled: !runTheme.running
+                                onClicked: runTheme.running = true
+                            }
+
+                            Item {
+                                Layout.fillWidth: true
+                            }
+
+                        }
+
+                        Text {
+                            Layout.fillWidth: true
+                            visible: root.actionMessage !== ""
+                            text: root.actionMessage
+                            color: root.actionError ? Color.urgent : Color.foreground
+                            wrapMode: Text.WordWrap
+                            font.family: Style.font.family
+                            font.pixelSize: Style.font.caption
+                        }
+
+                        Item {
+                            Layout.fillHeight: true
+                        }
+
+                    }
+
+                    TextField {
+                        id: search
+
+                        Layout.fillWidth: true
+                        placeholderText: "Search integrations"
+                        text: root.query
+                        onTextChanged: root.query = text
+                        visible: root.section === 1
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        visible: root.section === 1 && (root.message !== "" || root.counts.attention > 0)
+                        spacing: Style.space(6)
+
+                        Text {
+                            text: root.message !== "" ? root.message : root.counts.attention + " integrations need attention"
+                            color: root.message !== "" ? Color.urgent : Qt.darker(Color.foreground, 1.35)
+                            font.family: Style.font.family
+                            font.pixelSize: Style.font.caption
+                        }
+
+                        Item {
+                            Layout.fillWidth: true
+                        }
+
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        visible: root.section === 3 && root.updateMessage !== ""
+
+                        Text {
+                            Layout.fillWidth: true
+                            text: root.updateMessage
+                            wrapMode: Text.WordWrap
+                            color: root.updateError ? Color.urgent : Color.foreground
+                            font.family: Style.font.family
+                            font.pixelSize: Style.font.caption
+                        }
+
+                        Button {
+                            visible: root.updateInfo.status === "updated"
+                            text: "Restart shell"
+                            bordered: true
+                            focusable: true
+                            onClicked: restartShell.running = true
+                        }
+
+                    }
+
+                    QQC.ScrollView {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        visible: root.section === 1
+                        clip: true
+                        rightPadding: pluginScrollBar.visible ? pluginScrollBar.width + Style.space(6) : 0
+
+                        ListView {
+                            id: pluginList
+
+                            model: root.visiblePlugins
+                            spacing: Style.space(6)
+                            boundsBehavior: Flickable.StopAtBounds
+
+                            delegate: Toggle {
+                                required property var modelData
+
+                                width: ListView.view.width
+                                label: modelData.label + (modelData.supportStatus === "experimental" ? " · Experimental" : "")
+                                description: modelData.ownership === "native" ? (((modelData.warnings || []).length > 0 ? "Native coverage gap · " : "Managed by Omarchy · ") + modelData.description) : (modelData.applicable === false ? "Not requested by active theme · " : ((modelData.warnings || []).length > 0 ? "Needs attention · " : (!modelData.available ? "Not actionable · " : "")) + modelData.description)
+                                checked: modelData.enabled
+                                enabled: modelData.ownership !== "native" && (modelData.available || modelData.enabled) && !mutate.running
+                                opacity: enabled ? 1 : 0.58
+                                onClicked: {
+                                    if (enabled)
+                                        root.setPlugin(modelData.id, !checked);
+
+                                }
+                            }
+
+                        }
+
+                        QQC.ScrollBar.vertical: QQC.ScrollBar {
+                            id: pluginScrollBar
+
+                            policy: QQC.ScrollBar.AsNeeded
+                        }
+
+                    }
+
+                    Text {
+                        Layout.alignment: Qt.AlignHCenter
+                        visible: root.section === 1 && root.visiblePlugins.length === 0
+                        text: "No matching integrations"
+                        color: Qt.darker(Color.foreground, 1.45)
+                        font.family: Style.font.family
+                        font.pixelSize: Style.font.caption
+                    }
+
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        visible: root.section === 2
+                        spacing: Style.space(12)
+
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            ColumnLayout {
+                                Text {
+                                    text: doctor.running ? "Checking THPM…" : root.doctorInfo.summary
+                                    color: !root.doctorHasRun || root.doctorInfo.ok ? Color.foreground : Color.urgent
+                                    font.family: Style.font.family
+                                    font.pixelSize: Style.font.body
+                                    font.bold: true
+                                }
+
+                                Text {
+                                    text: root.doctorHasRun ? ((root.doctorInfo.capabilities.routes || []).length + " Omarchy routes available") : "Checks Omarchy, palette, commands, assets, and plugin warnings"
+                                    color: Qt.darker(Color.foreground, 1.45)
+                                    font.family: Style.font.family
+                                    font.pixelSize: Style.font.caption
+                                }
+
+                            }
+
+                            Item {
+                                Layout.fillWidth: true
+                            }
+
+                            Button {
+                                text: doctor.running ? "Checking…" : "Run Doctor"
+                                iconText: "󰓙"
+                                bordered: true
+                                focusable: true
+                                enabled: !doctor.running
+                                onClicked: root.runDoctor()
+                            }
+
+                        }
+
+                        BorderSurface {
+                            Layout.fillWidth: true
+                            visible: root.doctorHasRun && !doctor.running && root.doctorItems.length === 0
+                            implicitHeight: healthyText.implicitHeight + Style.space(24)
+                            radius: Style.cornerRadius
+                            color: Qt.rgba(0, 0, 0, 0.1)
+                            borderSpec: Border.surfaceSpec("popups", "border", Color.popups.border, Math.max(1, Style.normalBorderWidth))
+
+                            Text {
+                                id: healthyText
+
+                                anchors.centerIn: parent
+                                text: "󰄬  No issues found"
+                                color: Color.foreground
+                                font.family: Style.font.family
+                                font.pixelSize: Style.font.body
+                            }
+
+                        }
+
+                        QQC.ScrollView {
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            clip: true
+                            visible: root.doctorItems.length > 0
+
+                            ListView {
+                                model: root.doctorItems
+                                spacing: Style.space(8)
+                                boundsBehavior: Flickable.StopAtBounds
+
+                                delegate: BorderSurface {
+                                    required property var modelData
+
+                                    width: ListView.view.width
+                                    implicitHeight: issueText.implicitHeight + Style.space(28)
+                                    radius: Style.cornerRadius
+                                    color: Qt.rgba(0, 0, 0, 0.1)
+                                    borderSpec: Border.surfaceSpec("popups", "border", Color.popups.border, Math.max(1, Style.normalBorderWidth))
+
+                                    Text {
+                                        id: issueText
+
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        anchors.leftMargin: Style.space(14)
+                                        anchors.rightMargin: Style.space(14)
+                                        text: (modelData.severity === "error" ? "󰅚  " : "󰀪  ") + modelData.plugin + " · " + modelData.message
+                                        color: modelData.severity === "error" ? Color.urgent : Color.foreground
+                                        wrapMode: Text.WordWrap
+                                        font.family: Style.font.family
+                                        font.pixelSize: Style.font.caption
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                        Item {
+                            Layout.fillHeight: !root.doctorHasRun
+                        }
+
+                    }
+
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        visible: root.section === 3
+                        spacing: Style.space(14)
+
+                        Text {
+                            text: "Theme actions"
+                            color: Color.foreground
+                            font.family: Style.font.family
+                            font.pixelSize: Style.font.body
+                            font.bold: true
+                        }
+
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            Button {
+                                text: runTheme.running ? "Applying…" : "Apply active theme"
+                                iconText: "󰑐"
+                                bordered: true
+                                focusable: true
+                                enabled: !runTheme.running && !reconcile.running
+                                onClicked: {
+                                    root.actionMessage = "";
+                                    runTheme.running = true;
+                                }
+                            }
+
+                            Button {
+                                text: reconcile.running ? "Reconciling…" : "Reconcile integrations"
+                                iconText: "󰘢"
+                                bordered: true
+                                focusable: true
+                                enabled: !runTheme.running && !reconcile.running
+                                onClicked: {
+                                    root.actionMessage = "";
+                                    reconcile.running = true;
+                                }
+                            }
+
+                            Item {
+                                Layout.fillWidth: true
+                            }
+
+                        }
+
+                        Text {
+                            Layout.fillWidth: true
+                            visible: root.actionMessage !== ""
+                            text: root.actionMessage
+                            color: root.actionError ? Color.urgent : Color.foreground
+                            wrapMode: Text.WordWrap
+                            font.family: Style.font.family
+                            font.pixelSize: Style.font.caption
+                        }
+
+                        Rectangle {
+                            Layout.fillWidth: true
+                            height: Math.max(1, Style.normalBorderWidth)
+                            color: Color.popups.border
+                        }
+
+                        Toggle {
+                            Layout.fillWidth: true
+                            label: "Restart apps automatically"
+                            description: "Automatically restart capable running apps after theme changes; when off, notify instead"
+                            checked: root.restartPolicy === "automatic"
+                            enabled: !setRestartPolicy.running
+                            onClicked: root.chooseRestartPolicy(checked ? "notify" : "automatic")
+                        }
+
+                        Text {
+                            Layout.fillWidth: true
+                            visible: root.restartPolicyMessage !== ""
+                            text: root.restartPolicyMessage
+                            color: Color.foreground
+                            wrapMode: Text.WordWrap
+                            font.family: Style.font.family
+                            font.pixelSize: Style.font.caption
+                        }
+
+                        Rectangle {
+                            Layout.fillWidth: true
+                            height: Math.max(1, Style.normalBorderWidth)
+                            color: Color.popups.border
+                        }
+
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            ColumnLayout {
+                                Text {
+                                    text: "Menu launcher"
+                                    color: Color.foreground
+                                    font.family: Style.font.family
+                                    font.pixelSize: Style.font.body
+                                    font.bold: true
+                                }
+
+                                Text {
+                                    text: root.menuSurface === "gui" ? "Omarchy Menu opens the graphical window" : "Omarchy Menu opens the terminal interface"
+                                    color: Qt.darker(Color.foreground, 1.35)
+                                    font.family: Style.font.family
+                                    font.pixelSize: Style.font.caption
+                                }
+
+                            }
+
+                            Item {
+                                Layout.fillWidth: true
+                            }
+
+                            Button {
+                                text: "GUI"
+                                bordered: true
+                                selected: root.menuSurface === "gui"
+                                focusable: true
+                                enabled: !setMenuSurface.running
+                                onClicked: root.chooseMenuSurface("gui")
+                            }
+
+                            Button {
+                                text: "TUI"
+                                bordered: true
+                                selected: root.menuSurface === "tui"
+                                focusable: true
+                                enabled: !setMenuSurface.running
+                                onClicked: root.chooseMenuSurface("tui")
+                            }
+
+                        }
+
+                        Text {
+                            Layout.fillWidth: true
+                            visible: root.menuSurfaceMessage !== ""
+                            text: root.menuSurfaceMessage
+                            color: Color.foreground
+                            wrapMode: Text.WordWrap
+                            font.family: Style.font.family
+                            font.pixelSize: Style.font.caption
+                        }
+
+                        Rectangle {
+                            Layout.fillWidth: true
+                            height: Math.max(1, Style.normalBorderWidth)
+                            color: Color.popups.border
+                        }
+
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            ColumnLayout {
+                                Text {
+                                    text: "Updates"
+                                    color: Color.foreground
+                                    font.family: Style.font.family
+                                    font.pixelSize: Style.font.body
+                                    font.bold: true
+                                }
+
+                                Text {
+                                    text: root.updateInfo.status === "available" ? "Version " + root.updateInfo.availableVersion + " is available" : "Installed version " + (root.updateInfo.currentVersion || "1.0.0rc24")
+                                    color: Qt.darker(Color.foreground, 1.35)
+                                    font.family: Style.font.family
+                                    font.pixelSize: Style.font.caption
+                                }
+
+                            }
+
+                            Item {
+                                Layout.fillWidth: true
+                            }
+
+                            Button {
+                                text: updateCheck.running ? "Checking…" : (root.updateInfo.status === "available" ? "Update" : "Check now")
+                                iconText: root.updateInfo.status === "available" ? "󰁪" : "󰏖"
+                                bordered: true
+                                selected: root.updateInfo.status === "available"
+                                focusable: true
+                                enabled: !updateCheck.running && !updateApply.running
+                                onClicked: {
+                                    if (root.updateInfo.status === "available") {
+                                        updateConfirm.opened = true;
+                                    } else {
+                                        root.manualUpdateCheck = true;
+                                        updateCheck.command = ["thpm", "--json", "update", "check", "--force"];
+                                        updateCheck.running = true;
+                                    }
+                                }
+                            }
+
+                        }
+
+                        Rectangle {
+                            Layout.fillWidth: true
+                            height: Math.max(1, Style.normalBorderWidth)
+                            color: Color.popups.border
+                        }
+
+                        Text {
+                            text: "About"
+                            color: Color.foreground
+                            font.family: Style.font.family
+                            font.pixelSize: Style.font.body
+                            font.bold: true
+                        }
+
+                        Text {
+                            Layout.fillWidth: true
+                            text: "THPM manages optional Omarchy theme integrations. Native integrations remain read-only, and every state change goes through the thpm CLI."
+                            color: Qt.darker(Color.foreground, 1.3)
+                            wrapMode: Text.WordWrap
+                            font.family: Style.font.family
+                            font.pixelSize: Style.font.caption
+                        }
+
+                        Item {
+                            Layout.fillHeight: true
+                        }
+
+                    }
+
+                    Item {
+                        id: persistentFooter
+
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: Math.max(footerHint.implicitHeight, footerDonate.implicitHeight)
+
+                        Text {
+                            id: footerHint
+
+                            anchors.centerIn: parent
+                            text: "Esc to close"
+                            color: Qt.darker(Color.foreground, 1.6)
+                            font.family: Style.font.family
+                            font.pixelSize: Style.font.caption
+                        }
+
+                        Button {
+                            id: footerDonate
+
+                            anchors.right: parent.right
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: "Donate on Ko-fi"
+                            iconText: "󰋑"
+                            bordered: false
+                            focusable: true
+                            onClicked: openDonate.running = true
+                        }
+
+                    }
+
+                }
+
+            }
+
+            ConfirmDialog {
+                id: pluginConfirm
+
+                anchors.fill: parent
+                message: "Enable " + root.pendingPluginLabel + "? This integration changes sensitive application configuration."
+                confirmText: "Enable"
+                onCanceled: {
+                    opened = false;
+                    root.pendingPluginId = "";
+                    root.pendingPluginLabel = "";
+                    refresh.running = true;
+                }
+                onConfirmed: {
+                    opened = false;
+                    root.performPluginMutation(root.pendingPluginId, true, true);
+                    root.pendingPluginId = "";
+                    root.pendingPluginLabel = "";
+                }
+            }
+
+            ConfirmDialog {
+                id: updateConfirm
+
+                anchors.fill: parent
+                message: "Update THPM from " + root.updateInfo.currentVersion + " to " + root.updateInfo.availableVersion + "?"
+                confirmText: "Update"
+                onCanceled: opened = false
+                onConfirmed: {
+                    opened = false;
+                    root.updateMessage = "Downloading and verifying update…";
+                    root.updateActionActive = true;
+                    updateApply.running = true;
+                }
+            }
+
+        Shortcut {
+            sequence: "Escape"
+            onActivated: {
+                if (pluginConfirm.opened) {
+                    pluginConfirm.opened = false;
+                    root.pendingPluginId = "";
+                    root.pendingPluginLabel = "";
+                    refresh.running = true;
+                } else if (updateConfirm.opened)
+                    updateConfirm.opened = false;
+                else
+                    root.requestClose();
+            }
+        }
+
+    }
+
+}

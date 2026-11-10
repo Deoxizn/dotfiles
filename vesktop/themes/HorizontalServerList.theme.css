@@ -5,16 +5,100 @@
  * @description Moves the server list from the left to the top of Discord.
  * @source https://github.com/DiscordStyles/HorizontalServerList
  * @invite ZHthyCw
-*/
+ */
 
 @import url('https://discordstyles.github.io/HorizontalServerList/HorizontalServerList.css');
 
-
-
 /* Bottom HorizontalServerList. Simply remove the comments surrounding the @import to enable it. */
 /* @import url("https://discordstyles.github.io/HorizontalServerList/bottomhsl.css"); */
+
 :root {
-  --HSL-server-direction: column; /* Direction of the server list. | OPTIONS: column, column-reverse | DEFAULT: column */
-  --HSL-server-alignment: flex-start; /* Alignment of the server list. | OPTIONS: flex-start, center, flex-end | DEFAULT: flex-start */
+	--HSL-server-direction: column; /* Direction of the server list. | OPTIONS: column, column-reverse | DEFAULT: column */
+	--HSL-server-alignment: flex-start; /* Alignment of the server list. | OPTIONS: flex-start, center, flex-end | DEFAULT: flex-start */
 }
 
+/* ---------------------------------------------------------------------------
+ * Nov 2026 compatibility fix for Discord's new CSS module hashes.
+ * Based on upstream PR DiscordStyles/HorizontalServerList#107.
+ * The @import above still points at the old (pre-Nov-2026) build, so these
+ * rules use the current class names. Remove this block once the deployed
+ * HorizontalServerList.css has been rebuilt with the new hashes.
+ * ------------------------------------------------------------------------- */
+
+:root {
+	--notices-height: 36px;
+	--serverlist-offset: var(--custom-guild-list-width);
+}
+
+.base_pog62O[data-fullscreen='false'] .content_pog62O {
+	margin-top: var(--serverlist-offset);
+	overflow: visible !important;
+}
+
+:fullscreen .content_pog62O {
+	margin: 0 !important;
+}
+
+.sidebar_pog62O {
+	border-radius: 0;
+	overflow: visible !important;
+}
+
+.guilds_pog62O {
+	transform-origin: top left;
+	rotate: -90deg;
+	height: 100vw !important;
+	bottom: unset;
+	position: absolute !important;
+	left: 0;
+
+	.stack_TWWX0S {
+		flex-direction: var(--HSL-server-direction);
+		justify-content: var(--HSL-server-alignment);
+	}
+}
+
+.tree_5dqHTG {
+	padding-top: var(--HSL-top-padding, var(--size-sm));
+	justify-content: var(--HSL-server-alignment);
+}
+
+/* Rotate the icons back */
+.wrapper_JJ-hgR,
+.folderPreview_RTMSuZ,
+.folderIconWrapper_RTMSuZ,
+.lowerBadge_hqZPsU,
+.upperBadge_hqZPsU {
+	rotate: 90deg;
+}
+
+.childWrapper_JJ-hgR {
+	rotate: 0deg;
+}
+
+/* Notices */
+[class^='notice_'] {
+	height: var(--notices-height);
+
+	& + .content_pog62O {
+		--serverlist-offset: calc(var(--notices-height) + var(--custom-guild-list-width));
+	}
+}
+
+/* BetterFolders - Vencord */
+.container_pog62O > div[style]:not(.base_pog62O) {
+	width: 100vw !important;
+	height: var(--serverlist-offset) !important;
+	position: absolute;
+	top: calc(var(--serverlist-offset) + var(--custom-app-top-bar-height));
+	pointer-events: none;
+	z-index: 1;
+
+	.guilds_pog62O {
+		pointer-events: all;
+	}
+
+	& + .base_pog62O .content_pog62O {
+		margin-top: calc(var(--serverlist-offset) * 2);
+	}
+}
