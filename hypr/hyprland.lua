@@ -10,6 +10,24 @@ dofile((os.getenv("OMARCHY_PATH") or "/usr/share/omarchy") .. "/default/hypr/boo
 -- keeping core window-manager bindings:
 -- omarchy_preinstalled_bindings = false
 
+-- Omarchy tags mpv as a generic floating window, and the tag carries a fixed
+-- 875x600 size that overrides mpv's autofit-larger (the window stops following
+-- the video's resolution). Drop mpv from the default "+floating-window" tag
+-- list before Omarchy loads; hypr/windowrules.lua floats and centers it instead.
+-- Written as a wrapper so it survives Omarchy updates (and fails safe: worst
+-- case mpv just goes back to the 875x600 default float).
+require("default.hypr.helpers")
+local omarchy_window = o.window
+o.window = function(match, rules)
+  if type(match) == "string" and rules and rules.tag == "+floating-window" then
+    local stripped = match:gsub("|mpv", "")
+    if stripped ~= match then
+      return omarchy_window(stripped, rules)
+    end
+  end
+  return omarchy_window(match, rules)
+end
+
 -- Load Omarchy defaults.
 require("default.hypr.omarchy")
 

@@ -40,6 +40,8 @@ hl.window_rule({ match = { class = "^(app\\.fastfetch)$" }, float = true, size =
 hl.window_rule({ match = { class = "^(firefox|zen|brave-origin|brave-.+)$" }, opacity = "1.0 override" })
 hl.window_rule({ match = { class = "^(steam_app.*|gamescope|wine.*|.*\\.exe)$" }, opacity = "1.0 override" })
 hl.window_rule({ match = { content = "game" }, opacity = "1.0 override" })
+hl.window_rule({ match = { class = "^(mpv|imv)$" }, opacity = "1.0 override" })
+
 
 -- Gaming, ported from CachyOS dotfiles (hypr/config/windowrules.lua).
 -- Remapped to workspace 14 (Omarchy DP-1 block). Fullscreen treatment omitted

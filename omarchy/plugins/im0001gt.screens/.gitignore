@@ -1,5 +1,0 @@
-*.tmp
-.DS_Store
-__pycache__/
-*.pyc
-docs/marketplace-submission.md
