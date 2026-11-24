@@ -530,7 +530,8 @@
             "overrideCommonKeybinds": true
         },
         "WebScreenShareFixes": {
-            "enabled": true
+            "enabled": true,
+            "betterCodecs": false
         },
         "WhoReacted": {
             "enabled": false
@@ -543,7 +544,8 @@
         },
         "NoTrack": {
             "enabled": true,
-            "disableAnalytics": true
+            "disableAnalytics": true,
+            "allowBadgeTracking": true
         },
         "Settings": {
             "enabled": true,
@@ -615,6 +617,9 @@
         },
         "NoticesAPI": {
             "enabled": true
+        },
+        "BetterSearch": {
+            "enabled": false
         }
     },
     "uiElements": {
@@ -631,7 +636,7 @@
         "authenticated": true,
         "url": "https://api.vencord.dev/",
         "settingsSync": true,
-        "settingsSyncVersion": 1794062299688
+        "settingsSyncVersion": 1795021084887
     },
     "windowsMaterial": "none",
     "nativeTitleBar": false

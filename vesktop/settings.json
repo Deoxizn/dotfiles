@@ -22,8 +22,8 @@
     "webRTCIPHandlingPolicy": "default",
     "appBadge": true,
     "transparencyOption": "none",
-    "splashColor": "rgb(245, 233, 218)",
-    "splashBackground": "rgb(11, 14, 28)",
+    "splashColor": "rgb(203, 194, 190)",
+    "splashBackground": "rgb(16, 19, 21)",
     "spellCheckLanguages": [
         "en-US",
         "en"

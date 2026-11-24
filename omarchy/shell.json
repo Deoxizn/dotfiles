@@ -1,22 +1,29 @@
 {
   "bar": {
     "background": "glassy",
-    "id": "bit-dev.bar",
+    "id": "pizza.dirty.nyxiri",
     "layout": {
       "center": [
         {
           "id": "omarchy.active-window"
         },
         {
-          "format": "dddd h:mm AP",
-          "id": "omarchy.clock"
+          "birthYear": 1985,
+          "format": "ddd d MMM h:mm AP",
+          "id": "pizza.dirty.clock",
+          "lifeExpectancy": 90
         },
         {
-          "id": "devi.weather",
+          "id": "pizza.dirty.weather",
+          "secondaryLocation": "Tucson",
           "unit": "imperial"
         },
         {
-          "id": "devi.arch-updates"
+          "id": "pizza.dirty.bongocat"
+        },
+        {
+          "id": "pizza.dirty.arch-updates",
+          "alwaysShow": false
         }
       ],
       "centerBegin": [
@@ -31,24 +38,33 @@
       ],
       "left": [
         {
-          "id": "im0001gt.screens.workspaces"
+          "customGlyph": "",
+          "glyph": "omarchy",
+          "hoverOpen": true,
+          "iconMode": "wordmark",
+          "iconSource": "",
+          "id": "pizza.dirty.nyxiri-menu",
+          "wordmark": "󰣇 Nyxiri"
+        },
+        {
+          "id": "pizza.dirty.nyxiri-workspaces",
+          "cycleLayoutOnClick": false,
+          "hideEmpty": true,
+          "iconSize": 19,
+          "mode": "5",
+          "ranges": "DP-1:1-5,HDMI-A-1:6-0",
+          "showApps": "true",
+          "style": "apps"
         },
         {
           "id": "foliboni.media",
           "maxLabelWidth": 500,
-          "showAlbumArt": true
+          "showAlbumArt": true,
+          "showIcon": false
         }
       ],
       "right": [
         {
-          "id": "io.github.diegopluna.argus",
-          "show": [
-            "cputemp",
-            "gputemp",
-            "ram",
-            "net",
-            "io"
-          ],
           "homeTiles": [
             "cpu"
           ],
@@ -62,13 +78,18 @@
             "vram",
             "disk"
           ],
+          "id": "io.github.diegopluna.argus",
+          "show": [
+            "cputemp",
+            "gputemp",
+            "ram",
+            "net",
+            "io"
+          ],
           "tempUnit": "C"
         },
         {
           "id": "dizziee.opencode-model-usage"
-        },
-        {
-          "id": "omarchy.keyboard-layout"
         },
         {
           "displayConfig": {
@@ -94,9 +115,12 @@
               "scaling": "zoom"
             }
           },
-          "id": "matjam.omawall",
+          "id": "pizza.dirty.wallcraft",
           "perDisplayConfig": true,
-          "primaryDisplay": "HDMI-A-1"
+          "primaryDisplay": "DP-1"
+        },
+        {
+          "id": "omarchy.keyboard-layout"
         },
         {
           "id": "omarchy.bluetooth"
@@ -105,10 +129,10 @@
           "id": "omarchy.network"
         },
         {
-          "id": "im0001gt.screens"
+          "id": "omarchy.power"
         },
         {
-          "id": "omarchy.power"
+          "id": "im0001gt.screens"
         },
         {
           "id": "omarchy.tray"
@@ -116,9 +140,54 @@
       ],
       "tray": []
     },
-    "position": "top",
-    "transparent": true
+    "nyxiri": {
+      "version": 1,
+      "batScope": "DP-1",
+      "sections": {
+        "left": "mini",
+        "center": "mini",
+        "right": "island"
+      },
+      "pill": {
+        "color": "accent",
+        "customColor": "",
+        "fillOpacity": 0.2962962962962963,
+        "borderOpacity": 0,
+        "borderWidth": 0,
+        "radius": 999,
+        "padding": 0,
+        "inset": 2,
+        "miniGap": 2,
+        "surface": "theme",
+        "surfaceOpacity": 0.09338624338624339
+      },
+      "monitors": {
+        "HDMI-A-1": {
+          "enabled": true,
+          "widgets": {
+            "mode": "only",
+            "list": [
+              "im0001gt.screens.workspaces",
+              "omarchy.workspaces",
+              "pizza.dirty.nyxiri-workspaces"
+            ]
+          }
+        }
+      }
+    },
+    "position": "top"
   },
+  "cloneSourceRestores": [
+    "devi.nyxiri-menu",
+    "devi.wallcraft",
+    "pizza.dirty.wallcraft"
+  ],
+  "disabledPlugins": [
+    "omarchy.menu",
+    "omarchy.battery",
+    "omarchy.clipboard",
+    "omarchy.background"
+  ],
   "idle": {
     "lock": 300,
     "screensaver": 150
@@ -128,11 +197,5 @@
       "id": "io.github.oldjobobo.thpm"
     }
   ],
-  "version": 1,
-  "disabledPlugins": [
-    "omarchy.background"
-  ],
-  "cloneSourceRestores": [
-    "matjam.omawall"
-  ]
+  "version": 1
 }

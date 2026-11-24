@@ -30,7 +30,7 @@ alias ....='cd ../../..'
 # System & Tool Aliases
 alias nfs='sudo mount -a'
 alias svr='env TERM=xterm-256color ssh deoxizn@192.168.8.209'
-alias kids='env TERM=xterm-256color ssh clug@192.168.8.231'
+alias kids='env TERM=xterm-256color ssh kids@192.168.8.189'
 alias 2pc='env TERM=xterm-256color ssh jackie@192.168.8.118'
 alias omup='omarchy update'
 alias omupp='omarchy plugin update'
