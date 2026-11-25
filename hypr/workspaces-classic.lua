@@ -7,14 +7,14 @@
 -- in windowrules.lua. No default_name glyphs: the bar's workspace
 -- settings own the labels now.
 
--- Monitor pinning: WS 1-5 on DP-1 (ASUS), WS 6-10 on HDMI-A-1 (Dell
+-- Monitor pinning: WS 1-5 on DP-4 (ASUS), WS 6-10 on HDMI-A-2 (Dell
 -- portrait). default + persistent so the workspaces always exist on
 -- their monitors.
 for i = 1, 5 do
-    hl.workspace_rule({ workspace = tostring(i), monitor = "DP-1", default = true, persistent = true })
+    hl.workspace_rule({ workspace = tostring(i), monitor = "DP-4", default = true, persistent = true })
 end
 for i = 6, 10 do
-    hl.workspace_rule({ workspace = tostring(i), monitor = "HDMI-A-1", default = true, persistent = true })
+    hl.workspace_rule({ workspace = tostring(i), monitor = "HDMI-A-2", default = true, persistent = true })
 end
 
 -- App pins (classic ids).
@@ -42,7 +42,7 @@ for _, r in ipairs(workspaceWebapps) do
     hl.window_rule({ match = { class = "^(brave-origin)$", title = r.title }, workspace = r.workspace })
 end
 
--- Gaming: everything on workspace 4 (DP-1).
+-- Gaming: everything on workspace 4 (DP-4).
 hl.window_rule({ match = { content = "game" }, workspace = "4" })
 hl.window_rule({ match = { xdg_tag = "^(.*game.*)$" }, workspace = "4" })
 hl.window_rule({ match = { class = "^(steam_app.*|gamescope)$" }, workspace = "4" })

@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Wayland has no primary-monitor concept, so XWayland leaves the randr primary
-# output unset. X11 games then fall back to the first output (HDMI-A-1) instead
-# of DP-1. Mark DP-1 primary at startup and re-assert it whenever monitors
+# output unset. X11 games then fall back to the first output (HDMI-A-2) instead
+# of DP-4. Mark DP-4 primary at startup and re-assert it whenever monitors
 # change, the config is reloaded, or the flag is dropped (e.g. after resume).
 set -euo pipefail
 
-output="DP-1"
+output="DP-4"
 
 is_primary() {
   xrandr --query 2>/dev/null | grep -qE "^${output} connected primary"

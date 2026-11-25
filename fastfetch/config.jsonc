@@ -42,7 +42,7 @@
     },
     {
       "type": "custom",
-      "format": "   \u001b[38;2;153;206;239m\u25ba\u001b[0mWouldst thou like to live deliciously?"
+      "format": "󰣇 𒀂𒀼𒉽𒐏𒐕𒇲𒐕  🜏  Wouldst thou like to live deliciously?"
     },
     {
       "type": "break"
@@ -110,12 +110,6 @@
       "key": "OS",
       "keyWidth": 18,
       "text": "os=$(grep '^PRETTY_NAME=' /etc/os-release | cut -d= -f2 | tr -d '\"'); echo \"$os | Hexciri\""
-    },
-    {
-      "type": "command",
-      "key": "VERSION",
-      "keyWidth": 18,
-      "text": "hexciri-version 2>/dev/null || echo \"?\""
     },
     {
       "type": "command",

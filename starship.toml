@@ -1,32 +1,70 @@
 add_newline = true
 command_timeout = 200
-format = "[$directory$git_branch$git_status]($style)$character"
+format = "$username$hostname$directory$git_branch$git_commit$git_status$git_metrics$cmd_duration$jobs$line_break$character"
+
+[username]
+format = "[$user]($style)@"
+style_user = "bold #f2f2f2"
+style_root = "bold #d98c8c"
+show_always = true
+
+[hostname]
+format = "[$hostname]($style) "
+style = "bold #8a9499"
+ssh_only = false
 
 [character]
-error_symbol = "[✗](bold cyan)"
-success_symbol = "[❯](bold cyan)"
+error_symbol = "[✗](bold #d98c8c)"
+success_symbol = "[❯](bold #f2f2f2)"
 
 [directory]
-truncation_length = 2
+truncation_length = 3
 truncation_symbol = "…/"
-repo_root_style = "bold cyan"
+style = "bold #c8d1d1"
+repo_root_style = "bold #f2f2f2"
 repo_root_format = "[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) "
+read_only_style = "bold #d98c8c"
+read_only = " 🔒"
 
 [git_branch]
 format = "[$branch]($style) "
-style = "italic cyan"
+style = "bold #6e7f8a"
+
+[git_commit]
+format = "[$hash]($style) "
+style = "bold #8a9499"
+commit_hash_length = 7
+only_detached = false
 
 [git_status]
-format     = '[$all_status]($style)'
-style      = "cyan"
-ahead      = "⇡${count} "
-diverged   = "⇕⇡${ahead_count}⇣${behind_count} "
-behind     = "⇣${count} "
+format = '[$all_status]($style)'
+style = "bold #a5aeb4"
+ahead = "⇡${count} "
+diverged = "⇕⇡${ahead_count}⇣${behind_count} "
+behind = "⇣${count} "
 conflicted = " "
-up_to_date = " "
-untracked  = "? "
-modified   = " "
-stashed    = ""
-staged     = ""
-renamed    = ""
-deleted    = ""
+up_to_date = "● "
+untracked = "? "
+modified = "► "
+stashed = ""
+staged = ""
+renamed = ""
+deleted = ""
+
+[git_metrics]
+format = "([+$added]($added_style) )([~$deleted]($deleted_style) )"
+added_style = "bold #c8d1d1"
+deleted_style = "bold #d98c8c"
+disabled = false
+
+[cmd_duration]
+format = "took [$duration]($style) "
+style = "bold #6e7f8a"
+min_time = 2000
+show_notifications = false
+
+[jobs]
+format = "[⬢$number]($style) "
+style = "bold #8a9499"
+number_threshold = 1
+symbol_threshold = 1
