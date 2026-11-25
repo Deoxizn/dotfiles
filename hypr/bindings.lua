@@ -53,6 +53,7 @@ o.bind("XF86Tools", "Fastfetch", "kitty --class app.fastfetch -o 'font_family=Ra
 o.bind("XF86Launch5", "Muse", { webapp = "https://muse.ai", focus = true })
 o.bind("XF86Launch6", "Photopea", { webapp = "https://www.photopea.com" })
 o.bind("SUPER + SHIFT + R", "Restart shell", "hexciri restart shell")
+o.bind("SUPER + ALT + S", "Nyxiri settings", "hexciri-shell pizza.dirty.nyxiri toggleSettings")
 
 -- Apps
 hl.unbind("SUPER + RETURN")
