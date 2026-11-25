@@ -63,3 +63,6 @@ do
   if file then file:close(); dofile(path) end
 end
 -- END pizza.dirty.nyxiri-workspaces
+
+-- Load settings written by the Settings app (hexciri-settings:managed).
+require("hypr.hexciri-settings")
