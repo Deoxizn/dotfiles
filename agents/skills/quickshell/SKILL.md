@@ -228,7 +228,7 @@ IpcHandler    { target: "ctl"; function ping(): void { doThing() } }        // q
 
 - `qs ipc` matches instances by config path AND display; callers without
   WAYLAND_DISPLAY (SSH/TTY/systemd units) must recover it from
-  `$XDG_RUNTIME_DIR/wayland-*` (omarchy-shell does exactly this).
+  `$XDG_RUNTIME_DIR/wayland-*` (hexciri-shell does exactly this).
 - IPC failures may exit 0 — parse the stdout strings, not just exit codes.
 - `pragma ComponentBehavior: Bound` (modern QML) changes ID resolution in
   delegates — caelestia uses it everywhere; expect `required property` patterns.

@@ -349,7 +349,7 @@ Noctalia works with any compositor that implements:
 **Tested with**: Niri, Hyprland, Sway, Scroll, Mango, Labwc, Triad, dwl.
 
 Integration differs per compositor — check the docs for compositor-specific setup:
-- **Hyprland**: `exec-once = noctalia` in autostart, remove omarchy-shell/Caelestia
+- **Hyprland**: `exec-once = noctalia` in autostart, remove hexciri-shell/Caelestia
 - **Niri**: `spawn-at-startup "noctalia"` in config.kdl
 - **Sway**: `exec noctalia` in sway config
 

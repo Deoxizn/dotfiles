@@ -42,17 +42,17 @@
     {
       "key": "│ {#34}\ue900 ver     {#keys}│",
       "type": "command",
-      "text": "rev=$(noctarchy-version 2>/dev/null); ver=$(omarchy-version); kernel=$(uname -r); echo \"Noctarchy${rev:+ $rev} (Omarchy $ver) | $kernel\"",
+      "text": "rev=$(noctarchy-version 2>/dev/null); ver=$(hexciri-version); kernel=$(uname -r); echo \"Noctarchy${rev:+ $rev} (Hexciri $ver) | $kernel\"",
     },
     {
       "key": "│ {#35}󰇄 desktop {#keys}│",
       "type": "command",
-      "text": "niri_ver=$(niri --version 2>/dev/null | grep -oE '[0-9]+\\.[0-9]+' | head -1); noctalia_ver=$(pacman -Q noctalia 2>/dev/null | awk '{print $2}' | sed 's/-[0-9]*$//'); if pgrep -x noctalia >/dev/null 2>&1; then s=\"Noctalia ${noctalia_ver:-?}\"; elif pgrep -f '/usr/share/omarchy/shell' >/dev/null 2>&1; then s=\"Omarchy $(omarchy-version 2>/dev/null)\"; else s='no shell running'; fi; echo \"Niri ${niri_ver:-?} | $s\"",
+      "text": "niri_ver=$(niri --version 2>/dev/null | grep -oE '[0-9]+\\.[0-9]+' | head -1); noctalia_ver=$(pacman -Q noctalia 2>/dev/null | awk '{print $2}' | sed 's/-[0-9]*$//'); if pgrep -x noctalia >/dev/null 2>&1; then s=\"Noctalia ${noctalia_ver:-?}\"; elif pgrep -f '/usr/share/hexciri/shell' >/dev/null 2>&1; then s=\"Hexciri $(hexciri-version 2>/dev/null)\"; else s='no shell running'; fi; echo \"Niri ${niri_ver:-?} | $s\"",
     },
     {
       "key": "│ {#36}󰸌 theme   {#keys}│",
       "type": "command",
-      "text": "theme=$(omarchy-theme-current); echo -e \"$theme \\e[38m●\\e[37m●\\e[36m●\\e[35m●\\e[34m●\\e[33m●\\e[32m●\\e[31m●\"",
+      "text": "theme=$(hexciri-theme-current); echo -e \"$theme \\e[38m●\\e[37m●\\e[36m●\\e[35m●\\e[34m●\\e[33m●\\e[32m●\\e[31m●\"",
     },
     {
       "key": "│ {#37} term    {#keys}│",
@@ -106,7 +106,7 @@
     {
       "type": "command",
       "key": "│ {#34} Updated {#keys}│",
-      "text": "updated=$(omarchy-version-pkgs); echo \"$updated\"",
+      "text": "updated=$(hexciri-version-pkgs); echo \"$updated\"",
     },
     {
       "key": "╰───────────╯",

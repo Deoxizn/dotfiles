@@ -1,4 +1,4 @@
--- Change the default Omarchy look'n'feel.
+-- Change the default Hexciri look'n'feel.
 
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#general
 -- hl.config({
@@ -49,7 +49,7 @@
 --   },
 -- })
 
--- Opt another application in to Omarchy's standard transparency.
+-- Opt another application in to Hexciri's standard transparency.
 -- Find its class with: hyprctl clients
 -- o.transparent_window("my-app")
 -- o.transparent_window("my-app", "0.9 0.85") -- Custom active/inactive opacity.

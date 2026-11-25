@@ -2,14 +2,14 @@
 name: caelestia
 description: >
   Expert knowledge for configuring and troubleshooting the Caelestia shell
-  (Quickshell-based desktop shell) on this machine, which runs an Omarchy x
+  (Quickshell-based desktop shell) on this machine, which runs an Hexciri x
   Caelestia remux ("omartia"). REQUIRED when editing anything under
   ~/.config/caelestia/ or ~/.config/quickshell/caelestia/, or diagnosing bar,
   lock screen, launcher, dashboard, notifications, OSD, wallpaper/theming, or
   per-monitor behavior of the Caelestia shell. Covers the shell.json config
   schema (global + per-monitor overlays), the C++ Caelestia.Config plugin,
   lock/PAM internals, IPC handlers, Hyprland global shortcuts, the caelestia
-  CLI, state files, theming/scheme sync from Omarchy, and rebuild/restart
+  CLI, state files, theming/scheme sync from Hexciri, and rebuild/restart
   workflows. Triggers: caelestia, caelestia shell, shell.json, monitors
   config, lockscreen, hyprlock replacement, PAM fingerprint howdy, bar,
   dashboard, nexus, launcher, OSD, notifs, sidebar, utilities, wallpaper,
@@ -22,7 +22,7 @@ Expert agent for the **Caelestia shell** on this machine. Grounded reality:
 Caelestia shell **v2.4.0+** (git checkout at `~/.config/quickshell/caelestia`,
 current as of 2026-09; v2.4.0 released early Sept 2026),
 running under **Quickshell 0.3.1** on **Hyprland 0.56.2**, inside an
-**Omarchy base with Caelestia replacing omarchy-shell** (the "omartia-dots-remux").
+**Hexciri base with Caelestia replacing hexciri-shell** (the "omartia-dots-remux").
 
 ## 0. Primary references
 
@@ -145,16 +145,16 @@ caelestia install | update                 # dotfiles installer/updater
 
 - Current scheme lives in `~/.local/state/caelestia/scheme.json`: `{name, mode, variant, colours:{m3 roles}}`. Generated from the wallpaper via material-you colour extraction (`caelestia wallpaper` triggers it; `services.smartScheme` auto-picks dark/light by wallpaper luminance).
 - `services/Colours.qml` reads scheme.json (FileView watch) → exposes `Colours.palette.m3*` + transparency used by all modules.
-- **Omarchy bridge (this machine)**: `~/.config/omarchy/hooks/theme-set.d/caelestia-sync.sh` converts the active Omarchy theme's `colors.toml` into `scheme.json` whenever `omarchy-theme` sets a theme. If colours look stale after a theme change, run that hook manually and check its stderr.
+- **Hexciri bridge (this machine)**: `~/.config/hexciri/hooks/theme-set.d/caelestia-sync.sh` converts the active Hexciri theme's `colors.toml` into `scheme.json` whenever `hexciri-theme` sets a theme. If colours look stale after a theme change, run that hook manually and check its stderr.
 - Wallpaper state: `~/.local/state/caelestia/wallpaper/path.txt` + `current` (symlink) + cached thumbnail.
 
 ## 8. Machine-specific wiring (omartia remux) — READ BEFORE DEBUGGING LOCK/IDLE
 
-- Autostart: `~/.config/hypr/autostart.lua` imports environment then `systemctl --user start caelestia-shell.service`. Omarchy's own shell autostart is stubbed out.
+- Autostart: `~/.config/hypr/autostart.lua` imports environment then `systemctl --user start caelestia-shell.service`. Hexciri's own shell autostart is stubbed out.
 - Keybinds call the shell directly via global shortcuts (`hl.dsp.global("caelestia:*")`) — these always work while the service runs.
 - Idle/lock wiring (fixed 2026-08-20): `~/.local/bin/caelestia-system-lock` replaces
-  `omarchy-system-lock` — calls `qs -c caelestia ipc call lock lock`, then replicates the
-  omarchy extras (kb layout reset, 1password lock, screensaver kill). `~/.config/hypr/hypridle.conf`
+  `hexciri-system-lock` — calls `qs -c caelestia ipc call lock lock`, then replicates the
+  hexciri extras (kb layout reset, 1password lock, screensaver kill). `~/.config/hypr/hypridle.conf`
   points `lock_cmd`/`before_sleep_cmd`/listener at it. hypridle must be installed
   (`pacman -S hypridle`) and autostarts via `autostart.lua`.
 - Caelestia ALSO has built-in idle handling (`IdleMonitors.qml` + `general.idle.timeouts`

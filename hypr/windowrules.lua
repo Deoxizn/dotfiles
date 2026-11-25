@@ -1,4 +1,4 @@
--- Omarchy-compatible window rules ported from dotfiles.
+-- Hexciri-compatible window rules ported from dotfiles.
 -- Window rules only: how windows look and behave. Workspace assignments
 -- (which monitor a workspace lives on, which apps open on which
 -- workspace) are not window rules, so they live in workspaces.lua (4.5)
@@ -15,7 +15,7 @@ hl.window_rule({ match = { class = "^(mpv)$", title = "negative:^([Pp]icture[-\\
 hl.window_rule({ match = { class = "^(app\\.fastfetch)$" }, float = true, size = { "1910", "720" }, center = true })
 
 -- Opacity Overrides, restored from CachyOS dotfiles (hypr/config/windowrules.lua).
--- The Omarchy port dropped this whole section, which is why games and browsers
+-- The Hexciri port dropped this whole section, which is why games and browsers
 -- went transparent. These are the original rules, verbatim.
 hl.window_rule({ match = { class = "^(firefox|zen|brave-origin|brave-.+)$" }, opacity = "1.0 override" })
 hl.window_rule({ match = { class = "^(steam_app.*|gamescope|wine.*|.*\\.exe)$" }, opacity = "1.0 override" })

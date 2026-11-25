@@ -109,13 +109,13 @@
       "type": "command",
       "key": "OS",
       "keyWidth": 18,
-      "text": "echo \"Omarchy\""
+      "text": "echo \"Hexciri\""
     },
     {
       "type": "command",
       "key": "VERSION",
       "keyWidth": 18,
-      "text": "omarchy-version 2>/dev/null || echo \"?\""
+      "text": "hexciri-version 2>/dev/null || echo \"?\""
     },
     {
       "type": "command",
@@ -132,7 +132,7 @@
       "type": "command",
       "key": "THEME",
       "keyWidth": 18,
-      "text": "theme=$(omarchy-theme-current 2>/dev/null || echo \"?\"); echo -e \"$theme \\\\e[38m\u25cf\\\\e[37m\u25cf\\\\e[36m\u25cf\\\\e[35m\u25cf\\\\e[34m\u25cf\\\\e[33m\u25cf\\\\e[32m\u25cf\\\\e[31m\u25cf\""
+      "text": "theme=$(hexciri-theme-current 2>/dev/null || echo \"?\"); echo -e \"$theme \\\\e[38m\u25cf\\\\e[37m\u25cf\\\\e[36m\u25cf\\\\e[35m\u25cf\\\\e[34m\u25cf\\\\e[33m\u25cf\\\\e[32m\u25cf\\\\e[31m\u25cf\""
     },
     {
       "type": "command",

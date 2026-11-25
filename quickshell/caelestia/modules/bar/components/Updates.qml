@@ -24,7 +24,7 @@ Item {
         anchors.fill: parent
         radius: Tokens.rounding.full
         onClicked: {
-            Quickshell.execDetached(["omarchy-launch-floating-terminal-with-presentation", "yay", "-Syu"]);
+            Quickshell.execDetached(["hexciri-launch-floating-terminal-with-presentation", "yay", "-Syu"]);
             delayedRefresh.restart();
         }
     }

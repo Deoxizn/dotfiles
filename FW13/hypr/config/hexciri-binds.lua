@@ -40,10 +40,10 @@ hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("xdg-open https://"))
 -- (dolphin on hyprland boxes, nautilus on niri) via hexciri-defaults run files.
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.exec_cmd("hexciri-defaults run files"))
 
--- Floating toggle on Mod+T (Omarchy parity): tiling/floating flip.
+-- Floating toggle on Mod+T (Hexciri parity): tiling/floating flip.
 hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
 
--- Layout cycle (dwindle/scrolling/monocle) on Mod+L (Omarchy parity):
+-- Layout cycle (dwindle/scrolling/monocle) on Mod+L (Hexciri parity):
 -- takes over the stock session-lock slot (neutralized at deploy; lock lives
 -- on Mod+Ctrl+L via hexciri-lock).
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hexciri-hyprland-layout"))
@@ -65,7 +65,7 @@ hl.bind(mainMod .. " + bracketleft", hl.dsp.layout("cycleprev"))
 -- move, and its Mod+SHIFT+digit(1-3) nudges windows between MONITORS — the
 -- deploy patch removes those three so the move verb is unambiguous. Digit
 -- binds use keycodes (code:10..18 = the number row) exactly like stock
--- digitCode()/Omarchy, so they work on every layout (AZERTY included).
+-- digitCode()/Hexciri, so they work on every layout (AZERTY included).
 hl.bind(mainMod .. " + code:10", hl.dsp.focus({ workspace = "1" }))
 hl.bind(mainMod .. " + code:11", hl.dsp.focus({ workspace = "2" }))
 hl.bind(mainMod .. " + code:12", hl.dsp.focus({ workspace = "3" }))

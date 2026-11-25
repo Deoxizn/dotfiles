@@ -200,11 +200,11 @@ hl.bind(mainMod .. " + CONTROL + B", hl.dsp.exec_cmd("brave-origin --incognito")
 -- (strata on hyprland boxes, nautilus on niri) via hexciri-defaults run files.
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.exec_cmd("hexciri-defaults run files"))
 
--- Floating toggle on Mod+T (Omarchy parity): the niri verb and the stock
+-- Floating toggle on Mod+T (Hexciri parity): the niri verb and the stock
 -- float slot agree here — tiling/floating flip, no menus involved.
 hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
 
--- Layout cycle (dwindle/scrolling/monocle) on Mod+L (Omarchy parity): takes
+-- Layout cycle (dwindle/scrolling/monocle) on Mod+L (Hexciri parity): takes
 -- over the stock session-lock slot — neutralized at deploy like the other
 -- owned combos, since lock already lives on Mod+Ctrl+L (hexciri-lock, with
 -- the panel-off loop) and needs no plain-L duplicate.
@@ -227,7 +227,7 @@ hl.bind(mainMod .. " + bracketleft", hl.dsp.layout("cycleprev"))
 -- move, and its Mod+SHIFT+digit(1-3) nudges windows between MONITORS — the
 -- deploy patch removes those three so the move verb is unambiguous. Digit
 -- binds use keycodes (code:10..18 = the number row) exactly like stock
--- digitCode()/Omarchy, so they work on every layout (AZERTY included).
+-- digitCode()/Hexciri, so they work on every layout (AZERTY included).
 hl.bind(mainMod .. " + code:10", hl.dsp.focus({ workspace = "1" }))
 hl.bind(mainMod .. " + code:11", hl.dsp.focus({ workspace = "2" }))
 hl.bind(mainMod .. " + code:12", hl.dsp.focus({ workspace = "3" }))
@@ -263,7 +263,7 @@ hl.bind(mainMod .. " + CONTROL + V", hl.dsp.exec_cmd("hexciri-clipboard"))
 -- Clipboard panel (moved off Mod+V for universal paste — same family)
 hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"))
 
--- Universal copy/paste (Omarchy parity): Super chords work everywhere —
+-- Universal copy/paste (Hexciri parity): Super chords work everywhere —
 -- terminals get Ctrl+Shift, everything else gets Ctrl+C/V. Synthetic keys go
 -- down/up split (50ms oneshot) so key state never sticks or repeats.
 -- Terminals are matched by window class (no tag system here).

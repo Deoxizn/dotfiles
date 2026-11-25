@@ -172,7 +172,7 @@
                 "hibernate"
             ],
             "logout": [
-                "omarchy-system-logout"
+                "hexciri-system-logout"
             ],
             "reboot": [
                 "reboot"

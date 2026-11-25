@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=SnaptUI
 Comment=Btrfs snapshot manager TUI
-Exec=omarchy-launch-or-focus-tui --app-id=TUI.snaptui /home/devi/.local/bin/snaptui
+Exec=hexciri-launch-or-focus-tui --app-id=TUI.snaptui /home/devi/.local/bin/snaptui
 Icon=snaptui
 Terminal=false
 Type=Application

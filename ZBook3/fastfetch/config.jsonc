@@ -50,17 +50,17 @@
     {
       "key": "\u2502 {#34}\ue900 ver     {#keys}\u2502",
       "type": "command",
-      "text": "version=$(omarchy-version); kernel=$(uname -r); echo \"Omarchy $version | $kernel\""
+      "text": "version=$(hexciri-version); kernel=$(uname -r); echo \"Hexciri $version | $kernel\""
     },
     {
       "key": "\u2502 {#35}\udb80\uddc4 desktop {#keys}\u2502",
       "type": "command",
-      "text": "hyprver=$(hyprctl version | head -1 | grep -oE '[0-9]+\\.[0-9]+\\.[0-9]+' | head -1); if pgrep -f 'qs -c caelestia' >/dev/null 2>&1; then v=$(git -C \"$HOME/.config/quickshell/caelestia\" describe --tags --abbrev=0 2>/dev/null); s=\"Caelestia ${v#v}\"; elif pgrep -f '/usr/share/omarchy/shell' >/dev/null 2>&1; then s=\"Omarchy $(omarchy-version 2>/dev/null)\"; else s='no shell running'; fi; echo \"Hyprland $hyprver | $s\""
+      "text": "hyprver=$(hyprctl version | head -1 | grep -oE '[0-9]+\\.[0-9]+\\.[0-9]+' | head -1); if pgrep -f 'qs -c caelestia' >/dev/null 2>&1; then v=$(git -C \"$HOME/.config/quickshell/caelestia\" describe --tags --abbrev=0 2>/dev/null); s=\"Caelestia ${v#v}\"; elif pgrep -f '/usr/share/hexciri/shell' >/dev/null 2>&1; then s=\"Hexciri $(hexciri-version 2>/dev/null)\"; else s='no shell running'; fi; echo \"Hyprland $hyprver | $s\""
     },
     {
       "key": "\u2502 {#36}\udb83\ude0c theme   {#keys}\u2502",
       "type": "command",
-      "text": "theme=$(omarchy-theme-current); echo -e \"$theme \\e[38m\u25cf\\e[37m\u25cf\\e[36m\u25cf\\e[35m\u25cf\\e[34m\u25cf\\e[33m\u25cf\\e[32m\u25cf\\e[31m\u25cf\""
+      "text": "theme=$(hexciri-theme-current); echo -e \"$theme \\e[38m\u25cf\\e[37m\u25cf\\e[36m\u25cf\\e[35m\u25cf\\e[34m\u25cf\\e[33m\u25cf\\e[32m\u25cf\\e[31m\u25cf\""
     },
     {
       "key": "\u2502 {#37}\ue795 term    {#keys}\u2502",
@@ -114,7 +114,7 @@
     {
       "type": "command",
       "key": "\u2502 {#34}\ueb29 Updated {#keys}\u2502",
-      "text": "updated=$(omarchy-version-pkgs); echo \"$updated\""
+      "text": "updated=$(hexciri-version-pkgs); echo \"$updated\""
     },
     {
       "key": "\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256f",
