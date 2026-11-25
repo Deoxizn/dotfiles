@@ -109,7 +109,7 @@
       "type": "command",
       "key": "OS",
       "keyWidth": 18,
-      "text": "echo \"Hexciri\""
+      "text": "os=$(grep '^PRETTY_NAME=' /etc/os-release | cut -d= -f2 | tr -d '\"'); echo \"$os | Hexciri\""
     },
     {
       "type": "command",
@@ -124,9 +124,10 @@
       "text": "uname -r"
     },
     {
-      "type": "wm",
+      "type": "command",
       "key": "WM",
-      "keyWidth": 18
+      "keyWidth": 18,
+      "text": "if hyprctl version >/dev/null 2>&1; then ver=$(pacman -Q hyprland 2>/dev/null | awk '{print $2}' | sed 's/-[0-9.]*$//'); qv=$(pacman -Q quickshell 2>/dev/null | awk '{print $2}' | sed 's/-[0-9.]*$//'); echo \"Hyprland ${ver:-?} | Quickshell ${qv:-?}\"; elif command -v niri >/dev/null 2>&1; then ver=$(niri --version 2>/dev/null | grep -oE '[0-9]+\\.[0-9]+' | head -1); echo \"Niri ${ver:-?}\"; else echo \"Hyprland ? | Quickshell ?\"; fi"
     },
     {
       "type": "command",
