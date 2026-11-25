@@ -16,6 +16,7 @@ binds {
     Mod+Shift+F { spawn "~/.local/bin/strata"; }
     Mod+Shift+M { spawn "spotify"; }                            // Open Spotify
     Mod+Ctrl+D { spawn "vesktop"; }                             // Open Vesktop (Discord)
+    Mod+Ctrl+Shift+D { spawn "dorion"; }                          // Open Dorion (Discord)
     Mod+Ctrl+M { spawn "hexciri-launch-or-focus-webapp" "messenger" "https://www.messenger.com"; }  // Messenger webapp
     XF86Tools { spawn "kitty" "--class=app.hexciri.ff" "fish" "-c" "ff; exec fish"; }  // Fastfetch in floating window (XF86Tools key)
     XF86Launch5 { spawn "hexciri-launch-or-focus-webapp" "gemini" "https://gemini.google.com/app"; }  // Gemini webapp

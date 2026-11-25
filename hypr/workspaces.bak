@@ -23,7 +23,7 @@ local workspaceApps = {
     { match = { class = "^(io\\.github\\.lgse\\.Strata)$" },  workspace = "12" },
     { match = { class = "^(Spotify)$" },                      workspace = "13" },
     { match = { class = "^(steam|battle\\.net\\.exe|net\\.lutris\\.Lutris|com\\.heroicgameslauncher\\.hgl|heroic|retroarch|minecraft-launcher)$" }, workspace = "14" },
-    { match = { class = "^(vesktop|discord)$" },              workspace = "1" },
+    { match = { class = "^(vesktop|discord|Dorion|dorion)$" }, workspace = "1" },
 }
 for _, r in ipairs(workspaceApps) do
     hl.window_rule({ match = r.match, workspace = r.workspace })

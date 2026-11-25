@@ -60,6 +60,8 @@ hl.unbind("SUPER + RETURN")
 o.bind("SUPER + SHIFT + M", "Music", { hexciri = "spotify" })
 o.bind("SUPER + CTRL + M", "Messenger", { webapp = "https://www.messenger.com", focus = true })
 o.bind("SUPER + CTRL + D", "Vesktop", { launch = "vesktop" })
+-- Dorion on SUPER+CTRL+SHIFT+D: same key as Vesktop would launch both, so Dorion gets Shift.
+o.bind("SUPER + CTRL + SHIFT + D", "Dorion", { launch = "dorion" })
 o.bind("SUPER + RETURN", "Terminal", "/home/devi/.config/hypr/scripts/terminal-smart.sh")
 
 -- BEGIN im0001gt.screens

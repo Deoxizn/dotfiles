@@ -77,6 +77,7 @@ binds {
     Mod+Ctrl+Period { spawn "noctalia" "msg" "notification-clear-history"; }
     Mod+Ctrl+S { spawn "noctalia" "msg" "settings-toggle"; }
     Mod+Ctrl+D { spawn "vesktop" "Vesktop";}
+    Mod+Ctrl+Shift+D { spawn "dorion" "Dorion";}
     Mod+BracketLeft { consume-window-into-column; }
     Mod+Shift+Space { toggle-window-floating; }
     Mod+BracketRight { expel-window-from-column; }

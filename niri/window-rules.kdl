@@ -156,7 +156,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="discord|vesktop"
+    match app-id="discord|vesktop|Dorion|dorion"
     open-on-workspace "1"
     open-maximized true
 }
