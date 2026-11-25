@@ -46,23 +46,6 @@ require("default.hypr.toggles")
 
 -- Add any other personal Hyprland configuration below.
 -- o.window("qemu", { workspace = "5" })
--- BEGIN devi.nyxiri-workspaces
-do
-  local path = os.getenv("HOME") .. "/.config/hexciri/plugins/devi.nyxiri-workspaces/hypr/classic-workspaces.lua"
-  local file = io.open(path, "r")
-  if file then file:close(); dofile(path) end
-end
-do
-  local path = os.getenv("HOME") .. "/.config/hypr/workspaces.lua"
-  local file = io.open(path, "r")
-  if file then file:close(); dofile(path) end
-end
-do
-  local path = os.getenv("HOME") .. "/.config/hypr/workspaces-classic.lua"
-  local file = io.open(path, "r")
-  if file then file:close(); dofile(path) end
-end
--- END devi.nyxiri-workspaces
 -- BEGIN pizza.dirty.nyxiri-workspaces
 do
   local path = os.getenv("HOME") .. "/.config/hexciri/plugins/pizza.dirty.nyxiri-workspaces/hypr/classic-workspaces.lua"
