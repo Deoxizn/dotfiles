@@ -1,2 +1,0 @@
-#!/bin/bash
-omazed set-font "$1"
